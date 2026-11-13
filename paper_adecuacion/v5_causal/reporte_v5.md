@@ -337,3 +337,27 @@ Aprobada por Carlos en el chat («Sí, aplícala»), después de ver el texto en
 `verifica_v5.py` pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; `main_en.pdf` (23 páginas) y `main_es.pdf` (24) compilados en el Mac, sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` contra v4 están regenerados.
 
 Siguen abiertos: los rótulos dentro de las figuras (las cuatro con LaTeX se regeneran idénticas a las actuales en un entorno desechable, comprobado píxel a píxel; faltan los rótulos aprobados), la frase de CriticLeanBench en «Contamination», el recuadro «Pending» y «Use of AI tools».
+
+## Vigésima tanda (13 nov, tarde): figuras con los rótulos nuevos
+
+Aprobada por Carlos en el chat («Sí, regenéralas»), con los rótulos propuestos y sin tocar «statement + Lean». `aplica_v5.py` aplica ahora 68 pasajes por idioma. No cambia ninguna frase ni ningún pie: solo la carpeta de tres `\includegraphics`.
+
+| Figura | Archivo en `figuras_v5/` | Rótulo anterior | Rótulo nuevo |
+|---|---|---|---|
+| `fig:relieve` | `curvas_por_modelo(_es).pdf` | «Lean alone»; «gap, Lean alone above» / «solo Lean»; «brecha, solo Lean por encima» | «Lean code alone»; «gap, Lean code alone above» / «código de Lean solo»; «brecha, código de Lean solo por encima» |
+| `fig:forest` | `forest_nivel_a(_es).pdf` | «(statement + Lean) − (Lean alone)» / «(enunciado + Lean) − (solo Lean)» | «… − (Lean code alone)» / «… − (código de Lean solo)» |
+| `fig:escaner` | `escaner2d_modelos_v5(_es).pdf`, mismo nombre | columna «Lean alone» / «solo Lean» y clave de Δ | «Lean code alone» / «código de Lean solo» |
+| `fig:bintervencion` | `intervencion_nivel_b(_es).pdf`, mismo nombre | «Lean-alone direction» / «dirección de Lean solo» | «Lean-code-alone direction» / «dirección del código de Lean solo» |
+| `fig:b` | `nivel_b(_es).pdf` | «Lean alone» / «solo Lean» | «Lean code alone» / «código de Lean solo» |
+
+También se regeneraron las dos imágenes de `figuras_v5/readme/` («Dark line: the Lean code alone.»). `figuras_v3/`, `v3_tmlr/` y `v4_voz/` no se tocaron.
+
+**Guiones.** `figuras_v5/figuras_v5.py` es nuevo: copia de `figuras_v3.py` (sacado de `v3_tmlr/paquete_v3.tgz`) con los rótulos nuevos y dos rutas ajustadas a su nueva carpeta. Una de ellas es el bootstrap conjunto: el original lo buscaba en `fuentes/posthoc_9nov/bootstrap_conjunto.json`, que no existe en el Mac, y ahora lo lee de `figuras/datos/bootstrap_conjunto.json`; la comprobación interna del guion contra los resultados por modelo pasa. En `escaner_v5.py`, `fig_intervencion.py` y `escaner3d_v5.py` solo cambiaron las cadenas de los rótulos. El orden de los modelos en la intervención no se tocó.
+
+**Comprobación, figura por figura.** Antes de cambiar nada, las cuatro figuras con LaTeX se regeneraron sin cambios y salieron idénticas a las existentes, píxel a píxel, en los dos idiomas (rasterizadas a 200 ppp). Con los rótulos nuevos, cada PDF se comparó con el anterior: mismo tamaño de página, y los píxeles distintos caen solo en la leyenda o en el rótulo del eje que cambió (en las leyendas de `fig:relieve`, `fig:bintervencion` y `fig:b` las entradas vecinas se corren porque el texto es más largo). Ningún píxel cambia en las zonas de datos, ejes o columnas de cifras. Las diez figuras se miraron a ojo: ningún rótulo se sale ni se monta sobre otro.
+
+**Entorno.** Desechable, en la carpeta temporal de la sesión: Python 3.13 con matplotlib 3.11.2 (la versión que firmó los PDF anteriores), numpy, tueplots y colorspacious; `biblioteca/.venv` no se tocó. `figuras_v5.py` y `fig_intervencion.py` usan LaTeX: `cm-super` se instaló en un árbol TeX temporal (`tlmgr --usermode --usertree`) y se usó con `TEXMFHOME`; `dvipng` no hizo falta. Efecto lateral: `tlmgr` regeneró los mapas de fuentes de usuario en `~/Library/texlive/2026basic/texmf-var`, que ya existían desde septiembre. `escaner_v5.py` y `escaner3d_v5.py` no usan LaTeX.
+
+`verifica_v5.py` cambió en dos cosas: admite que `fig:relieve`, `fig:forest` y `fig:b` cambien de carpeta, y solo eso, con el pie idéntico; y para el conteo de cifras lee la ruta de esos tres archivos como en v4, porque el «3» de `figuras_v3` contaba como cifra. Pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; `main_en.pdf` (23 páginas) y `main_es.pdf` (24) compilados, sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` están regenerados.
+
+Sin cambio y para decisión de Carlos: la prosa conserva «Lean-only probe» (inglés) y «sonda de solo Lean», «línea de base de solo Lean» (español).

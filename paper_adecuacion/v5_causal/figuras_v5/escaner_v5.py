@@ -46,22 +46,22 @@ MIN = 8.0          # ningún texto por debajo de este cuerpo
 
 TXT = {
     "en": dict(
-        tit=["statement + Lean", "Lean alone", r"difference $\Delta$"],
+        tit=["statement + Lean", "Lean code alone", r"difference $\Delta$"],
         tramo={"statement": "statement", "Lean": "Lean", "question": "Q"},
         q="Q = question tokens; the last column is the last token",
         pre="Level A replication models", exp="Other models", capa="layer",
         clave_a="out-of-fold AUROC (grey: below chance)",
-        clave_d=r"$\Delta$ = (statement + Lean) $-$ (Lean alone)",
+        clave_d=r"$\Delta$ = (statement + Lean) $-$ (Lean code alone)",
         ruido=r"one cell, permuted labels, 5–95%%: $0.5 \pm %.3f$" % E.PISO,
         ruido_d="same, if independent",
     ),
     "es": dict(
-        tit=["enunciado + Lean", "solo Lean", r"diferencia $\Delta$"],
+        tit=["enunciado + Lean", "código de Lean solo", r"diferencia $\Delta$"],
         tramo={"statement": "enunciado", "Lean": "Lean", "question": "P"},
         q="P = tokens de la pregunta; la última columna es el último token",
         pre="Modelos de la réplica del Nivel A", exp="Otros modelos", capa="capa",
         clave_a="AUROC fuera de pliegue (gris: bajo el azar)",
-        clave_d=r"$\Delta$ = (enunciado + Lean) $-$ (solo Lean)",
+        clave_d=r"$\Delta$ = (enunciado + Lean) $-$ (código de Lean solo)",
         ruido=r"una celda, etiquetas permutadas, 5–95 %%: $0.5 \pm %.3f$" % E.PISO,
         ruido_d="igual, si fueran independientes",
     ),

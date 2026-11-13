@@ -68,7 +68,7 @@ python3 coteja_en_es.py main_en.tex main_es.tex
 
 `latexmk -pdf main_en.tex` and `latexmk -pdf main_es.tex` compile the two PDFs. `ejemplos_nivel_b.py` also needs `pyarrow`.
 
-The figure scripts in `figuras_v5/` need `numpy`, `matplotlib`, `tueplots` and `colorspacious`. `fig_intervencion.py` also needs LaTeX with `lmodern` and `cm-super`.
+The figure scripts in `figuras_v5/` need `numpy`, `matplotlib`, `tueplots` and `colorspacious`. `figuras_v5.py` and `fig_intervencion.py` also need LaTeX with `lmodern` and `cm-super`.
 
 ## Licenses and sources
 

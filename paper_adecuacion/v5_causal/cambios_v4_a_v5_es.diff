@@ -1,5 +1,5 @@
 --- ../v4_voz/main_es.tex	2026-11-11 09:31:23
-+++ main_es.tex	2026-11-13 14:30:38
++++ main_es.tex	2026-11-13 14:34:52
 @@ -15,13 +15,14 @@
  \definecolor{tinta}{HTML}{4F4086}
  \usepackage[colorlinks=true,linkcolor=black,citecolor=tinta,urlcolor=tinta]{hyperref}
@@ -148,11 +148,13 @@
  Apilado: sondas \vr{lean\_only} + \vr{nl\_only} & separación que no requiere interacción entre los dos textos\\
  \vr{nl\_mismatched} & una ganancia debida a la presencia de \emph{cualquier} enunciado, y no del correcto\\
  P(Yes) & que la propia respuesta de sí o no del modelo ya lleve la señal\\
-@@ -222,7 +241,7 @@
+@@ -221,8 +240,8 @@
+ 
  \begin{figure}[t]
  \centering
- \includegraphics[width=\linewidth]{figuras_v3/curvas_por_modelo_es.pdf}
+-\includegraphics[width=\linewidth]{figuras_v3/curvas_por_modelo_es.pdf}
 -\caption{Capa por capa. AUROC de una sonda lineal que lee el enunciado con el Lean (cada modelo en su propio color) y el Lean solo (gris) en las 450 formalizaciones de CriticLeanBench, media sobre los tokens de Lean; el área sombreada es su brecha, gris donde el Lean solo queda por encima. La línea punteada marca la capa fijada de antemano para la lectura~(ii), $\lfloor 2L/3 \rfloor$, y el segmento negro es una versión, con una sola semilla, de la brecha que esa lectura mide. Fila superior: la réplica prerregistrada. Fila inferior: modelos exploratorios. Descriptiva: una semilla, sin selección de capa, sin intervalos; nada en el artículo se decide a partir de esta figura.}
++\includegraphics[width=\linewidth]{figuras_v5/curvas_por_modelo_es.pdf}
 +\caption{Capa por capa. AUROC de una sonda lineal que lee el enunciado con el código de Lean (cada modelo en su propio color) y el código de Lean solo (gris) en las 450 formalizaciones de CriticLeanBench, media sobre los tokens de Lean; el área sombreada es su brecha, gris donde el código de Lean solo queda por encima. La línea punteada marca la capa fijada de antemano para la lectura~(ii), $\lfloor 2L/3 \rfloor$, y el segmento negro es una versión, con una sola semilla, de la brecha que esa lectura mide. Fila superior: la réplica prerregistrada. Fila inferior: modelos exploratorios. Descriptiva: una semilla, sin selección de capa, sin intervalos; nada en el artículo se decide a partir de esta figura.}
  \label{fig:relieve}
  \end{figure}
@@ -183,6 +185,15 @@
  \ic{−0.006}{0.065}, en el orden de la Tabla~\ref{tab:a}.
  
  \paragraph{Metaanálisis.}
+@@ -313,7 +338,7 @@
+ 
+ \begin{figure}[t]
+ \centering
+-\includegraphics[width=\linewidth]{figuras_v3/forest_nivel_a_es.pdf}
++\includegraphics[width=\linewidth]{figuras_v5/forest_nivel_a_es.pdf}
+ \caption{Nivel A, lectura (ii). Puntos llenos: los cuatro modelos prerregistrados. Rombo lleno: su media, con el bootstrap conjunto post hoc sobre ítems; rombo vacío: la estimación prerregistrada de DerSimonian--Laird. Puntos vacíos: modelos exploratorios. Gris: la misma arquitectura con pesos aleatorios. Cada modelo conserva su color en todas las figuras.}
+ \label{fig:forest}
+ \end{figure}
 @@ -321,8 +346,8 @@
  \paragraph{Controles nulos.}
  Dos controles nulos comprueban si la arquitectura por sí sola, o un codificador genérico, producirían la brecha.
@@ -243,7 +254,7 @@
  Las ediciones inadecuadas caen en tres familias. La familia A hace el teorema más fuerte, B lo hace más débil y C
  lo convierte en un teorema distinto. Dentro de C, C2 cambia un numeral y C3 cambia otra cosa.
 +La Tabla~\ref{tab:bejemplos} muestra un par de cada una.
- 
++
 +\begin{table}[h]
 +\centering
 +\caption{Nivel B, un par por familia de edición, elegido con una regla fija: el par con menos tokens editados entre sus dos miembros y, en caso de empate, el primero del índice. Solo se muestra el fragmento editado de cada enunciado en Lean. El miembro inadecuado lleva también la edición adecuada. El enunciado del par de C2 se corta tras su primera frase. Los enunciados van en su inglés original.}
@@ -264,7 +275,7 @@
 +\bottomrule
 +\end{tabularx}}
 +\end{table}
-+
+ 
  Los orígenes provienen de formal-conjectures \citep{fc,fcpaper} (323 pares) y de
  FormalMATH-Lite \citep{formalmath} (54 pares). Tras las exclusiones fijadas antes de extraer cualquier activación, el
  lote principal tiene 377 pares de 256 orígenes en 189 archivos fuente, certificados con Lean~4.34.1 \citep{lean4,mathlib}.
@@ -451,8 +462,9 @@
  
  \begin{figure}[t]
  \centering
- \includegraphics[width=\linewidth]{figuras_v3/nivel_b_es.pdf}
+-\includegraphics[width=\linewidth]{figuras_v3/nivel_b_es.pdf}
 -\caption{Nivel B. Arriba: AUROC pareada de la sonda que lee el Lean solo (gris) y el enunciado con el Lean (color del modelo); la barra entre ambos es la brecha puesta a prueba, con su intervalo en la primera columna y el P(Yes) del propio modelo en la segunda. Las líneas discontinua y punteada son los controles de superficie cruzada y de n-gramas, con sus intervalos encima. Abajo: \vr{full} menos superficie cruzada en Qwen3-4B por familia de edición (post hoc).}
++\includegraphics[width=\linewidth]{figuras_v5/nivel_b_es.pdf}
 +\caption{Nivel B. Arriba: AUROC pareada de la sonda que lee el código de Lean solo (gris) y el enunciado con el código de Lean (color del modelo); la barra entre ambos es la brecha puesta a prueba, con su intervalo en la primera columna y el P(Yes) del propio modelo en la segunda. Las líneas discontinua y punteada son los controles de superficie cruzada y de n-gramas, con sus intervalos encima. Abajo: \vr{full} menos superficie cruzada en Qwen3-4B por familia de edición (post hoc).}
  \label{fig:b}
  \end{figure}
@@ -484,10 +496,11 @@
  
 -El signo de la brecha es el mismo en casi todos los escenarios que examinamos. Leer el enunciado junto con el Lean
 -separa mejor que leer el Lean solo. Los niveles difieren, sin embargo, en cuánto autoriza cada uno. El Nivel~A es
+-la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
+-etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie. En el Nivel~C
 +El signo de la brecha es el mismo en casi todos los escenarios que examinamos. Leer el enunciado junto con el código de Lean
 +separa mejor que leer el código de Lean solo. Los niveles difieren, sin embargo, en cuánto autoriza cada uno. El Nivel~A es
- la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
--etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie. En el Nivel~C
++la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
 +etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie.
 +En dos de los cuatro modelos, uno de ellos con la regla fijada de antemano, un desplazamiento por el eje en el que la
 +segunda lectura separa las clases cambia la respuesta más que el mismo desplazamiento por direcciones al azar. Esto no

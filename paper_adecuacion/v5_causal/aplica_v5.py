@@ -592,6 +592,11 @@ def ingles():
              "activations or the CriticLeanBench texts.")
     d.cambia("which will be released with the repository, and nothing here replaces it.",
              r"which is in the repository (\vr{probes/BITACORA.md}), and nothing here replaces it.")
+    # ---- vigésima tanda (13 nov, tarde): figuras con los rótulos «Lean code alone». Mismos datos y mismo dibujo
+    # (figuras_v5/figuras_v5.py, copia de figuras_v3.py con los rótulos nuevos); fig:escaner y fig:bintervencion se
+    # regeneraron con el mismo nombre de archivo. Los pies no cambian.
+    for f in ("curvas_por_modelo", "forest_nivel_a", "nivel_b"):
+        d.cambia(r"\includegraphics[width=\linewidth]{figuras_v3/%s.pdf}" % f, r"\includegraphics[width=\linewidth]{figuras_v5/%s.pdf}" % f)
     return d
 
 
@@ -980,6 +985,9 @@ def espanol():
              "contiene las activaciones extraídas ni los textos de CriticLeanBench.")
     d.cambia("que se publicará con el repositorio, y nada de lo que hay aquí la reemplaza.",
              r"que está en el repositorio (\vr{probes/BITACORA.md}), y nada de lo que hay aquí la reemplaza.")
+    # ---- vigésima tanda (13 nov, tarde): figuras con los rótulos «código de Lean solo». Mismos datos y mismo dibujo
+    for f in ("curvas_por_modelo", "forest_nivel_a", "nivel_b"):
+        d.cambia(r"\includegraphics[width=\linewidth]{figuras_v3/%s_es.pdf}" % f, r"\includegraphics[width=\linewidth]{figuras_v5/%s_es.pdf}" % f)
     return d
 
 

@@ -92,7 +92,7 @@ def cinco(presentes):
     clave(fig, [x0, (pie + 2.12) / H, (w - 0.9) / ANCHO, 0.42 / H], presentes, fs - 1)
     fig.text(x0, (pie + 1.58) / H,
              "One slice per layer, the first in front.\nHeight and colour: out-of-fold AUROC of the\nlayer's probe direction at each position,\n"
-             "450 CriticLeanBench formalizations.\nDark line: the Lean alone.\nLightly smoothed along position; cells below\nchance sit on the baseline. Exploratory, one seed.",
+             "450 CriticLeanBench formalizations.\nDark line: the Lean code alone.\nLightly smoothed along position; cells below\nchance sit on the baseline. Exploratory, one seed.",
              fontsize=fs - 1.5, color=CENIZA, va="top", ha="left", linespacing=1.3)
     os.makedirs(SALIDA, exist_ok=True)
     fig.savefig(os.path.join(SALIDA, "relieve_cinco_modelos.png")); plt.close(fig)
@@ -110,7 +110,7 @@ def uno(m):
     fig.text(0.02, 0.93, nom, color=wh, fontsize=28, weight="bold", va="center")
     fig.text(0.02, 0.855, "layer × position", color=CENIZA, fontsize=15, va="center")
     fig.text(0.02, 0.79, "One slice per layer,\nthe first in front.\n\nHeight and colour:\nout-of-fold AUROC of the\nlayer's probe direction,\n"
-             "faithful vs. unfaithful\nLean 4 formalization,\nreading the statement\nand the Lean.\n\nDark line: the Lean alone.\n\n"
+             "faithful vs. unfaithful\nLean 4 formalization,\nreading the statement\nand the Lean.\n\nDark line: the Lean code alone.\n\n"
              "Lightly smoothed along\nposition. Exploratory,\none seed.", color=CENIZA, fontsize=12, va="top", linespacing=1.3)
     os.makedirs(SALIDA, exist_ok=True)
     fig.savefig(os.path.join(SALIDA, f"relieve_{m}.png")); plt.close(fig)

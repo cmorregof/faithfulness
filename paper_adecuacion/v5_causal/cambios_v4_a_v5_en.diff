@@ -1,5 +1,5 @@
 --- ../v4_voz/main_en.tex	2026-11-11 09:31:23
-+++ main_en.tex	2026-11-13 14:30:38
++++ main_en.tex	2026-11-13 14:34:52
 @@ -1,4 +1,4 @@
 -% Beyond the Lean Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
 +% Beyond the Lean Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
@@ -143,11 +143,13 @@
  Stacked: \vr{lean\_only} + \vr{nl\_only} probes & separation that needs no interaction between the two texts\\
  \vr{nl\_mismatched} & a gain from \emph{any} statement being present, not the right one\\
  P(Yes) & the model's own yes/no answer already carrying the signal\\
-@@ -210,7 +230,7 @@
+@@ -209,8 +229,8 @@
+ 
  \begin{figure}[t]
  \centering
- \includegraphics[width=\linewidth]{figuras_v3/curvas_por_modelo.pdf}
+-\includegraphics[width=\linewidth]{figuras_v3/curvas_por_modelo.pdf}
 -\caption{Layer by layer. AUROC of a linear probe reading the statement with the Lean (each model in its own colour) and the Lean alone (grey) on the 450 CriticLeanBench formalizations, mean over the Lean tokens; the shaded area is their gap, grey where the Lean alone is above. The dotted line marks the layer fixed in advance for readout~(ii), $\lfloor 2L/3 \rfloor$, and the black segment is a one-seed version of the gap that readout measures. Top row: the preregistered replication. Bottom row: exploratory models. Descriptive: one seed, no layer selection, no intervals; nothing in the paper is decided from this figure.}
++\includegraphics[width=\linewidth]{figuras_v5/curvas_por_modelo.pdf}
 +\caption{Layer by layer. AUROC of a linear probe reading the statement with the Lean code (each model in its own colour) and the Lean code alone (grey) on the 450 CriticLeanBench formalizations, mean over the Lean tokens; the shaded area is their gap, grey where the Lean code alone is above. The dotted line marks the layer fixed in advance for readout~(ii), $\lfloor 2L/3 \rfloor$, and the black segment is a one-seed version of the gap that readout measures. Top row: the preregistered replication. Bottom row: exploratory models. Descriptive: one seed, no layer selection, no intervals; nothing in the paper is decided from this figure.}
  \label{fig:relieve}
  \end{figure}
@@ -179,6 +181,15 @@
  
  \paragraph{Meta-analysis.}
  The preregistered DerSimonian--Laird estimate \citep{dl} over the four new models is +0.045 \ic{0.027}{0.062} under
+@@ -297,7 +324,7 @@
+ 
+ \begin{figure}[t]
+ \centering
+-\includegraphics[width=\linewidth]{figuras_v3/forest_nivel_a.pdf}
++\includegraphics[width=\linewidth]{figuras_v5/forest_nivel_a.pdf}
+ \caption{Level A, readout (ii). Filled points: the four preregistered models. Filled diamond: their mean, with the post hoc joint bootstrap over items; outlined diamond: the preregistered DerSimonian--Laird estimate. Open points: exploratory models. Grey: the same architecture with random weights. Each model keeps its colour in every figure.}
+ \label{fig:forest}
+ \end{figure}
 @@ -305,7 +332,8 @@
  \paragraph{Null controls.}
  Two null controls check whether the architecture alone, or a generic encoder, would produce the gap.
@@ -227,7 +238,7 @@
  Unfaithful edits fall into three families. Family A makes the theorem stronger, B makes it weaker, and C turns it
  into a different theorem. Within C, C2 changes a numeral and C3 changes something else.
 +Table~\ref{tab:bejemplos} shows one pair from each.
-+
+ 
 +\begin{table}[h]
 +\centering
 +\caption{Level B, one pair per family of edit, chosen by a fixed rule: the pair with the fewest edited tokens in its two members and, among ties, the first in the index. Only the edited fragment of each Lean statement is shown. The unfaithful member carries the faithful edit as well. The statement of the C2 pair is cut after its first sentence.}
@@ -248,7 +259,7 @@
 +\bottomrule
 +\end{tabularx}}
 +\end{table}
- 
++
  Origins come from formal-conjectures \citep{fc,fcpaper} (323 pairs) and
  FormalMATH-Lite \citep{formalmath} (54 pairs). After exclusions fixed before any activation was extracted, the main
  batch has 377 pairs from 256 origins in 189 source files, certified with Lean~4.34.1 \citep{lean4,mathlib}.
@@ -430,8 +441,9 @@
  
  \begin{figure}[t]
  \centering
- \includegraphics[width=\linewidth]{figuras_v3/nivel_b.pdf}
+-\includegraphics[width=\linewidth]{figuras_v3/nivel_b.pdf}
 -\caption{Level B. Top: paired AUROC of the probe reading the Lean alone (grey) and the statement with the Lean (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
++\includegraphics[width=\linewidth]{figuras_v5/nivel_b.pdf}
 +\caption{Level B. Top: paired AUROC of the probe reading the Lean code alone (grey) and the statement with the Lean code (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
  \label{fig:b}
  \end{figure}
@@ -472,10 +484,11 @@
  
 -The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean
 -separates better than reading the Lean alone. The levels differ, however, in how much each of them licenses.
+-Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
+-held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface. At
 +The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean code
 +separates better than reading the Lean code alone. The levels differ, however, in how much each of them licenses.
- Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
--held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface. At
++Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
 +held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface.
 +In two of four models, one of them under a rule fixed in advance, a shift along the axis on which the second readout
 +separates the classes changes the answer more than the same shift along random directions. This does not show what the
@@ -575,7 +588,7 @@
 +before the split was computed. The Holm values were already known when it was written, because they follow from the
 +printed $p$-values. Both are exploratory and post hoc.
  \end{description}
-+
+ 
 +\section{Secondary results of the Level~B intervention}\label{app:intervencion}
 +
 +Table~\ref{tab:bsecundarios} gives the secondary analyses of the intervention. The placebo runs the hooks with the
@@ -585,7 +598,7 @@
 +more than the one built from \vr{lean\_only} in Qwen3-4B and OLMo-2, and in Llama-3.1 and Gemma-3 that interval
 +includes zero. With shifts two and four times larger, the direction exceeds its five random directions in every model
 +except Gemma-3.
- 
++
 +The probability mass on Yes and No at the answer position is at least 0.982 without intervention, and the shift
 +changes it by less than 0.001 in every model, along the difference of means and along the random directions. The model
 +therefore keeps answering yes or no under the shift. This measure is near its ceiling, so it rules out only that kind

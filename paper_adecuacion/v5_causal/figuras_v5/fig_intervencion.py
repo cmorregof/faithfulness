@@ -40,7 +40,7 @@ ic = lambda lo, hi: r"[$%+.3f$, $%+.3f$]" % (lo, hi)
 TXT = {
     "en": dict(
         head=r"\textbf{Level B intervention} \textit{(mean over Lean tokens shifted toward the opposite class)}",
-        probe="difference-of-means direction", rand="random direction (20)", lean="Lean-alone direction",
+        probe="difference-of-means direction", rand="random direction (20)", lean="Lean-code-alone direction",
         col=r"drop $-$ random mean [95\% CI]", cnt=r"random $\geq$ probe", de="of",
         x1="drop in paired AUROC of P(Yes), 377 certified pairs",
         head2=r"\textbf{Larger shifts} \textit{(descriptive; 5 random directions)}",
@@ -48,7 +48,7 @@ TXT = {
         nota=r"filled: rule fixed in advance \quad open: post hoc"),
     "es": dict(
         head=r"\textbf{Intervención del Nivel B} \textit{(media sobre los tokens de Lean desplazada hacia la clase contraria)}",
-        probe="dirección de diferencia de medias", rand="dirección al azar (20)", lean="dirección de Lean solo",
+        probe="dirección de diferencia de medias", rand="dirección al azar (20)", lean="dirección del código de Lean solo",
         col=r"caída $-$ media al azar [IC 95\%]", cnt=r"al azar $\geq$ sonda", de="de",
         x1="caída de la AUROC pareada de P(Yes), 377 pares certificados",
         head2=r"\textbf{Desplazamientos mayores} \textit{(descriptivo; 5 direcciones al azar)}",

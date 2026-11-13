@@ -130,6 +130,9 @@ def revisa(nombre):
     commit = re.compile(r"commit\s+\\vr\{[0-9a-f]{7}\}")
     if len(commit.findall(nuevo)) != 1: falla("el commit del repositorio no aparece exactamente una vez")
     nuevo_sin_cita = commit.sub(" ", nuevo_sin_cita)
+    # vigésima tanda: tres figuras pasan de figuras_v3/ a figuras_v5/. El «3» y el «5» de la carpeta no son cifras del
+    # artículo: para el conteo, y solo para esos tres archivos, la ruta se lee como en v4.
+    nuevo_sin_cita = re.sub(r"figuras_v5/(curvas_por_modelo|forest_nivel_a|nivel_b)(_es)?\.pdf", r"figuras_v3/\1\2.pdf", nuevo_sin_cita)
     sv, sn = V["dif"](V["numeros"](sin_nombres(viejo)), V["numeros"](sin_nombres(ejemplos(nuevo_sin_cita, falla))))
     # decimoctava tanda: la segunda implementación del Nivel C pasa de cinco a tres decimales, por redondeo
     REDONDEADAS = {"+0.15354": "+0.154", "0.12102": "0.121", "0.18714": "0.187"}
@@ -162,6 +165,17 @@ def revisa(nombre):
                     falla("fig:escaner: no es la figura aprobada"); return e
                 return e.replace("[p]", "[t]", 1).replace("figuras_v5/escaner2d_modelos_v5", "figuras_v3/escaner2d_modelos", 1)
             en = [v4(e) for e in en]
+            # vigésima tanda: fig:relieve, fig:forest y fig:b pasan a los archivos de figuras_v5/ (mismos datos y dibujo,
+            # rótulos «Lean code alone» / «código de Lean solo»). Solo puede cambiar la carpeta; el pie debe ser idéntico.
+            ROTULOS = {"fig:relieve": "curvas_por_modelo", "fig:forest": "forest_nivel_a", "fig:b": "nivel_b"}
+            def v4r(e):
+                for lab, arch in ROTULOS.items():
+                    if "label{%s}" % lab not in e: continue
+                    if not re.search(r"\\includegraphics\[width=\\linewidth\]\{figuras_v5/%s(_es)?\.pdf\}" % arch, e):
+                        falla(f"{lab}: no apunta a figuras_v5/{arch}"); return e
+                    return e.replace("figuras_v5/" + arch, "figuras_v3/" + arch, 1)
+                return e
+            en = [v4r(e) for e in en]
         # decimosexta tanda: «the Lean alone» pasa a «the Lean code alone» (y «Lean solo» a «código de Lean solo») también en los pies
         en = [e.replace("the Lean code alone", "the Lean alone").replace("código de Lean solo", "Lean solo") for e in en]
         # decimoctava tanda: «the Lean» suelto pasa a «the Lean code» y «el/del/al Lean» a «… código de Lean»
