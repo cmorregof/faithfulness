@@ -597,6 +597,14 @@ def ingles():
     # regeneraron con el mismo nombre de archivo. Los pies no cambian.
     for f in ("curvas_por_modelo", "forest_nivel_a", "nivel_b"):
         d.cambia(r"\includegraphics[width=\linewidth]{figuras_v3/%s.pdf}" % f, r"\includegraphics[width=\linewidth]{figuras_v5/%s.pdf}" % f)
+    # ---- vigesimoprimera tanda (13 nov, tarde): «Contamination» fecha también el Nivel A. arXiv:2507.06181 v1 es del
+    # 8 jul 2025; su sección 3.1.2 nombra las fuentes de los enunciados y dice que los enunciados en Lean salen de un
+    # conjunto público. Fechas de los modelos: paper_adecuacion/fuentes/verificacion_fechas_formal_conjectures.md.
+    d.tras("where the problems were known and their formalizations were not.",
+           "At Level~A, CriticLeanBench was posted on 8 July 2025, after the release of seven of the eight models and a week\n"
+           "before Goedel-Prover-V2-8B. Its labels are new in that release. Its problems, in contrast, come from earlier\n"
+           "collections such as Omni-MATH, AIME and U-MATH, and its authors report taking the Lean statements from a public\n"
+           "dataset, so both may be older than the labels.")
     return d
 
 
@@ -988,6 +996,12 @@ def espanol():
     # ---- vigésima tanda (13 nov, tarde): figuras con los rótulos «código de Lean solo». Mismos datos y mismo dibujo
     for f in ("curvas_por_modelo", "forest_nivel_a", "nivel_b"):
         d.cambia(r"\includegraphics[width=\linewidth]{figuras_v3/%s_es.pdf}" % f, r"\includegraphics[width=\linewidth]{figuras_v5/%s_es.pdf}" % f)
+    # ---- vigesimoprimera tanda (13 nov, tarde): «Contaminación» fecha también el Nivel A
+    d.tras("donde los problemas eran conocidos y sus formalizaciones no.",
+           "En el Nivel~A, CriticLeanBench se publicó el 8 de julio de 2025, después del lanzamiento de siete de los ocho\n"
+           "modelos y una semana antes de Goedel-Prover-V2-8B. Sus etiquetas son nuevas en esa publicación. Sus problemas, en\n"
+           "cambio, vienen de colecciones anteriores como Omni-MATH, AIME y U-MATH, y sus autores dicen haber tomado los\n"
+           "enunciados en Lean de un conjunto público, así que ambos pueden ser más antiguos que las etiquetas.")
     return d
 
 

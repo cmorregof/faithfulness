@@ -1,5 +1,5 @@
 --- ../v4_voz/main_es.tex	2026-11-11 09:31:23
-+++ main_es.tex	2026-11-13 14:34:52
++++ main_es.tex	2026-11-13 14:38:20
 @@ -15,13 +15,14 @@
  \definecolor{tinta}{HTML}{4F4086}
  \usepackage[colorlinks=true,linkcolor=black,citecolor=tinta,urlcolor=tinta]{hyperref}
@@ -496,11 +496,10 @@
  
 -El signo de la brecha es el mismo en casi todos los escenarios que examinamos. Leer el enunciado junto con el Lean
 -separa mejor que leer el Lean solo. Los niveles difieren, sin embargo, en cuánto autoriza cada uno. El Nivel~A es
--la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
--etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie. En el Nivel~C
 +El signo de la brecha es el mismo en casi todos los escenarios que examinamos. Leer el enunciado junto con el código de Lean
 +separa mejor que leer el código de Lean solo. Los niveles difieren, sin embargo, en cuánto autoriza cada uno. El Nivel~A es
-+la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
+ la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
+-etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie. En el Nivel~C
 +etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie.
 +En dos de los cuatro modelos, uno de ellos con la regla fijada de antemano, un desplazamiento por el eje en el que la
 +segunda lectura separa las clases cambia la respuesta más que el mismo desplazamiento por direcciones al azar. Esto no
@@ -522,7 +521,18 @@
  Superficie cruzada & no corrido & 0.688 & no corrido\\
  Apilado & Tabla~\ref{tab:a} & no aplica (\vr{nl\_only} es 0.500) & \vr{full} menos: +0.146, +0.111\\
  \vr{nl\_mismatched} & no analizado & 0.506 a 0.537 & \vr{full} menos: +0.202, +0.175\\
-@@ -665,14 +828,18 @@
+@@ -647,6 +810,10 @@
+ Mathlib desde julio de 2024. No se revisaron versiones anteriores de los enunciados de FormalMATH-Lite. Los
+ enunciados en lenguaje natural, en cambio, son más antiguos en unos 210 de los 256 orígenes, donde los problemas
+ eran conocidos y sus formalizaciones no.
++En el Nivel~A, CriticLeanBench se publicó el 8 de julio de 2025, después del lanzamiento de siete de los ocho
++modelos y una semana antes de Goedel-Prover-V2-8B. Sus etiquetas son nuevas en esa publicación. Sus problemas, en
++cambio, vienen de colecciones anteriores como Omni-MATH, AIME y U-MATH, y sus autores dicen haber tomado los
++enunciados en Lean de un conjunto público, así que ambos pueden ser más antiguos que las etiquetas.
+ 
+ \paragraph{Etiquetas.}
+ Las etiquetas tienen una debilidad distinta en cada nivel. El Nivel~A usa las etiquetas del benchmark, propuestas
+@@ -665,14 +832,18 @@
  Las muestras son de 450 filas por modelo en el Nivel~A, 256 orígenes en el Nivel~B y 361 grupos en el Nivel~C.
  
  \paragraph{Método.}
@@ -544,7 +554,7 @@
  
  % ------------------------------------------------------------------ 9
  \section{Conclusión}
-@@ -693,6 +860,9 @@
+@@ -693,6 +864,9 @@
  Figura~\ref{fig:escaner} muestran dónde la dirección de capa fija separa las clases. Si el modelo usa esa dirección
  es una pregunta causal, que el sondeo no puede responder y que una intervención a lo largo de la dirección de la
  sonda sí podría.
@@ -554,7 +564,7 @@
  
  \paragraph{Uso de herramientas de IA.}
  El código de análisis y la primera implementación de cada nivel se escribieron con asistentes de programación de IA,
-@@ -701,9 +871,10 @@
+@@ -701,9 +875,10 @@
  comparación está pendiente. Los autores son responsables de todas las afirmaciones.
  
  \paragraph{Código y datos.}
@@ -568,7 +578,7 @@
  
  
  \bibliography{refs}
-@@ -734,7 +905,7 @@
+@@ -734,7 +909,7 @@
  \section{Desviaciones y decisiones tardías}\label{app:desviaciones}
  
  La lista que sigue sale de los informes de cada nivel. La bitácora del proyecto guarda una lista numerada más larga,
@@ -577,7 +587,7 @@
  
  \begin{description}[leftmargin=1.2em]
  \item[4 nov] En un solo día se escribieron tres versiones de la regla del Nivel~A. La tercera, firmada a las 22:29,
-@@ -744,6 +915,8 @@
+@@ -744,6 +919,8 @@
  se volvió a correr DeepSeek-Prover-V2. La lectura~(ii) no se vio afectada.
  \item[5 nov] Cuando los \emph{offsets} del tokenizador no cuadran con el texto, la extracción localiza los tokens
  de Lean por prefijo. Esto cambió un solo modelo, DeepSeek-Prover-V2, en 1972 de sus 2000 prompts.
@@ -586,7 +596,7 @@
  \item[5 nov] El primer autor confirmó dos cláusulas del documento del Nivel~A cuando ya se habían visto los
  resultados de la lectura~(ii). Una es que un modelo puede pasar con cualquiera de las dos lecturas, y la otra, que
  el metaanálisis se lee lectura por lectura. Las demás cláusulas de implementación de ese documento las redactó el
-@@ -763,13 +936,135 @@
+@@ -763,13 +940,135 @@
  \item[9 nov] Se añadieron el control por fuente, el bootstrap conjunto, los mapas por capa y posición, sus
  estadísticos de región y el nulo de intercambio. La hipótesis del borrador de protocolo pasó a exigir los dos
  controles de superficie.

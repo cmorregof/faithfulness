@@ -130,6 +130,11 @@ def revisa(nombre):
     commit = re.compile(r"commit\s+\\vr\{[0-9a-f]{7}\}")
     if len(commit.findall(nuevo)) != 1: falla("el commit del repositorio no aparece exactamente una vez")
     nuevo_sin_cita = commit.sub(" ", nuevo_sin_cita)
+    # vigesimoprimera tanda: la frase que fecha CriticLeanBench en «Contamination» lleva una fecha (8 de julio de 2025)
+    # y el nombre de un modelo; no son cifras de nuestros datos. Se saca del conteo solo esa frase, exactamente una vez.
+    fecha_a = re.compile(r"(?:At Level~A, CriticLeanBench was posted on 8 July 2025|En el Nivel~A, CriticLeanBench se publicó el 8 de julio de 2025)[^.]*?Goedel-Prover-V2-8B\.")
+    if len(fecha_a.findall(nuevo)) != 1: falla("la frase que fecha CriticLeanBench no aparece exactamente una vez")
+    nuevo_sin_cita = fecha_a.sub(" ", nuevo_sin_cita)
     # vigésima tanda: tres figuras pasan de figuras_v3/ a figuras_v5/. El «3» y el «5» de la carpeta no son cifras del
     # artículo: para el conteo, y solo para esos tres archivos, la ruta se lee como en v4.
     nuevo_sin_cita = re.sub(r"figuras_v5/(curvas_por_modelo|forest_nivel_a|nivel_b)(_es)?\.pdf", r"figuras_v3/\1\2.pdf", nuevo_sin_cita)

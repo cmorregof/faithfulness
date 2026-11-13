@@ -361,3 +361,20 @@ También se regeneraron las dos imágenes de `figuras_v5/readme/` («Dark line: 
 `verifica_v5.py` cambió en dos cosas: admite que `fig:relieve`, `fig:forest` y `fig:b` cambien de carpeta, y solo eso, con el pie idéntico; y para el conteo de cifras lee la ruta de esos tres archivos como en v4, porque el «3» de `figuras_v3` contaba como cifra. Pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; `main_en.pdf` (23 páginas) y `main_es.pdf` (24) compilados, sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` están regenerados.
 
 Sin cambio y para decisión de Carlos: la prosa conserva «Lean-only probe» (inglés) y «sonda de solo Lean», «línea de base de solo Lean» (español).
+
+## Vigesimoprimera tanda (13 nov, tarde): fecha de CriticLeanBench en «Contamination»
+
+Aprobada por Carlos en el chat («Sí, aplícala»), después de ver la frase en los dos idiomas. `aplica_v5.py` aplica ahora 69 pasajes por idioma. El párrafo fechaba los Niveles B y C y no decía nada del Nivel A.
+
+| # | Dónde | Antes | Después |
+|---|---|---|---|
+| 21.1 | «Contamination», al final del párrafo | termina en «…where the problems were known and their formalizations were not.» | Añade: «At Level A, CriticLeanBench was posted on 8 July 2025, after the release of seven of the eight models and a week before Goedel-Prover-V2-8B. Its labels are new in that release. Its problems, in contrast, come from earlier collections such as Omni-MATH, AIME and U-MATH, and its authors report taking the Lean statements from a public dataset, so both may be older than the labels.» |
+
+**Fuentes, comprobadas el 13 de noviembre.**
+- Fecha: arXiv:2507.06181, historial de envíos, «[v1] Tue, 8 Jul 2025».
+- Origen de los enunciados y de los enunciados en Lean: el artículo mismo (`arxiv.org/html/2507.06181`), sección 3.1.2, «Data Collection». Nombra Omni-MATH, AIME, U-MATH, DEMI-MathAnalysis, HARDMath, OlympiadBench y BlueMO, y dice que los enunciados en Lean 4 correspondientes salen de un conjunto público (Yu et al., 2025b, que es FormalMATH). Esto corrige la premisa del encargo: lo nuevo en julio de 2025 son las etiquetas, no las formalizaciones. El artículo no deja claro de dónde salen las 250 formalizaciones incorrectas, y por eso la frase dice «may be older».
+- Fechas de los modelos: `paper_adecuacion/fuentes/verificacion_fechas_formal_conjectures.md`, sección 0. Siete de los ocho modelos del Nivel A son anteriores al 8 de julio de 2025. Goedel-Prover-V2-8B está en Hugging Face desde el 15 de julio de 2025. La de Kimina-Autoformalizer-7B (hacia el 15 de abril de 2025) es inferida.
+
+`verifica_v5.py` cambió en una cosa: la frase lleva una fecha y el nombre de un modelo, que no son cifras de nuestros datos, y se saca del conteo solo esa frase, exactamente una vez. Pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; los dos PDF compilados sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` están regenerados.
+
+Siguen abiertos: el recuadro «Pending» y «Use of AI tools», que cambian juntos cuando `probe.py` esté comparado.

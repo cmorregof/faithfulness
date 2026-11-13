@@ -1,5 +1,5 @@
 --- ../v4_voz/main_en.tex	2026-11-11 09:31:23
-+++ main_en.tex	2026-11-13 14:34:52
++++ main_en.tex	2026-11-13 14:38:20
 @@ -1,4 +1,4 @@
 -% Beyond the Lean Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
 +% Beyond the Lean Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
@@ -484,11 +484,10 @@
  
 -The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean
 -separates better than reading the Lean alone. The levels differ, however, in how much each of them licenses.
--Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
--held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface. At
 +The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean code
 +separates better than reading the Lean code alone. The levels differ, however, in how much each of them licenses.
-+Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
+ Level~A is the only preregistered test, and it did not pass. Level~B has the cleanest design, with the statement
+-held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface. At
 +held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface.
 +In two of four models, one of them under a rule fixed in advance, a shift along the axis on which the second readout
 +separates the classes changes the answer more than the same shift along random directions. This does not show what the
@@ -500,7 +499,18 @@
  Taken together, they justify asking the question again on data the models cannot have seen.
  
  \begin{table}[h]
-@@ -639,14 +804,18 @@
+@@ -622,6 +787,10 @@
+ near-identical statement has been in Mathlib since July 2024. Earlier versions of the FormalMATH-Lite statements
+ were not checked. The natural-language statements, in contrast, are older in about 210 of the 256 origins, where
+ the problems were known and their formalizations were not.
++At Level~A, CriticLeanBench was posted on 8 July 2025, after the release of seven of the eight models and a week
++before Goedel-Prover-V2-8B. Its labels are new in that release. Its problems, in contrast, come from earlier
++collections such as Omni-MATH, AIME and U-MATH, and its authors report taking the Lean statements from a public
++dataset, so both may be older than the labels.
+ 
+ \paragraph{Labels.}
+ The labels have a different weakness at each level. Level~A uses the benchmark's labels, proposed by a model and
+@@ -639,14 +808,18 @@
  The samples are 450 rows per model at Level~A, 256 origins at Level~B and 361 groups at Level~C.
  
  \paragraph{Method.}
@@ -522,7 +532,7 @@
  
  % ------------------------------------------------------------------ 9
  \section{Conclusion}
-@@ -665,6 +834,8 @@
+@@ -665,6 +838,8 @@
  list. It does not yet address a P(Yes) that matches the probe. The maps of Figure~\ref{fig:escaner} show where the
  fixed-layer direction separates the classes. Whether the model uses that direction is a causal question, which
  probing cannot answer and an intervention along the probe direction could.
@@ -531,7 +541,7 @@
  
  \paragraph{Use of AI tools.}
  The analysis code and the first implementation of every level were written with AI coding assistants under rules
-@@ -673,9 +844,10 @@
+@@ -673,9 +848,10 @@
  authors are responsible for all claims.
  
  \paragraph{Code and data.}
@@ -545,7 +555,7 @@
  
  
  \bibliography{refs}
-@@ -705,8 +877,7 @@
+@@ -705,8 +881,7 @@
  
  \section{Deviations and late decisions}\label{app:desviaciones}
  
@@ -555,7 +565,7 @@
  
  \begin{description}[leftmargin=1.2em]
  \item[4 Nov] Three versions of the Level~A rule were written in one day. The third, signed at 22:29, is the one
-@@ -715,6 +886,8 @@
+@@ -715,6 +890,8 @@
  DeepSeek-Prover-V2 was rerun. Readout~(ii) was not affected.
  \item[5 Nov] When the tokenizer's offsets do not line up with the text, extraction falls back to locating the Lean
  tokens by prefix. This changed one model, DeepSeek-Prover-V2, in 1972 of its 2000 prompts.
@@ -564,7 +574,7 @@
  \item[5 Nov] The first author confirmed two clauses of the Level~A document after the results of readout~(ii) had
  been seen. One is that a model may pass with either readout, and the other is that the meta-analysis is read one
  readout at a time. The remaining implementation clauses of that document were drafted by the coding assistant.
-@@ -730,13 +903,133 @@
+@@ -730,13 +907,133 @@
  first results of each level.
  \item[9 Nov] The by-source control, the joint bootstrap, the layer-by-position maps, their region statistics and
  the swap null were added. The hypothesis of the draft protocol was changed to require both surface controls.
