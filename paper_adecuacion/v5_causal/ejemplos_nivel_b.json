@@ -1,0 +1,70 @@
+[
+ {
+  "familia": "A",
+  "par": 15,
+  "suma_tokens_editados": 3,
+  "pares_empatados": 46,
+  "id_origen": "FormalMATH_lite[16]",
+  "enunciado": "Let \\(k\\) be a given positive integer with \\(k\\geqslant2\\). Prove that the product of three consecutive positive integers cannot be the \\(k\\) -th power of an integer.",
+  "enunciado_hasta": null,
+  "fiel": {
+   "original": "2 ≤ k",
+   "variante": "1 < k"
+  },
+  "infiel": {
+   "original": "1 < k",
+   "variante": "1 ≤ k"
+  }
+ },
+ {
+  "familia": "B",
+  "par": 4,
+  "suma_tokens_editados": 3,
+  "pares_empatados": 32,
+  "id_origen": "FormalMATH_lite[136]",
+  "enunciado": "Let $n$ be a fixed positive integer. Determine the smallest possible rank of an $n \\times n$ matrix that has zeros along the main diagonal and strictly positive real numbers off the main diagonal.\n Prove that the answer is: 3",
+  "enunciado_hasta": null,
+  "fiel": {
+   "original": "0 < n",
+   "variante": "1 ≤ n"
+  },
+  "infiel": {
+   "original": "1 ≤ n",
+   "variante": "1 < n"
+  }
+ },
+ {
+  "familia": "C2",
+  "par": 75,
+  "suma_tokens_editados": 3,
+  "pares_empatados": 2,
+  "id_origen": "formal_conjectures:Arxiv/0805.3777/TensorRank:Arxiv.0805.3777.isGenericRank_four",
+  "enunciado": "The generic rank of a $4 \\times m \\times m$ tensor is $\\lceil 4m^2 / (2m + 2) \\rceil$\n[Fri12, (5.7)]. This is the case $(4, m, m)$ of `isGenericRank_of_le_critical`, settled in\n[AOP09]; see [BFZ24, Section 4.5].",
+  "enunciado_hasta": "The generic rank of a $4 \\times m \\times m$ tensor is $\\lceil 4m^2 / (2m + 2) \\rceil$",
+  "fiel": {
+   "original": "3 ≤ m",
+   "variante": "2 < m"
+  },
+  "infiel": {
+   "original": "2 < m",
+   "variante": "3 < m"
+  }
+ },
+ {
+  "familia": "C3",
+  "par": 195,
+  "suma_tokens_editados": 5,
+  "pares_empatados": 1,
+  "id_origen": "formal_conjectures:ErdosProblems/588:Erdos588.erdos_588.variants.trivial_upper",
+  "enunciado": "The trivial upper bound, by counting pairs of points: for $k \\geq 2$,\n$$f_k(n) \\cdot k(k-1) \\leq n(n-1).$$",
+  "enunciado_hasta": null,
+  "fiel": {
+   "original": "2 ≤ k",
+   "variante": "1 < k"
+  },
+  "infiel": {
+   "original": "numLinesWithPointsMax k n * (k * (k - 1)) ≤ n * (n - 1)",
+   "variante": "numLinesWithPointsMax k n * (k * (k - 1)) ≥ n * (n - 1)"
+  }
+ }
+]

@@ -1,0 +1,310 @@
+\begin{thebibliography}{38}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Ammanamanchi et~al.(2026)Ammanamanchi, Bhat, and
+  Biderman]{ammanamanchi2026faults}
+Pawan~Sasanka Ammanamanchi, Siddharth Bhat, and Stella Biderman.
+\newblock Faults in our formal benchmarking: Dataset defects and evaluation
+  failures in {Lean} theorem proving.
+\newblock In \emph{Proceedings of the 43rd International Conference on Machine
+  Learning}, volume 306 of \emph{Proceedings of Machine Learning Research},
+  pp.\  2431--2462. PMLR, 2026.
+\newblock URL \url{https://proceedings.mlr.press/v306/ammanamanchi26a.html}.
+
+\bibitem[Amrollahi et~al.(2026)Amrollahi, Lopez, and
+  Barrett]{amrollahi2026roundtrip}
+Daneshvar Amrollahi, Jerry Lopez, and Clark Barrett.
+\newblock Faithful autoformalization via roundtrip verification and repair.
+\newblock \emph{arXiv preprint arXiv:2604.25031}, 2026.
+
+\bibitem[Belrose et~al.(2023)Belrose, Schneider-Joseph, Ravfogel, Cotterell,
+  Raff, and Biderman]{belrose2023leace}
+Nora Belrose, David Schneider-Joseph, Shauli Ravfogel, Ryan Cotterell, Edward
+  Raff, and Stella Biderman.
+\newblock {LEACE}: Perfect linear concept erasure in closed form.
+\newblock In \emph{Advances in Neural Information Processing Systems},
+  volume~36, 2023.
+
+\bibitem[Chen et~al.(2024)Chen, Xiao, Zhang, Luo, Lian, and Liu]{bgem3}
+Jianlyu Chen, Shitao Xiao, Peitian Zhang, Kun Luo, Defu Lian, and Zheng Liu.
+\newblock {M3-Embedding}: Multi-linguality, multi-functionality,
+  multi-granularity text embeddings through self-knowledge distillation.
+\newblock In Lun-Wei Ku, Andre Martins, and Vivek Srikumar (eds.),
+  \emph{Findings of the Association for Computational Linguistics: ACL 2024},
+  pp.\  2318--2335, Bangkok, Thailand, August 2024. Association for
+  Computational Linguistics.
+\newblock \doi{10.18653/v1/2024.findings-acl.137}.
+
+\bibitem[de~Moura \& Ullrich(2021)de~Moura and Ullrich]{lean4}
+Leonardo de~Moura and Sebastian Ullrich.
+\newblock The {Lean} 4 theorem prover and programming language.
+\newblock In \emph{Automated Deduction -- CADE 28}, volume 12699 of
+  \emph{Lecture Notes in Computer Science}. Springer, Cham, 2021.
+\newblock \doi{10.1007/978-3-030-79876-5_37}.
+
+\bibitem[DerSimonian \& Laird(1986)DerSimonian and Laird]{dl}
+Rebecca DerSimonian and Nan Laird.
+\newblock Meta-analysis in clinical trials.
+\newblock \emph{Controlled Clinical Trials}, 7\penalty0 (3):\penalty0 177--188,
+  1986.
+\newblock \doi{10.1016/0197-2456(86)90046-2}.
+
+\bibitem[Di~Cicco(2026)]{dicicco}
+Carlo Di~Cicco.
+\newblock Code correctness is linearly decodable from {LLM} hidden states
+  before generation.
+\newblock \emph{arXiv preprint arXiv:2606.14530}, 2026.
+
+\bibitem[Efron(1979)]{efron}
+B.~Efron.
+\newblock Bootstrap methods: Another look at the jackknife.
+\newblock \emph{The Annals of Statistics}, 7\penalty0 (1), 1979.
+\newblock \doi{10.1214/aos/1176344552}.
+
+\bibitem[Elazar et~al.(2021)Elazar, Ravfogel, Jacovi, and
+  Goldberg]{elazar2021amnesic}
+Yanai Elazar, Shauli Ravfogel, Alon Jacovi, and Yoav Goldberg.
+\newblock Amnesic probing: Behavioral explanation with amnesic counterfactuals.
+\newblock \emph{Transactions of the Association for Computational Linguistics},
+  9:\penalty0 160--175, 2021.
+\newblock \doi{10.1162/tacl_a_00359}.
+
+\bibitem[Firsching et~al.(2026)Firsching, Lezeau, Mercuri, Horv{\'a}th,
+  Dillies, S{\"o}nne, Wieser, Zhang, Hubert, Ag{\"u}era~y Arcas, and
+  Kohli]{fcpaper}
+Moritz Firsching, Paul Lezeau, Salvatore Mercuri, Mikl{\'o}s~Z. Horv{\'a}th,
+  Ya{\"e}l Dillies, Calle S{\"o}nne, Eric Wieser, Fred Zhang, Thomas Hubert,
+  Blaise Ag{\"u}era~y Arcas, and Pushmeet Kohli.
+\newblock {Formal Conjectures}: An open and evolving benchmark for verified
+  discovery in mathematics.
+\newblock \emph{arXiv preprint arXiv:2605.13171}, 2026.
+
+\bibitem[{Gemma Team} et~al.(2025){Gemma Team}, Kamath, Ferret, Pathak,
+  Vieillard, Merhej, et~al.]{gemma3}
+{Gemma Team}, Aishwarya Kamath, Johan Ferret, Shreya Pathak, Nino Vieillard,
+  Ramona Merhej, et~al.
+\newblock {Gemma} 3 technical report.
+\newblock \emph{arXiv preprint arXiv:2503.19786}, 2025.
+
+\bibitem[Grattafiori et~al.(2024)Grattafiori, Dubey, Jauhri, Pandey, Kadian,
+  et~al.]{llama3}
+Aaron Grattafiori, Abhimanyu Dubey, Abhinav Jauhri, Abhinav Pandey, Abhishek
+  Kadian, et~al.
+\newblock The {Llama} 3 herd of models.
+\newblock \emph{arXiv preprint arXiv:2407.21783}, 2024.
+
+\bibitem[Holm(1979)]{holm}
+Sture Holm.
+\newblock A simple sequentially rejective multiple test procedure.
+\newblock \emph{Scandinavian Journal of Statistics}, 6\penalty0 (2):\penalty0
+  65--70, 1979.
+
+\bibitem[Kriegeskorte et~al.(2006)Kriegeskorte, Goebel, and
+  Bandettini]{searchlight}
+Nikolaus Kriegeskorte, Rainer Goebel, and Peter Bandettini.
+\newblock Information-based functional brain mapping.
+\newblock \emph{Proceedings of the National Academy of Sciences}, 103\penalty0
+  (10):\penalty0 3863--3868, 2006.
+\newblock \doi{10.1073/pnas.0600244103}.
+
+\bibitem[Lin et~al.(2026)Lin, Tang, Lyu, Yang, Chung, Zhao, Jiang, Geng, Ge,
+  Sun, Wu, Gesi, Lu, Acuna, Yang, Lin, Choi, Chen, Arora, and
+  Jin]{goedelproverv2}
+Yong Lin, Shange Tang, Bohan Lyu, Ziran Yang, Jui-Hui Chung, Haoyu Zhao, Lai
+  Jiang, Yihan Geng, Jiawei Ge, Jingruo Sun, Jiayun Wu, Jiri Gesi, Ximing Lu,
+  David Acuna, Kaiyu Yang, Hongzhou Lin, Yejin Choi, Danqi Chen, Sanjeev Arora,
+  and Chi Jin.
+\newblock {Goedel-Prover-V2}: Scaling formal theorem proving with scaffolded
+  data synthesis and self-correction.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2026.
+\newblock arXiv:2508.03613.
+
+\bibitem[Lu et~al.(2025)Lu, Wan, Huang, Xiong, Liu, and Guo]{formalalign}
+Jianqiao Lu, Yingjia Wan, Yinya Huang, Jing Xiong, Zhengying Liu, and Zhijiang
+  Guo.
+\newblock {FormalAlign}: Automated alignment evaluation for autoformalization.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2410.10135.
+
+\bibitem[Makelov et~al.(2024)Makelov, Lange, Geiger, and
+  Nanda]{makelov2024subspace}
+Aleksandar Makelov, Georg Lange, Atticus Geiger, and Neel Nanda.
+\newblock Is this the subspace you are looking for? {A}n interpretability
+  illusion for subspace activation patching.
+\newblock In \emph{International Conference on Learning Representations}, 2024.
+
+\bibitem[Marks \& Tegmark(2024)Marks and Tegmark]{geometry}
+Samuel Marks and Max Tegmark.
+\newblock The geometry of truth: Emergent linear structure in large language
+  model representations of true/false datasets.
+\newblock In \emph{Conference on Language Modeling (COLM)}, 2024.
+\newblock arXiv:2310.06824.
+
+\bibitem[Meng et~al.(2022)Meng, Bau, Andonian, and Belinkov]{meng2022rome}
+Kevin Meng, David Bau, Alex Andonian, and Yonatan Belinkov.
+\newblock Locating and editing factual associations in {GPT}.
+\newblock In \emph{Advances in Neural Information Processing Systems 35
+  (NeurIPS 2022)}, 2022.
+\newblock arXiv:2202.05262.
+
+\bibitem[Mohammad \& Sheikh(2026)Mohammad and
+  Sheikh]{mohammad2026faithfulnessgap}
+Noor Islam~S. Mohammad and Tamim Sheikh.
+\newblock The faithfulness gap: Certifying semantic equivalence between
+  natural-language and formal mathematical statements.
+\newblock \emph{arXiv preprint arXiv:2606.16541}, 2026.
+
+\bibitem[Orgad et~al.(2025)Orgad, Toker, Gekhman, Reichart, Szpektor, Kotek,
+  and Belinkov]{orgad}
+Hadas Orgad, Michael Toker, Zorik Gekhman, Roi Reichart, Idan Szpektor, Hadas
+  Kotek, and Yonatan Belinkov.
+\newblock {LLMs} know more than they show: On the intrinsic representation of
+  {LLM} hallucinations.
+\newblock In \emph{International Conference on Learning Representations
+  (ICLR)}, 2025.
+\newblock arXiv:2410.02707.
+
+\bibitem[Peng et~al.(2026)Peng, Yao, Ma, Guo, Li, Zhang, Zhang, Zhang, Yu, Li,
+  Liu, Xia, Shen, Wu, Cao, Zhang, Huang, Liu, and Zhang]{criticlean}
+Zhongyuan Peng, Yifan Yao, Kaijing Ma, Shuyue Guo, Yizhe Li, Yichi Zhang,
+  Chenchen Zhang, Yifan Zhang, Zhouliang Yu, Luming Li, Minghao Liu, Yihang
+  Xia, Jiawei Shen, Yuchen Wu, Yixin Cao, Zhaoxiang Zhang, Wenhao Huang,
+  Jiaheng Liu, and Ge~Zhang.
+\newblock {CriticLean}: Critic-guided reinforcement learning for mathematical
+  formalization.
+\newblock In \emph{Proceedings of the 64th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pp.\  3049--3088, San
+  Diego, California, United States, July 2026. Association for Computational
+  Linguistics.
+\newblock \doi{10.18653/v1/2026.acl-long.139}.
+\newblock URL \url{https://aclanthology.org/2026.acl-long.139/}.
+
+\bibitem[Poiroux et~al.(2025)Poiroux, Weiss, Kun{\v{c}}ak, and
+  Bosselut]{proofnetverif}
+Auguste Poiroux, Gail Weiss, Viktor Kun{\v{c}}ak, and Antoine Bosselut.
+\newblock Reliable evaluation and benchmarks for statement autoformalization.
+\newblock In Christos Christodoulopoulos, Tanmoy Chakraborty, Carolyn Rose, and
+  Violet Peng (eds.), \emph{Proceedings of the 2025 Conference on Empirical
+  Methods in Natural Language Processing}, pp.\  17947--17969, Suzhou, China,
+  November 2025. Association for Computational Linguistics.
+\newblock \doi{10.18653/v1/2025.emnlp-main.907}.
+\newblock URL \url{https://aclanthology.org/2025.emnlp-main.907/}.
+
+\bibitem[{Project Numina}(2025)]{kiminaautoformalizer}
+{Project Numina}.
+\newblock {Kimina-Autoformalizer-7B}.
+\newblock \url{https://huggingface.co/AI-MO/Kimina-Autoformalizer-7B}, 2025.
+\newblock Hugging Face model card, revision ddd47cb4; fine-tuned from
+  Qwen2.5-Coder-7B-Instruct.
+
+\bibitem[Ravfogel et~al.(2020)Ravfogel, Elazar, Gonen, Twiton, and
+  Goldberg]{ravfogel2020null}
+Shauli Ravfogel, Yanai Elazar, Hila Gonen, Michael Twiton, and Yoav Goldberg.
+\newblock Null it out: Guarding protected attributes by iterative nullspace
+  projection.
+\newblock In \emph{Proceedings of the 58th Annual Meeting of the Association
+  for Computational Linguistics}, pp.\  7237--7256, 2020.
+\newblock \doi{10.18653/v1/2020.acl-main.647}.
+
+\bibitem[Ren et~al.(2025)Ren, Shao, Song, Xin, Wang, Zhao, Zhang, Fu, Zhu,
+  Yang, Wu, Gou, Ma, Tang, Liu, Gao, Guo, and Ruan]{deepseekproverv2}
+Z.~Z. Ren, Zhihong Shao, Junxiao Song, Huajian Xin, Haocheng Wang, Wanjia Zhao,
+  Liyue Zhang, Zhe Fu, Qihao Zhu, Dejian Yang, Z.~F. Wu, Zhibin Gou, Shirong
+  Ma, Hongxuan Tang, Yuxuan Liu, Wenjun Gao, Daya Guo, and Chong Ruan.
+\newblock {DeepSeek-Prover-V2}: Advancing formal mathematical reasoning via
+  reinforcement learning for subgoal decomposition.
+\newblock \emph{arXiv preprint arXiv:2504.21801}, 2025.
+
+\bibitem[Rimsky et~al.(2024)Rimsky, Gabrieli, Schulz, Tong, Hubinger, and
+  Turner]{rimsky2024steering}
+Nina Rimsky, Nick Gabrieli, Julian Schulz, Meg Tong, Evan Hubinger, and
+  Alexander Turner.
+\newblock Steering {L}lama 2 via contrastive activation addition.
+\newblock In \emph{Proceedings of the 62nd Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pp.\  15504--15522,
+  2024.
+\newblock \doi{10.18653/v1/2024.acl-long.828}.
+
+\bibitem[Singh et~al.(2026)Singh, Ganguly, Goel, Torkamani, Han, Lilien, Erata,
+  and Chaudhary]{genv}
+Vikash Singh, Debargha Ganguly, Aman Goel, Ali Torkamani, Xiaoxue Han, Joseph
+  Lilien, Ferhat Erata, and Vipin Chaudhary.
+\newblock Beyond solver verdicts: Generative reward models for
+  autoformalization.
+\newblock \emph{arXiv preprint arXiv:2609.11085}, 2026.
+
+\bibitem[Sudheendra \& Srivastava(2026)Sudheendra and Srivastava]{decodability}
+Smitha~Muthya Sudheendra and Jaideep Srivastava.
+\newblock When decodability is not enough: Logical validity representations,
+  behavioral dissociation, and causal tests in language models.
+\newblock \emph{arXiv preprint arXiv:2609.02438}, 2026.
+
+\bibitem[{Team OLMo} et~al.(2024){Team OLMo}, Walsh, Soldaini, Groeneveld, Lo,
+  et~al.]{olmo2}
+{Team OLMo}, Pete Walsh, Luca Soldaini, Dirk Groeneveld, Kyle Lo, et~al.
+\newblock 2 {OLMo} 2 furious.
+\newblock \emph{arXiv preprint arXiv:2501.00656}, 2024.
+
+\bibitem[{The Formal Conjectures Authors}(2025)]{fc}
+{The Formal Conjectures Authors}.
+\newblock {T}he {F}ormal {C}onjectures {R}epository.
+\newblock \url{https://github.com/google-deepmind/formal-conjectures}, 2025.
+
+\bibitem[{The mathlib Community}(2019)]{mathlib}
+{The mathlib Community}.
+\newblock The {Lean} mathematical library.
+\newblock arXiv:1910.09336, 2019.
+
+\bibitem[Wang et~al.(2025)Wang, Unsal, Lin, Baksys, Liu, et~al.]{kimina}
+Haiming Wang, Mert Unsal, Xiaohan Lin, Mantas Baksys, Junqi Liu, et~al.
+\newblock {Kimina-Prover} preview: Towards large formal reasoning models with
+  reinforcement learning.
+\newblock \emph{arXiv preprint arXiv:2504.11354}, 2025.
+
+\bibitem[Wang et~al.(2026)Wang, Huang, Wan, Zhu, Liu, Huang, and
+  Guo]{wang2026formalrx}
+Haocheng Wang, Baiyu Huang, Yingjia Wan, Xiao Zhu, Xiaoyang Liu, Yinya Huang,
+  and Zhijiang Guo.
+\newblock {FormalRx}: Rectify and e{X}amine semantic failures in
+  autoformalization.
+\newblock \emph{arXiv preprint arXiv:2607.04655}, 2026.
+
+\bibitem[Yang et~al.(2025)Yang, Li, Yang, Zhang, Hui, et~al.]{qwen3}
+An~Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, et~al.
+\newblock {Qwen3} technical report.
+\newblock \emph{arXiv preprint arXiv:2505.09388}, 2025.
+
+\bibitem[Yu et~al.(2025)Yu, Peng, Ding, Li, Peng, Liu, Zhang, Yuan, Xin, Huang,
+  Wen, Zhang, and Liu]{formalmath}
+Zhouliang Yu, Ruotian Peng, Keyi Ding, Yizhe Li, Zhongyuan Peng, Minghao Liu,
+  Yifan Zhang, Zheng Yuan, Huajian Xin, Wenhao Huang, Yandong Wen, Ge~Zhang,
+  and Weiyang Liu.
+\newblock {FormalMATH}: Benchmarking formal mathematical reasoning of large
+  language models.
+\newblock \emph{arXiv preprint arXiv:2505.02735}, 2025.
+
+\bibitem[Zhang et~al.(2026)Zhang, Gallardo~Candela, Murthy, Xie, Wang, and
+  Raissi]{zhang2026beyondcompilation}
+Ke~Zhang, Patricio Gallardo~Candela, Sudhir Murthy, Yi~Xie, Zhi Wang, and
+  Maziar Raissi.
+\newblock Beyond compilation: Evaluating faithful natural-language-to-{Lean}
+  statement formalization.
+\newblock \emph{arXiv preprint arXiv:2606.31002}, 2026.
+
+\bibitem[Zou et~al.(2023)Zou, Phan, Chen, Campbell, Guo, Ren, Pan, Yin,
+  Mazeika, Dombrowski, Goel, Li, Byun, Wang, Mallen, Basart, Koyejo, Song,
+  Fredrikson, Kolter, and Hendrycks]{zou2023repe}
+Andy Zou, Long Phan, Sarah Chen, James Campbell, Phillip Guo, Richard Ren,
+  Alexander Pan, Xuwang Yin, Mantas Mazeika, Ann-Kathrin Dombrowski, Shashwat
+  Goel, Nathaniel Li, Michael~J. Byun, Zifan Wang, Alex Mallen, Steven Basart,
+  Sanmi Koyejo, Dawn Song, Matt Fredrikson, J.~Zico Kolter, and Dan Hendrycks.
+\newblock Representation engineering: A top-down approach to {AI} transparency.
+\newblock \emph{arXiv preprint arXiv:2310.01405}, 2023.
+
+\end{thebibliography}

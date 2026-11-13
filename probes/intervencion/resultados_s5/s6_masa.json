@@ -1,0 +1,254 @@
+{
+ "qwen3_4b": {
+  "base": [
+   0.9999995881225914,
+   0.9999994973186404,
+   0.9999996662430931
+  ],
+  "placebo": 0.999999588704668,
+  "f2": {
+   "sonda": [
+    0.9999995911493897,
+    0.9999994978774339,
+    0.9999996704398655
+   ],
+   "azar_media": 0.999999583925819,
+   "azar_min": 0.9999995770631358,
+   "azar_max": 0.9999995937105268,
+   "n_azar": 20,
+   "sonda_menos_media_azar": [
+    7.223570741565766e-09,
+    -1.7001002994287973e-09,
+    1.70666317411694e-08
+   ],
+   "n_azar_con_masa_igual_o_menor": 18,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f4": {
+   "sonda": [
+    0.9999995866091922,
+    0.9999994867161149,
+    0.9999996713595465
+   ],
+   "azar_media": 0.9999995835823938,
+   "azar_min": 0.9999995770631358,
+   "azar_max": 0.9999995934776962,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    3.026798367500305e-09,
+    -1.609034368521556e-08,
+    1.8696882805868672e-08
+   ],
+   "n_azar_con_masa_igual_o_menor": 3,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f8": {
+   "sonda": [
+    0.9999996011611074,
+    0.9999995137273799,
+    0.9999996767146513
+   ],
+   "azar_media": 0.9999995833262801,
+   "azar_min": 0.9999995764810592,
+   "azar_max": 0.9999995910329744,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    1.7834827281681953e-08,
+    5.865003871452501e-09,
+    3.215624017338657e-08
+   ],
+   "n_azar_con_masa_igual_o_menor": 5,
+   "menor_que_todas_las_de_azar": false
+  },
+  "lectura": "no se establece que pierda más masa que el azar"
+ },
+ "olmo2_7b": {
+  "base": [
+   0.9828229194972664,
+   0.9812526418478228,
+   0.984193248063093
+  ],
+  "placebo": 0.9828717426862568,
+  "f2": {
+   "sonda": [
+    0.9828472082735971,
+    0.9812555185897509,
+    0.9842040268413257
+   ],
+   "azar_media": 0.9828285290044733,
+   "azar_min": 0.9827668278012425,
+   "azar_max": 0.9828919407445937,
+   "n_azar": 20,
+   "sonda_menos_media_azar": [
+    1.8679269123800246e-05,
+    -3.603196586478008e-05,
+    7.163506656066009e-05
+   ],
+   "n_azar_con_masa_igual_o_menor": 14,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f4": {
+   "sonda": [
+    0.9827965676086023,
+    0.9811977951438167,
+    0.9841811167600099
+   ],
+   "azar_media": 0.9828433084068819,
+   "azar_min": 0.9828174653230235,
+   "azar_max": 0.9828624764923006,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    -4.674079827959865e-05,
+    -0.00011129161342978423,
+    1.1143028386911831e-05
+   ],
+   "n_azar_con_masa_igual_o_menor": 0,
+   "menor_que_todas_las_de_azar": true
+  },
+  "f8": {
+   "sonda": [
+    0.9828348107403144,
+    0.9812402591400314,
+    0.9842016941227485
+   ],
+   "azar_media": 0.9828047841787338,
+   "azar_min": 0.9827179409330711,
+   "azar_max": 0.9828928462229669,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    3.002656158057615e-05,
+    -4.239657602734259e-05,
+    0.00010680564970241543
+   ],
+   "n_azar_con_masa_igual_o_menor": 4,
+   "menor_que_todas_las_de_azar": false
+  },
+  "lectura": "no se establece que pierda más masa que el azar"
+ },
+ "llama31_8b": {
+  "base": [
+   0.9891644050367177,
+   0.9887742956925649,
+   0.9895007187820738
+  ],
+  "placebo": 0.989179617841728,
+  "f2": {
+   "sonda": [
+    0.9891903917305171,
+    0.9888108778279274,
+    0.9895251761598047
+   ],
+   "azar_media": 0.9891984635672998,
+   "azar_min": 0.9891525489510968,
+   "azar_max": 0.9892276780446991,
+   "n_azar": 20,
+   "sonda_menos_media_azar": [
+    -8.071836782641562e-06,
+    -4.567028503520143e-05,
+    2.8862909530333304e-05
+   ],
+   "n_azar_con_masa_igual_o_menor": 6,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f4": {
+   "sonda": [
+    0.9892100605648011,
+    0.9888275005680043,
+    0.9895416694838787
+   ],
+   "azar_media": 0.9891967019764707,
+   "azar_min": 0.9891809049295262,
+   "azar_max": 0.9892203515628353,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    1.3358588330403265e-05,
+    -3.067110024860542e-05,
+    5.878144234882359e-05
+   ],
+   "n_azar_con_masa_igual_o_menor": 4,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f8": {
+   "sonda": [
+    0.9891920749796554,
+    0.9887987362366403,
+    0.9895313366490882
+   ],
+   "azar_media": 0.9892289518378675,
+   "azar_min": 0.989200476789847,
+   "azar_max": 0.9892592725809664,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    -3.687685821207598e-05,
+    -8.259884256408279e-05,
+    4.873090656473664e-06
+   ],
+   "n_azar_con_masa_igual_o_menor": 0,
+   "menor_que_todas_las_de_azar": true
+  },
+  "lectura": "no se establece que pierda más masa que el azar"
+ },
+ "gemma3_4b": {
+  "base": [
+   0.9999999726423994,
+   0.999999966006726,
+   0.9999999789317371
+  ],
+  "placebo": 0.9999999740393832,
+  "f2": {
+   "sonda": [
+    0.9999999736901373,
+    0.999999966355972,
+    0.9999999802093953
+   ],
+   "azar_media": 0.9999999756808393,
+   "azar_min": 0.9999999719439074,
+   "azar_max": 0.9999999792780727,
+   "n_azar": 20,
+   "sonda_menos_media_azar": [
+    -1.9907020476495063e-09,
+    -4.895409824734465e-09,
+    1.0653456700149269e-09
+   ],
+   "n_azar_con_masa_igual_o_menor": 2,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f4": {
+   "sonda": [
+    0.999999976134859,
+    0.9999999690335244,
+    0.9999999821913661
+   ],
+   "azar_media": 0.999999975040555,
+   "azar_min": 0.9999999731080607,
+   "azar_max": 0.999999976833351,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    1.0943039807642663e-09,
+    -1.932494386736039e-09,
+    4.0745362639427185e-09
+   ],
+   "n_azar_con_masa_igual_o_menor": 3,
+   "menor_que_todas_las_de_azar": false
+  },
+  "f8": {
+   "sonda": [
+    0.9999999767169356,
+    0.9999999706633389,
+    0.9999999820749508
+   ],
+   "azar_media": 0.999999972153455,
+   "azar_min": 0.9999999693827704,
+   "azar_max": 0.9999999756691977,
+   "n_azar": 5,
+   "sonda_menos_media_azar": [
+    4.563480593411384e-09,
+    1.0937219047102431e-09,
+    7.939524926392494e-09
+   ],
+   "n_azar_con_masa_igual_o_menor": 5,
+   "menor_que_todas_las_de_azar": false
+  },
+  "lectura": "no se establece que pierda más masa que el azar"
+ }
+}

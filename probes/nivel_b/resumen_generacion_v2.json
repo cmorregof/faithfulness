@@ -1,0 +1,1009 @@
+{
+ "semilla": 20261104,
+ "origenes_por_fuente": {
+  "FormalMATH-Lite": 425,
+  "formal_conjectures": 3885
+ },
+ "origenes_analizables": 3415,
+ "descartes": {
+  "compuesta_no_aplicable_A1∘D4h": 272,
+  "compuesta_no_aplicable_B1∘D4h": 468,
+  "compuesta_no_aplicable_A3∘D1": 475,
+  "compuesta_no_aplicable_B2∘D1": 634,
+  "compuesta_no_aplicable_B3∘D1": 476,
+  "compuesta_no_aplicable_A1∘D1": 422,
+  "compuesta_no_aplicable_B1∘D1": 675,
+  "compuesta_no_aplicable_A3∘D1c": 210,
+  "compuesta_no_aplicable_B2∘D1c": 212,
+  "compuesta_no_aplicable_B3∘D1c": 217,
+  "compuesta_no_aplicable_A2∘D1": 489,
+  "compuesta_no_aplicable_C2∘D1": 318,
+  "compuesta_no_aplicable_A2∘D1c": 74,
+  "compuesta_no_aplicable_C2∘D1c": 132,
+  "compuesta_no_aplicable_C3∘D1": 444,
+  "compuesta_no_aplicable_A2∘D8": 260,
+  "trivial_en_nat_A3∘D8": 56,
+  "compuesta_no_aplicable_B2∘D8": 275,
+  "compuesta_no_aplicable_B3∘D8": 177,
+  "compuesta_no_aplicable_C3∘D8": 243,
+  "compuesta_no_aplicable_A1∘D8": 160,
+  "compuesta_no_aplicable_B1∘D8": 292,
+  "compuesta_no_aplicable_C2∘D8": 140,
+  "trivial_en_nat_A3": 56,
+  "trivial_en_nat_A3∘D1": 56,
+  "compuesta_no_aplicable_A3∘D8": 120,
+  "nl_no_es_enunciado": 857,
+  "no_analizable": 1,
+  "trivial_en_nat_A3∘D1c": 5,
+  "longitud": 37,
+  "compuesta_no_aplicable_C3∘D1c": 43,
+  "compuesta_no_aplicable_B4∘D4c": 4
+ },
+ "aplicables_por_regla": {
+  "A3": 163,
+  "C2": 1726,
+  "D3": 1320,
+  "D4h": 484,
+  "D6": 1072,
+  "A2": 223,
+  "C3": 293,
+  "D1": 679,
+  "D1c": 243,
+  "A2∘D1": 190,
+  "C2∘D1": 361,
+  "C3∘D1": 235,
+  "A2∘D1c": 169,
+  "C2∘D1c": 111,
+  "C3∘D1c": 200,
+  "C1": 5,
+  "B2": 70,
+  "D7": 541,
+  "B2∘D1": 45,
+  "B2∘D1c": 31,
+  "A3∘D1": 148,
+  "A3∘D1c": 28,
+  "B3": 212,
+  "D8": 292,
+  "B3∘D1": 203,
+  "C2∘D8": 152,
+  "B1": 47,
+  "A1": 270,
+  "A1∘D1": 257,
+  "B3∘D8": 115,
+  "A1∘D8": 132,
+  "A1∘D4h": 212,
+  "A3∘D8": 116,
+  "B1∘D4h": 16,
+  "B4": 32,
+  "D4c": 36,
+  "B4∘D4c": 32,
+  "D2": 54,
+  "B3∘D1c": 26,
+  "A2∘D8": 32,
+  "C3∘D8": 49,
+  "B1∘D1": 4,
+  "D5": 15,
+  "B2∘D8": 17
+ },
+ "origenes_con_algun_candidato": 2818,
+ "candidatos": 10658,
+ "candidatos_por_etiqueta": {
+  "inadecuada": 5922,
+  "adecuada": 4736
+ },
+ "candidatos_por_fuente_y_familia": {
+  "FormalMATH-Lite|A": 401,
+  "FormalMATH-Lite|B": 162,
+  "FormalMATH-Lite|C": 552,
+  "FormalMATH-Lite|D": 783,
+  "formal_conjectures|A": 1539,
+  "formal_conjectures|B": 688,
+  "formal_conjectures|C": 2580,
+  "formal_conjectures|D": 3953
+ },
+ "tokens_por_regla": {
+  "A1": {
+   "n": 270,
+   "mediana": 8.0,
+   "media": 9.66,
+   "bins": {
+    "1-4": 0,
+    "5-8": 145,
+    "9-14": 109,
+    "15-24": 13,
+    "25+": 3
+   }
+  },
+  "A1∘D1": {
+   "n": 257,
+   "mediana": 8,
+   "media": 9.95,
+   "bins": {
+    "1-4": 0,
+    "5-8": 135,
+    "9-14": 100,
+    "15-24": 18,
+    "25+": 4
+   }
+  },
+  "A1∘D4h": {
+   "n": 212,
+   "mediana": 9.0,
+   "media": 12.82,
+   "bins": {
+    "1-4": 0,
+    "5-8": 81,
+    "9-14": 89,
+    "15-24": 22,
+    "25+": 20
+   }
+  },
+  "A1∘D8": {
+   "n": 132,
+   "mediana": 8.0,
+   "media": 8.73,
+   "bins": {
+    "1-4": 0,
+    "5-8": 93,
+    "9-14": 38,
+    "15-24": 1,
+    "25+": 0
+   }
+  },
+  "A2": {
+   "n": 223,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 223,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "A2∘D1": {
+   "n": 190,
+   "mediana": 6.0,
+   "media": 8.47,
+   "bins": {
+    "1-4": 17,
+    "5-8": 116,
+    "9-14": 32,
+    "15-24": 25,
+    "25+": 0
+   }
+  },
+  "A2∘D1c": {
+   "n": 169,
+   "mediana": 8,
+   "media": 11.01,
+   "bins": {
+    "1-4": 23,
+    "5-8": 64,
+    "9-14": 40,
+    "15-24": 38,
+    "25+": 4
+   }
+  },
+  "A2∘D8": {
+   "n": 32,
+   "mediana": 3.0,
+   "media": 3,
+   "bins": {
+    "1-4": 32,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "A3": {
+   "n": 163,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 163,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "A3∘D1": {
+   "n": 148,
+   "mediana": 4.0,
+   "media": 4.87,
+   "bins": {
+    "1-4": 110,
+    "5-8": 32,
+    "9-14": 3,
+    "15-24": 2,
+    "25+": 1
+   }
+  },
+  "A3∘D1c": {
+   "n": 28,
+   "mediana": 11.0,
+   "media": 13.57,
+   "bins": {
+    "1-4": 0,
+    "5-8": 13,
+    "9-14": 5,
+    "15-24": 7,
+    "25+": 3
+   }
+  },
+  "A3∘D8": {
+   "n": 116,
+   "mediana": 1.0,
+   "media": 1.39,
+   "bins": {
+    "1-4": 116,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B1": {
+   "n": 47,
+   "mediana": 9,
+   "media": 9.06,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 47,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B1∘D1": {
+   "n": 4,
+   "mediana": 13.0,
+   "media": 13.5,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 3,
+    "15-24": 1,
+    "25+": 0
+   }
+  },
+  "B1∘D4h": {
+   "n": 16,
+   "mediana": 26.0,
+   "media": 32.19,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 2,
+    "25+": 14
+   }
+  },
+  "B2": {
+   "n": 70,
+   "mediana": 1.0,
+   "media": 1,
+   "bins": {
+    "1-4": 70,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B2∘D1": {
+   "n": 45,
+   "mediana": 5,
+   "media": 8.02,
+   "bins": {
+    "1-4": 2,
+    "5-8": 29,
+    "9-14": 8,
+    "15-24": 6,
+    "25+": 0
+   }
+  },
+  "B2∘D1c": {
+   "n": 31,
+   "mediana": 10,
+   "media": 10.65,
+   "bins": {
+    "1-4": 3,
+    "5-8": 12,
+    "9-14": 8,
+    "15-24": 8,
+    "25+": 0
+   }
+  },
+  "B2∘D8": {
+   "n": 17,
+   "mediana": 3,
+   "media": 3.12,
+   "bins": {
+    "1-4": 17,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B3": {
+   "n": 212,
+   "mediana": 1.0,
+   "media": 1,
+   "bins": {
+    "1-4": 212,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B3∘D1": {
+   "n": 203,
+   "mediana": 4,
+   "media": 4.51,
+   "bins": {
+    "1-4": 163,
+    "5-8": 36,
+    "9-14": 3,
+    "15-24": 1,
+    "25+": 0
+   }
+  },
+  "B3∘D1c": {
+   "n": 26,
+   "mediana": 11.0,
+   "media": 13.92,
+   "bins": {
+    "1-4": 0,
+    "5-8": 11,
+    "9-14": 5,
+    "15-24": 7,
+    "25+": 3
+   }
+  },
+  "B3∘D8": {
+   "n": 115,
+   "mediana": 1,
+   "media": 1.51,
+   "bins": {
+    "1-4": 115,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B4": {
+   "n": 32,
+   "mediana": 13.5,
+   "media": 16.53,
+   "bins": {
+    "1-4": 0,
+    "5-8": 8,
+    "9-14": 11,
+    "15-24": 6,
+    "25+": 7
+   }
+  },
+  "B4∘D4c": {
+   "n": 32,
+   "mediana": 12.0,
+   "media": 16.16,
+   "bins": {
+    "1-4": 0,
+    "5-8": 8,
+    "9-14": 12,
+    "15-24": 5,
+    "25+": 7
+   }
+  },
+  "C1": {
+   "n": 5,
+   "mediana": 6,
+   "media": 7.6,
+   "bins": {
+    "1-4": 0,
+    "5-8": 3,
+    "9-14": 2,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "C2": {
+   "n": 1726,
+   "mediana": 1.0,
+   "media": 1.03,
+   "bins": {
+    "1-4": 1726,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "C2∘D1": {
+   "n": 361,
+   "mediana": 5,
+   "media": 6.96,
+   "bins": {
+    "1-4": 2,
+    "5-8": 297,
+    "9-14": 32,
+    "15-24": 28,
+    "25+": 2
+   }
+  },
+  "C2∘D1c": {
+   "n": 111,
+   "mediana": 12,
+   "media": 13.38,
+   "bins": {
+    "1-4": 0,
+    "5-8": 38,
+    "9-14": 29,
+    "15-24": 37,
+    "25+": 7
+   }
+  },
+  "C2∘D8": {
+   "n": 152,
+   "mediana": 3.0,
+   "media": 2.78,
+   "bins": {
+    "1-4": 151,
+    "5-8": 1,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "C3": {
+   "n": 293,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 293,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "C3∘D1": {
+   "n": 235,
+   "mediana": 6,
+   "media": 8.37,
+   "bins": {
+    "1-4": 21,
+    "5-8": 143,
+    "9-14": 40,
+    "15-24": 31,
+    "25+": 0
+   }
+  },
+  "C3∘D1c": {
+   "n": 200,
+   "mediana": 8.0,
+   "media": 10.85,
+   "bins": {
+    "1-4": 28,
+    "5-8": 75,
+    "9-14": 48,
+    "15-24": 45,
+    "25+": 4
+   }
+  },
+  "C3∘D8": {
+   "n": 49,
+   "mediana": 3,
+   "media": 3.04,
+   "bins": {
+    "1-4": 49,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D1": {
+   "n": 679,
+   "mediana": 4,
+   "media": 5.82,
+   "bins": {
+    "1-4": 457,
+    "5-8": 135,
+    "9-14": 53,
+    "15-24": 34,
+    "25+": 0
+   }
+  },
+  "D1c": {
+   "n": 243,
+   "mediana": 8,
+   "media": 10.35,
+   "bins": {
+    "1-4": 28,
+    "5-8": 106,
+    "9-14": 59,
+    "15-24": 46,
+    "25+": 4
+   }
+  },
+  "D2": {
+   "n": 54,
+   "mediana": 5.0,
+   "media": 5.19,
+   "bins": {
+    "1-4": 1,
+    "5-8": 51,
+    "9-14": 2,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D3": {
+   "n": 1320,
+   "mediana": 3.0,
+   "media": 3.37,
+   "bins": {
+    "1-4": 1116,
+    "5-8": 175,
+    "9-14": 22,
+    "15-24": 7,
+    "25+": 0
+   }
+  },
+  "D4c": {
+   "n": 36,
+   "mediana": 23.0,
+   "media": 28.11,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 9,
+    "15-24": 11,
+    "25+": 16
+   }
+  },
+  "D4h": {
+   "n": 484,
+   "mediana": 18.0,
+   "media": 21.16,
+   "bins": {
+    "1-4": 20,
+    "5-8": 5,
+    "9-14": 52,
+    "15-24": 304,
+    "25+": 103
+   }
+  },
+  "D5": {
+   "n": 15,
+   "mediana": 9,
+   "media": 9.6,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 15,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D6": {
+   "n": 1072,
+   "mediana": 1.0,
+   "media": 1.06,
+   "bins": {
+    "1-4": 1070,
+    "5-8": 2,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D7": {
+   "n": 541,
+   "mediana": 7,
+   "media": 7.7,
+   "bins": {
+    "1-4": 1,
+    "5-8": 472,
+    "9-14": 43,
+    "15-24": 24,
+    "25+": 1
+   }
+  },
+  "D8": {
+   "n": 292,
+   "mediana": 2.0,
+   "media": 2.02,
+   "bins": {
+    "1-4": 292,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  }
+ },
+ "huellas_por_regla": {
+  "A1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A1∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A1∘D4h": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A1∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.023
+  },
+  "A2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A2∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A2∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A2∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.375
+  },
+  "A3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A3∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A3∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A3∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.405
+  },
+  "B1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.809
+  },
+  "B1∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 1.0
+  },
+  "B1∘D4h": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.938
+  },
+  "B2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B2∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B2∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B2∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.412
+  },
+  "B3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B3∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B3∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B3∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.296
+  },
+  "B4": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B4∘D4c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.76
+  },
+  "C2∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.814
+  },
+  "C2∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.865
+  },
+  "C2∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.671
+  },
+  "C3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C3∘D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C3∘D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C3∘D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.388
+  },
+  "D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.981,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D3": {
+   "subindice_o_prima_nuevo": 1.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D4c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D4h": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D5": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D6": {
+   "subindice_o_prima_nuevo": 1.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D7": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 1.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.366
+  }
+ },
+ "version": 2,
+ "excluidas_de_pares": [
+  "A1",
+  "A2",
+  "A3",
+  "B1",
+  "B2",
+  "B3",
+  "B4",
+  "C1",
+  "C2",
+  "C3",
+  "D2",
+  "D3",
+  "D6",
+  "D7"
+ ],
+ "intervalos_tokens": [
+  "1-4",
+  "5-8",
+  "9-14",
+  "15-24",
+  "25+"
+ ],
+ "archivos_con_candidato": 1445,
+ "tokens_infieles": {
+  "n": 5922,
+  "mediana": 3.0,
+  "media": 4.99,
+  "bins": {
+   "1-4": 3536,
+   "5-8": 1340,
+   "9-14": 664,
+   "15-24": 303,
+   "25+": 79
+  }
+ },
+ "tokens_fieles": {
+  "n": 4736,
+  "mediana": 4.0,
+  "media": 6.01,
+  "bins": {
+   "1-4": 2985,
+   "5-8": 946,
+   "9-14": 255,
+   "15-24": 426,
+   "25+": 124
+  }
+ },
+ "emparejamiento_provisional": {
+  "nota": "Antes de certificar. El emparejamiento definitivo se rehace solo con candidatos certificados.",
+  "pares": 1111,
+  "origenes_con_par": 618,
+  "pares_por_familia_infiel": {
+   "C": 388,
+   "A": 488,
+   "B": 235
+  },
+  "pares_por_regla_infiel": {
+   "C2∘D8": 51,
+   "C2∘D1": 142,
+   "A1∘D8": 38,
+   "A3∘D1": 59,
+   "B1∘D4h": 15,
+   "B3∘D1": 96,
+   "A1∘D4h": 119,
+   "B3∘D8": 64,
+   "A1∘D1": 79,
+   "C3∘D1c": 69,
+   "A3∘D8": 53,
+   "B4∘D4c": 27,
+   "C3∘D1": 79,
+   "B2∘D1": 16,
+   "A2∘D1": 63,
+   "A2∘D1c": 70,
+   "C2∘D1c": 32,
+   "B2∘D1c": 7,
+   "B3∘D1c": 7,
+   "C3∘D8": 15,
+   "A2∘D8": 4,
+   "B1∘D1": 2,
+   "A3∘D1c": 3,
+   "B2∘D8": 1
+  },
+  "pares_por_regla_fiel": {
+   "D8": 226,
+   "D1": 536,
+   "D4h": 134,
+   "D1c": 188,
+   "D4c": 27
+  },
+  "misma_zona": 953,
+  "mismo_objeto": 1111,
+  "combinaciones": {
+   "C2∘D1~D1": 142,
+   "A1∘D4h~D4h": 119,
+   "B3∘D1~D1": 96,
+   "A1∘D1~D1": 79,
+   "C3∘D1~D1": 79,
+   "A2∘D1c~D1c": 70,
+   "C3∘D1c~D1c": 69,
+   "B3∘D8~D8": 64,
+   "A2∘D1~D1": 63,
+   "A3∘D1~D1": 59,
+   "A3∘D8~D8": 53,
+   "C2∘D8~D8": 51,
+   "A1∘D8~D8": 38,
+   "C2∘D1c~D1c": 32,
+   "B4∘D4c~D4c": 27,
+   "B2∘D1~D1": 16,
+   "B1∘D4h~D4h": 15,
+   "C3∘D8~D8": 15,
+   "B2∘D1c~D1c": 7,
+   "B3∘D1c~D1c": 7,
+   "A2∘D8~D8": 4,
+   "A3∘D1c~D1c": 3,
+   "B1∘D1~D1": 2,
+   "B2∘D8~D8": 1
+  },
+  "tokens_infiel": {
+   "n": 1111,
+   "mediana": 6,
+   "media": 8.25,
+   "bins": {
+    "1-4": 351,
+    "5-8": 415,
+    "9-14": 207,
+    "15-24": 99,
+    "25+": 39
+   }
+  },
+  "tokens_fiel": {
+   "n": 1111,
+   "mediana": 4,
+   "media": 8.13,
+   "bins": {
+    "1-4": 608,
+    "5-8": 177,
+    "9-14": 117,
+    "15-24": 176,
+    "25+": 33
+   }
+  },
+  "delta_abs_media": 2.141,
+  "pares_compuestos": 1111,
+  "archivos_con_par": 431,
+  "pares_por_fuente": {
+   "FormalMATH-Lite": 198,
+   "formal_conjectures": 913
+  }
+ },
+ "tokenizador": "Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c",
+ "sha256_candidatos": "f66e114cf33fed927ba8fa9b53092b0a615d2752a64d8a99b78a571663e8cecd"
+}

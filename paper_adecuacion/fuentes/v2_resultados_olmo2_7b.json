@@ -1,0 +1,229 @@
+{
+ "modelo": "allenai/OLMo-2-1124-7B-Instruct",
+ "revision": "470b1fba1ae01581f270116362ee4aa1b97f4c84",
+ "nombre": "olmo2_7b",
+ "fecha": "2026-11-05T00:06-05:00",
+ "prerregistro": "probes/prerregistro_v2.md",
+ "n": 450,
+ "n_pos": 250,
+ "n_capas_mas_embeddings": 33,
+ "capa_fija_lectura_ii": 21,
+ "n_perm": 1000,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "n_boot": 2000,
+ "lecturas": {
+  "i_ultimo_cv": {
+   "auroc_completo": 0.7375600000000001,
+   "ic_completo": [
+    0.6933724743118578,
+    0.7806270376884422
+   ],
+   "auroc_solo_lean": 0.7051999999999999,
+   "ic_solo_lean": [
+    0.6566390759768994,
+    0.7545534447236181
+   ],
+   "delta": 0.032360000000000166,
+   "ic_delta": [
+    -0.011488544554455273,
+    0.0749956005025126
+   ],
+   "de_bootstrap_delta": 0.02204436420912741,
+   "auroc_solo_nl": 0.6597,
+   "apilado": 0.70552,
+   "completo_menos_apilado": 0.03204000000000007,
+   "ic_completo_menos_apilado": [
+    -0.006574626865671579,
+    0.06863766582914554
+   ],
+   "apilado_ic_sobre_0": false,
+   "perm": {
+    "n": 0,
+    "observado": 0.032359999999999944,
+    "p": null,
+    "nulo_media": null,
+    "nulo_p95": null,
+    "nulo_max": null
+   },
+   "capas_elegidas": {
+    "completo": [
+     14,
+     29,
+     30,
+     31,
+     28,
+     24,
+     30,
+     28,
+     23,
+     32,
+     11,
+     23,
+     14,
+     29,
+     30,
+     32,
+     26,
+     29,
+     30,
+     26,
+     7,
+     28,
+     30,
+     24,
+     29
+    ],
+    "solo_lean": [
+     31,
+     5,
+     7,
+     23,
+     16,
+     13,
+     29,
+     5,
+     16,
+     7,
+     8,
+     16,
+     30,
+     16,
+     14,
+     31,
+     5,
+     7,
+     5,
+     5,
+     5,
+     31,
+     22,
+     7,
+     5
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.04066666666666685,
+    "ic": [
+     -0.0035673076923075807,
+     0.08240538461538462
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  },
+  "ii_media_lean_capa_fija": {
+   "auroc_completo": 0.72386,
+   "ic_completo": [
+    0.6774083805970148,
+    0.7705984924623115
+   ],
+   "auroc_solo_lean": 0.67946,
+   "ic_solo_lean": [
+    0.6302511937798445,
+    0.7279434801980198
+   ],
+   "delta": 0.044399999999999995,
+   "ic_delta": [
+    0.008599000000000051,
+    0.07886588914722878
+   ],
+   "de_bootstrap_delta": 0.01792948450330645,
+   "auroc_solo_nl": 0.66,
+   "apilado": 0.6749200000000001,
+   "completo_menos_apilado": 0.04893999999999987,
+   "ic_completo_menos_apilado": [
+    0.01410000000000022,
+    0.08306783919597974
+   ],
+   "apilado_ic_sobre_0": true,
+   "perm": {
+    "n": 1000,
+    "observado": 0.044399999999999995,
+    "p": 0.08391608391608392,
+    "nulo_media": -0.0002480200000000002,
+    "nulo_p95": 0.05408999999999997,
+    "nulo_max": 0.11871999999999994
+   },
+   "capas_elegidas": {
+    "completo": [
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21
+    ],
+    "solo_lean": [
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21,
+     21
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.045923076923076955,
+    "ic": [
+     0.009534838709677163,
+     0.08204027358105356
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  }
+ },
+ "secundario_pyes_completo": {
+  "auroc": 0.47153999999999996,
+  "masa_media": 0.9850680828094482,
+  "interpretable": true
+ },
+ "secundario_superficie_lean": {
+  "auroc": 0.68212
+ },
+ "segundos": 4367
+}

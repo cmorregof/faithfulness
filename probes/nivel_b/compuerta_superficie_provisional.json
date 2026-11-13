@@ -1,0 +1,59 @@
+{
+ "n_pares": 1111,
+ "n_origenes": 618,
+ "n_archivos": 431,
+ "umbral": 0.7,
+ "umbral_firma": 0.05,
+ "auroc_pareada_solo_lean": 0.7714401294498382,
+ "auroc_pareada_solo_lean_operadores_enmascarados": 0.6577669902912622,
+ "tipicidad_por_medida": {
+  "bigramas_nuevos": 0.5194174757281553,
+  "bigrama_mas_raro": 0.5169902912621359,
+  "logfrec_media": 0.5699838187702265
+ },
+ "auroc_pareada_tipicidad_no_supervisada": 0.5699838187702265,
+ "exceso_firma": 0.20145631067961167,
+ "por_regla_fiel": {
+  "D1": {
+   "n_pares": 536,
+   "auroc_pareada": 0.7863805970149254
+  },
+  "D1c": {
+   "n_pares": 188,
+   "auroc_pareada": 0.8324468085106383
+  },
+  "D4c": {
+   "n_pares": 27,
+   "auroc_pareada": 0.9259259259259259
+  },
+  "D4h": {
+   "n_pares": 134,
+   "auroc_pareada": 0.8208955223880597
+  },
+  "D8": {
+   "n_pares": 226,
+   "auroc_pareada": 0.6393805309734514
+  }
+ },
+ "por_familia_infiel": {
+  "A": {
+   "n_pares": 488,
+   "auroc_pareada": 0.7936893203883495
+  },
+  "B": {
+   "n_pares": 235,
+   "auroc_pareada": 0.7445414847161572
+  },
+  "C": {
+   "n_pares": 388,
+   "auroc_pareada": 0.7439024390243902
+  }
+ },
+ "auroc_pareada_superficie_cruzada_informativa": 0.7342233009708737,
+ "pasa_estricto": false,
+ "pasa_firma": false,
+ "criterio": "estricto",
+ "pasa": false,
+ "candidatos": "probes/nivel_b/candidatos_v2.jsonl",
+ "indice": "(emparejamiento provisional)"
+}

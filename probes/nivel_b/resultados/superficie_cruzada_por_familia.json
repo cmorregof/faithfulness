@@ -1,0 +1,148 @@
+{
+ "rotulo": "EXPLORATORIO, POST HOC: análisis adicional pedido después de ver los resultados",
+ "indice": "datos/pares_indice_principal.jsonl",
+ "carpeta": "../activaciones/nivel_b_qwen3_4b",
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "n_boot": 2000,
+ "semilla_boot": 0,
+ "unidad_bootstrap": "origen",
+ "global_": {
+  "n_pares": 377,
+  "completo": [
+   0.806640625,
+   0.765625,
+   0.84765625
+  ],
+  "cruzada": [
+   0.6884765625,
+   0.6396484375,
+   0.736328125
+  ],
+  "diferencia": [
+   0.1181640625,
+   0.0576171875,
+   0.1767578125
+  ]
+ },
+ "reproduce_global": {
+  "referencia": {
+   "completo": 0.807,
+   "cruzada": 0.688
+  },
+  "ok": true
+ },
+ "subgrupos": {
+  "familia_A": {
+   "n_pares": 142,
+   "n_origenes": 131,
+   "completo": [
+    0.683206106870229,
+    0.6030534351145038,
+    0.7557251908396947
+   ],
+   "cruzada": [
+    0.601145038167939,
+    0.5171278625954199,
+    0.683206106870229
+   ],
+   "diferencia": [
+    0.08206106870229002,
+    -0.03816793893129766,
+    0.19470419847328224
+   ],
+   "ic_entero_sobre_0": false,
+   "frac_pares_infiel_con_mas_numerales_ausentes_del_nl": 0.0
+  },
+  "familia_B": {
+   "n_pares": 136,
+   "n_origenes": 128,
+   "completo": [
+    0.81640625,
+    0.75,
+    0.8828125
+   ],
+   "cruzada": [
+    0.71875,
+    0.64453125,
+    0.7890625
+   ],
+   "diferencia": [
+    0.09765625,
+    0.0,
+    0.1953125
+   ],
+   "ic_entero_sobre_0": false,
+   "frac_pares_infiel_con_mas_numerales_ausentes_del_nl": 0.0
+  },
+  "familia_C": {
+   "n_pares": 99,
+   "n_origenes": 89,
+   "completo": [
+    0.9269662921348315,
+    0.8651685393258427,
+    0.9719101123595506
+   ],
+   "cruzada": [
+    0.8286516853932584,
+    0.7584269662921348,
+    0.8932584269662921
+   ],
+   "diferencia": [
+    0.09831460674157311,
+    0.005617977528089901,
+    0.1882022471910112
+   ],
+   "ic_entero_sobre_0": true,
+   "frac_pares_infiel_con_mas_numerales_ausentes_del_nl": 0.5757575757575758
+  },
+  "C2": {
+   "n_pares": 68,
+   "n_origenes": 63,
+   "completo": [
+    0.9126984126984127,
+    0.8412698412698413,
+    0.9682539682539683
+   ],
+   "cruzada": [
+    0.9325396825396826,
+    0.8887896825396825,
+    0.9722222222222222
+   ],
+   "diferencia": [
+    -0.019841269841269882,
+    -0.10317460317460314,
+    0.05555555555555558
+   ],
+   "ic_entero_sobre_0": false,
+   "frac_pares_infiel_con_mas_numerales_ausentes_del_nl": 0.8382352941176471
+  },
+  "C3": {
+   "n_pares": 31,
+   "n_origenes": 26,
+   "completo": [
+    0.9615384615384616,
+    0.8846153846153846,
+    1.0
+   ],
+   "cruzada": [
+    0.5769230769230769,
+    0.40384615384615385,
+    0.75
+   ],
+   "diferencia": [
+    0.3846153846153847,
+    0.1923076923076923,
+    0.5769230769230769
+   ],
+   "ic_entero_sobre_0": true,
+   "frac_pares_infiel_con_mas_numerales_ausentes_del_nl": 0.0
+  }
+ },
+ "segundos": 312.3
+}

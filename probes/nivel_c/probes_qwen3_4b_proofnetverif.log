@@ -1,0 +1,21 @@
+[1673 s] C1 completo
+/Users/cmorregof/Personal/Proyecto Godel/biblioteca/.venv/lib/python3.13/site-packages/joblib/externals/loky/backend/resource_tracker.py:444: UserWarning: resource_tracker: There appear to be 1 leaked file objects to clean up at shutdown: {'/var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_a8584a2c207d41c2876f870d13835640_4acf6096e97949ceb80693717d3188bb/16558-4747581088-e32097cc66e74188ab0d2ca2a3a0ba48.pkl': 8}
+  warnings.warn(
+/Users/cmorregof/Personal/Proyecto Godel/biblioteca/.venv/lib/python3.13/site-packages/joblib/externals/loky/backend/resource_tracker.py:444: UserWarning: resource_tracker: There appear to be 12 leaked semlock objects to clean up at shutdown: {'/loky-16558-wcg2j07d': 1, '/loky-16558-1cuf_olo': 1, '/loky-16558-7ja544my': 1, '/loky-16558-q22m4rkb': 1, '/loky-16558-i86ca437': 1, '/loky-16558-xtdtduq5': 1, '/loky-16558-0rmuqrof': 1, '/loky-16558-bqxeltic': 1, '/loky-16558-xdyxc025': 1, '/loky-16558-bns77i61': 1, '/loky-16558-3q6qwds6': 1, '/loky-16558-xqzm4y8u': 1}
+  warnings.warn(
+/Users/cmorregof/Personal/Proyecto Godel/biblioteca/.venv/lib/python3.13/site-packages/joblib/externals/loky/backend/resource_tracker.py:444: UserWarning: resource_tracker: There appear to be 3 leaked folder objects to clean up at shutdown: {'/var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_a8584a2c207d41c2876f870d13835640_f1cd92432044470d83385da0ce3b4c23': 1, '/var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_1e0538e7f6274977b7d953b1c15cc854_e1cf9659172744abb0d091a6d5a0b689': 1, '/var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_a8584a2c207d41c2876f870d13835640_4acf6096e97949ceb80693717d3188bb': 1}
+  warnings.warn(
+/Users/cmorregof/Personal/Proyecto Godel/biblioteca/.venv/lib/python3.13/site-packages/joblib/externals/loky/backend/resource_tracker.py:468: UserWarning: resource_tracker: /var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_a8584a2c207d41c2876f870d13835640_f1cd92432044470d83385da0ce3b4c23: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn('resource_tracker: %s: %r' % (name, e))
+/Users/cmorregof/Personal/Proyecto Godel/biblioteca/.venv/lib/python3.13/site-packages/joblib/externals/loky/backend/resource_tracker.py:468: UserWarning: resource_tracker: /var/folders/ww/q6l2z3k161x650ysv5fjq86w0000gn/T/joblib_memmapping_folder_16558_1e0538e7f6274977b7d953b1c15cc854_e1cf9659172744abb0d091a6d5a0b689: FileNotFoundError(2, 'No such file or directory')
+  warnings.warn('resource_tracker: %s: %r' % (name, e))
+[1311 s] C1 completo
+[4104 s] C1 solo_lean
+[5238 s] C1 solo_nl
+[6776 s] C1 nl_desemparejado
+[8942 s] C1 media_lean
+[8976 s] C1 superficie
+[29643 s] C1 permutaciones
+[29672 s] C2 completo
+[29703 s] C2 solo_lean
+[29727 s] listo: /Users/cmorregof/Personal/Proyecto Godel/probes/nivel_c/resultados/resultados_c_qwen3_4b.json

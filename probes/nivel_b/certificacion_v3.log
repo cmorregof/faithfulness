@@ -1,0 +1,17 @@
+inicio: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release); 5651 candidatos en 583 archivos; 1 procesos; salida probes/nivel_b/certificacion
+inicio: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release); 5106 candidatos en 534 archivos; 3 procesos; salida probes/nivel_b/certificacion
+ABORTADO tras 23/534 archivos guardados: probes/nivel_b/certificacion/lean/FormalMATH_lite_324_.lean: no se leyó la marca FIN_CERTIFICAR (1 mensajes de Lean; últimos: error@1: object file '/Users/cmorregof/Personal/Proyecto Godel/corpus_compilar/corpus_lean/.lake/packages/mathlib/.lake/build/lib)
+inicio: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release); 4882 candidatos en 511 archivos; 3 procesos; salida probes/nivel_b/certificacion
+avance: 50/511 archivos; 625 s
+avance: 100/511 archivos; 1034 s
+avance: 150/511 archivos; 1459 s
+avance: 200/511 archivos; 1819 s
+avance: 250/511 archivos; 2234 s
+avance: 300/511 archivos; 2616 s
+avance: 350/511 archivos; 3016 s
+avance: 400/511 archivos; 3533 s
+ABORTADO tras 426/511 archivos guardados: probes/nivel_b/certificacion/lean/formal_conjectures_Wikipedia_CarmichaelTotient_CarmichaelTotient.carchimaelTotient_bound.lean: no se leyó la marca FIN_CERTIFICAR (0 mensajes de Lean; últimos: ninguno)
+inicio: Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release); 743 candidatos en 85 archivos; 3 procesos; salida probes/nivel_b/certificacion
+avance: 50/85 archivos; 292 s
+avance: 85/85 archivos; 506 s
+fin: {'sin_decidir': 1877, 'no_equivalente': 1560, 'equivalente': 2156, 'equivalente_accidental': 49, 'no_elabora': 9}

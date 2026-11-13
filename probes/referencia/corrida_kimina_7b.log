@@ -1,0 +1,20 @@
+principal
+  450/ultimo/completo: 185 s
+  450/ultimo/solo_lean: 290 s
+  450/ultimo/solo_nl: 399 s
+  450/ultimo/nl_desemparejado: 486 s
+  superficie: 524 s
+permutaciones
+  permutaciones: 8599 s
+500_ultimo
+  500_ultimo/ultimo/completo: 8684 s
+  500_ultimo/ultimo/solo_lean: 8788 s
+450_media
+  450_media/media/completo: 8880 s
+  450_media/media/solo_lean: 8964 s
+  450_media/media/solo_nl: 9039 s
+  450_media/media/nl_desemparejado: 9112 s
+450_sin_dudosas_ultimo
+  450_sin_dudosas_ultimo/ultimo/completo: 9216 s
+  450_sin_dudosas_ultimo/ultimo/solo_lean: 9315 s
+listo en 9327 s: /Users/cmorregof/Personal/Proyecto Godel/probes/referencia/resultados_referencia_kimina_7b.json

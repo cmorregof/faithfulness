@@ -1,0 +1,10 @@
+{
+ "nombre": "qwen3_4b_principal",
+ "auroc_p_completo_reproducido": 0.806640625,
+ "originales": 256,
+ "originales_con_puntaje": 256,
+ "p_original_mayor": 0.51953125,
+ "p_original_mayor_que_infiel": 0.80859375,
+ "nota": "≈ 0,5 frente a la fiel si «haber sido editado» no es la señal; desviación del 6 nov (emparejamiento por archivo)",
+ "segundos": 1297.4
+}

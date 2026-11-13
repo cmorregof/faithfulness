@@ -1,0 +1,57 @@
+{
+  "modelo": "qwen3_4b",
+  "n_pares": 377,
+  "n_origenes": 256,
+  "k_azar": 20,
+  "auroc_pareada_pyes": {
+    "base": 0.8379,
+    "sonda": 0.8428,
+    "solo_lean": 0.8486
+  },
+  "auroc_pareada_pyes_ic": {
+    "base": [
+      0.8008,
+      0.874
+    ],
+    "sonda": [
+      0.8047,
+      0.8789
+    ],
+    "solo_lean": [
+      0.8145,
+      0.8828
+    ]
+  },
+  "auroc_pareada_pyes_azar": {
+    "media": 0.8338,
+    "min": 0.8125,
+    "max": 0.8525
+  },
+  "caida_sonda": [
+    -0.0049,
+    -0.0293,
+    0.0196
+  ],
+  "caida_solo_lean": [
+    -0.0107,
+    -0.041,
+    0.0196
+  ],
+  "caida_azar": {
+    "media": 0.0041,
+    "max": 0.0254
+  },
+  "sonda_menos_media_azar": [
+    -0.0089,
+    -0.0261,
+    0.0082
+  ],
+  "sonda_menos_solo_lean": [
+    0.0059,
+    -0.0186,
+    0.0293
+  ],
+  "p_frente_a_azar": 0.8571,
+  "sonda_mayor_que_todas_las_de_azar": false,
+  "lectura": "no se establece que la ablación de la dirección de la sonda cambie P(Yes) más que una dirección al azar"
+}

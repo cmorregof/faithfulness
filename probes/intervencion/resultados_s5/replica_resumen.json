@@ -1,0 +1,138 @@
+{
+  "regla_sha256": "e5cfbdc2ab9437af3b3e79c8695029a45646495b0797086c33016c30ec2a53dd",
+  "guion_sha256": "8c948cd81e344b83bc198b7bb80a16b16ca31b0ebee5a25fd431028c36595e23",
+  "guion_es_el_de_s5": true,
+  "modelos": [
+    {
+      "modelo": "gemma3_4b",
+      "auroc_base": 0.5898,
+      "auroc_placebo": 0.5811,
+      "auroc_f2": 0.415,
+      "caida_f2": [
+        0.1748,
+        0.125,
+        0.2246
+      ],
+      "caida_azar_media": 0.0599,
+      "caida_azar_max": 0.3535,
+      "caida_menos_media_azar": [
+        0.1149,
+        0.0768,
+        0.1529
+      ],
+      "mayor_que_todas_las_de_azar": false,
+      "margen_firmado_menos_media_azar": [
+        0.0648,
+        0.0503,
+        0.08
+      ],
+      "auroc_f4": 0.3105,
+      "auroc_f8": 0.2236,
+      "caida_pareja": [
+        0.043,
+        -0.0176,
+        0.1074
+      ],
+      "caida_borrar": [
+        0.1094,
+        0.0469,
+        0.169
+      ],
+      "caida_sonda_menos_solo_lean_f2": [
+        0.0488,
+        -0.0029,
+        0.0996
+      ],
+      "criterio_principal_cumplido": false
+    },
+    {
+      "modelo": "olmo2_7b",
+      "auroc_base": 0.7168,
+      "auroc_placebo": 0.7256,
+      "auroc_f2": 0.4316,
+      "caida_f2": [
+        0.2852,
+        0.2422,
+        0.3301
+      ],
+      "caida_azar_media": 0.0155,
+      "caida_azar_max": 0.1084,
+      "caida_menos_media_azar": [
+        0.2697,
+        0.233,
+        0.3089
+      ],
+      "mayor_que_todas_las_de_azar": true,
+      "margen_firmado_menos_media_azar": [
+        0.0997,
+        0.0951,
+        0.1046
+      ],
+      "auroc_f4": 0.2539,
+      "auroc_f8": 0.1289,
+      "caida_pareja": [
+        0.168,
+        0.1133,
+        0.2236
+      ],
+      "caida_borrar": [
+        0.0947,
+        0.0537,
+        0.1367
+      ],
+      "caida_sonda_menos_solo_lean_f2": [
+        0.0586,
+        0.0283,
+        0.0908
+      ],
+      "criterio_principal_cumplido": true
+    },
+    {
+      "modelo": "llama31_8b",
+      "auroc_base": 0.7295,
+      "auroc_placebo": 0.7119,
+      "auroc_f2": 0.623,
+      "caida_f2": [
+        0.1064,
+        0.0635,
+        0.1475
+      ],
+      "caida_azar_media": 0.0041,
+      "caida_azar_max": 0.1201,
+      "caida_menos_media_azar": [
+        0.1024,
+        0.0717,
+        0.1322
+      ],
+      "mayor_que_todas_las_de_azar": false,
+      "margen_firmado_menos_media_azar": [
+        0.0253,
+        0.0209,
+        0.0301
+      ],
+      "auroc_f4": 0.4844,
+      "auroc_f8": 0.3369,
+      "caida_pareja": [
+        0.0596,
+        0.0107,
+        0.1064
+      ],
+      "caida_borrar": [
+        0.04,
+        -0.0049,
+        0.0859
+      ],
+      "caida_sonda_menos_solo_lean_f2": [
+        0.0146,
+        -0.0293,
+        0.0567
+      ],
+      "criterio_principal_cumplido": false
+    }
+  ],
+  "cumplen": [
+    "olmo2_7b"
+  ],
+  "sin_evaluar": [],
+  "frase": "Con el mismo guion y el mismo criterio, fijados antes de correr, el resultado de S5 en Qwen3-4B se repite en 1 de los 3 modelos evaluados (OLMo-2)."
+}

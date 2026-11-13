@@ -1,0 +1,30 @@
+{
+  "fuente": "https://huggingface.co/datasets/PAug/ProofNetVerif",
+  "revision": "91183e5b12d64374827bf2782db629b5b0f8f319",
+  "licencia": "MIT (ficha de Hugging Face)",
+  "sha256_entrada": {
+    "valid-00000-of-00001.parquet": "d376127a467d92bcf7b42e1410b489695692d76f7af40f04d41042769751b86c",
+    "test-00000-of-00001.parquet": "30287a8af51fc7bea2bec4fbfab6ae82ef5cf0de9f4c49b25f6ecfba4e7bb4a0"
+  },
+  "n_filas": 3752,
+  "n_por_split": {
+    "valid": 2300,
+    "test": 1452
+  },
+  "n_positivas": 1142,
+  "n_grupos": 361,
+  "grupos_por_tipo": {
+    "neg": 127,
+    "mixto": 217,
+    "pos": 17
+  },
+  "filas_en_grupos_mixtos": 2695,
+  "ids_proofnet_con_mas_de_un_grupo": 0,
+  "grupos_por_id_proofnet_iguales": true,
+  "solape_de_grupos_con_criticleanbench": 0,
+  "compila": "null en todas las filas: ProofNetVerif no trae información de compilación",
+  "sha256_salida": {
+    "proofnetverif.parquet": "2b912a38c4ba63690d60d8a1c084b828b49b8ab02db6e348cc98b7677861d695",
+    "proofnetverif_manifiesto.jsonl": "1971da0913bd4b23c01fb212f34ffd8c19b9f9dc53fee571f1f39c92cfd65743"
+  }
+}

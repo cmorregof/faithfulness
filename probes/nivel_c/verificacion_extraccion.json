@@ -1,0 +1,67 @@
+{
+  "datos": "probes/nivel_c/datos_proc/proofnetverif.parquet",
+  "n_filas": 3752,
+  "positivas": 1142,
+  "negativas": 2610,
+  "plantilla_chat": true,
+  "ids_si_no": {
+    "Yes": 9454,
+    "No": 2753,
+    " Yes": 7414,
+    " No": 2308
+  },
+  "tokens_por_variante": {
+    "completo": {
+      "mediana": 154.0,
+      "media": 159.8,
+      "max": 385
+    },
+    "solo_lean": {
+      "mediana": 107.0,
+      "media": 110.4,
+      "max": 263
+    },
+    "solo_nl": {
+      "mediana": 68.0,
+      "media": 72.4,
+      "max": 185
+    },
+    "nl_desemparejado": {
+      "mediana": 154.0,
+      "media": 159.8,
+      "max": 362
+    }
+  },
+  "tokens_bloque_promediado": {
+    "completo": {
+      "min": 24,
+      "mediana": 72.0
+    },
+    "solo_lean": {
+      "min": 24,
+      "mediana": 72.0
+    },
+    "solo_nl": {
+      "min": 7,
+      "mediana": 40.0
+    },
+    "nl_desemparejado": {
+      "min": 24,
+      "mediana": 72.0
+    }
+  },
+  "desarreglo": {
+    "permutacion": true,
+    "puntos_fijos": 0,
+    "mismo_grupo": 0,
+    "misma_etiqueta_que_donante": 2186
+  },
+  "prompt_identico_a_extraer_py_en_criticleanbench": true,
+  "pases": 15008,
+  "estimado_horas": {
+    "a_s_por_pase_ref": 3.13,
+    "escalado_por_tokens": 1.71,
+    "s_por_pase_ref": 0.75,
+    "media_tokens": 125.6
+  }
+}

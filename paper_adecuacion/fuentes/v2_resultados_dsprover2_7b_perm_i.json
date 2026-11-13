@@ -1,0 +1,229 @@
+{
+ "modelo": "deepseek-ai/DeepSeek-Prover-V2-7B",
+ "revision": "a8d9e14432b2e8dd9df2a4d4e70f1ba9bc8d9b7b",
+ "nombre": "dsprover2_7b_perm_i",
+ "fecha": "2026-11-05T08:37-05:00",
+ "prerregistro": "probes/prerregistro_v2.md",
+ "n": 450,
+ "n_pos": 250,
+ "n_capas_mas_embeddings": 31,
+ "capa_fija_lectura_ii": 20,
+ "n_perm": 0,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "n_boot": 2000,
+ "lecturas": {
+  "i_ultimo_cv": {
+   "auroc_completo": 0.6838599999999999,
+   "ic_completo": [
+    0.6366778316582913,
+    0.7312334999999999
+   ],
+   "auroc_solo_lean": 0.62744,
+   "ic_solo_lean": [
+    0.5787424246231156,
+    0.6767980198019802
+   ],
+   "delta": 0.056419999999999915,
+   "ic_delta": [
+    0.008358462686567088,
+    0.1041819095477387
+   ],
+   "de_bootstrap_delta": 0.02429393195951978,
+   "auroc_solo_nl": 0.61464,
+   "apilado": 0.64056,
+   "completo_menos_apilado": 0.043299999999999894,
+   "ic_completo_menos_apilado": [
+    0.00328455248509926,
+    0.08453162311557787
+   ],
+   "apilado_ic_sobre_0": true,
+   "perm": {
+    "n": 1000,
+    "observado": 0.056420000000000026,
+    "p": 0.08391608391608392,
+    "nulo_media": -0.0003833800000000012,
+    "nulo_p95": 0.06586599999999995,
+    "nulo_max": 0.15714000000000006
+   },
+   "capas_elegidas": {
+    "completo": [
+     6,
+     7,
+     30,
+     16,
+     18,
+     4,
+     18,
+     4,
+     18,
+     29,
+     18,
+     8,
+     8,
+     17,
+     7,
+     18,
+     16,
+     5,
+     17,
+     30,
+     30,
+     16,
+     19,
+     18,
+     30
+    ],
+    "solo_lean": [
+     2,
+     7,
+     12,
+     4,
+     5,
+     11,
+     2,
+     7,
+     10,
+     4,
+     2,
+     4,
+     8,
+     30,
+     8,
+     29,
+     24,
+     4,
+     30,
+     10,
+     2,
+     4,
+     1,
+     6,
+     6
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.05576923076923079,
+    "ic": [
+     0.0039679487179485745,
+     0.10503461538461517
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  },
+  "ii_media_lean_capa_fija": {
+   "auroc_completo": 0.70366,
+   "ic_completo": [
+    0.6554076582914573,
+    0.7533841782178216
+   ],
+   "auroc_solo_lean": 0.67828,
+   "ic_solo_lean": [
+    0.6274098768844221,
+    0.727056783919598
+   ],
+   "delta": 0.025379999999999958,
+   "ic_delta": [
+    -0.008180972636815883,
+    0.061167839195979797
+   ],
+   "de_bootstrap_delta": 0.01756587660925324,
+   "auroc_solo_nl": 0.6497200000000001,
+   "apilado": 0.6704599999999998,
+   "completo_menos_apilado": 0.03320000000000012,
+   "ic_completo_menos_apilado": [
+    -0.0014284572864322331,
+    0.06654976732673266
+   ],
+   "apilado_ic_sobre_0": false,
+   "perm": {
+    "n": 0,
+    "observado": 0.025379999999999958,
+    "p": null,
+    "nulo_media": null,
+    "nulo_p95": null,
+    "nulo_max": null
+   },
+   "capas_elegidas": {
+    "completo": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ],
+    "solo_lean": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.030487179487179605,
+    "ic": [
+     -0.006254416873449148,
+     0.06504840764331209
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  }
+ },
+ "secundario_pyes_completo": {
+  "auroc": 0.5446500000000001,
+  "masa_media": 0.001545790582895279,
+  "interpretable": false
+ },
+ "secundario_superficie_lean": {
+  "auroc": 0.68212
+ },
+ "segundos": 29412
+}

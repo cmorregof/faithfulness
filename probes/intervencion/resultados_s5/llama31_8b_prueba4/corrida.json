@@ -1,0 +1,23 @@
+{
+  "filas_hechas": 8,
+  "condiciones": 9,
+  "lote": 4,
+  "segundos_por_fila": 5.51,
+  "base_vs_pyes_guardado_max_abs": 0.01493,
+  "coordenada_viva_vs_guardada_capa_fija_en_h": {
+    "mediana": 0.0097,
+    "maximo": 0.0758
+  },
+  "ruido_de_los_ganchos_placebo_vs_base": 0.0469,
+  "movimiento_medio_del_margen_logit": {
+    "base": 0.0,
+    "placebo": 0.0469,
+    "desp2_sonda": 0.0625,
+    "desp2_solo_lean": 0.0469,
+    "pareja_sonda": 0.0625,
+    "borrar_sonda": 0.125,
+    "borrar_solo_lean": 0.2031,
+    "desp8_sonda": 0.125,
+    "desp2_azar_00": 0.0312
+  }
+}

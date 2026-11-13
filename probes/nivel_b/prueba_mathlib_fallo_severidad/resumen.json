@@ -1,0 +1,48 @@
+{
+ "lean": "Lean (version 4.34.1, arm64-apple-darwin24.6.0, commit 5045d0056413266e57c625dcd7c365b10e377c52, Release)",
+ "segundos": 14.1,
+ "por_regla_y_estado": {
+  "A3|sin_decidir": 1,
+  "B2|sin_decidir": 1,
+  "D1|sin_decidir": 1,
+  "D2|sin_decidir": 1,
+  "D7|sin_decidir": 1,
+  "D8|sin_decidir": 1
+ },
+ "por_estado": {
+  "sin_decidir": 6
+ },
+ "prueba_mathlib": {
+  "mathlib:ML2::D2": {
+   "obtenido": "sin_decidir",
+   "esperado": "equivalente",
+   "ok": false
+  },
+  "mathlib:ML2::D8": {
+   "obtenido": "sin_decidir",
+   "esperado": "equivalente",
+   "ok": false
+  },
+  "mathlib:ML2::B2": {
+   "obtenido": "sin_decidir",
+   "esperado": "no_equivalente",
+   "ok": false
+  },
+  "mathlib:ML1::D1": {
+   "obtenido": "sin_decidir",
+   "esperado": "equivalente",
+   "ok": false
+  },
+  "mathlib:ML1::D7": {
+   "obtenido": "sin_decidir",
+   "esperado": "equivalente",
+   "ok": false
+  },
+  "mathlib:ML1::A3": {
+   "obtenido": "sin_decidir",
+   "esperado": "no_equivalente",
+   "ok": false
+  }
+ },
+ "prueba_mathlib_ok": false
+}

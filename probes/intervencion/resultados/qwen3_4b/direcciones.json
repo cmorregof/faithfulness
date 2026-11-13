@@ -1,0 +1,21 @@
+{
+  "modelo": "qwen3_4b",
+  "capa_fija": 24,
+  "n_filas": 754,
+  "n_pares": 377,
+  "n_origenes": 256,
+  "k_azar": 20,
+  "coseno_entre_particiones_sonda": [
+    0.7538,
+    0.8186
+  ],
+  "coseno_sonda_solo_lean_por_particion": [
+    0.1585,
+    0.1264,
+    0.1579,
+    0.1907,
+    0.1677
+  ],
+  "coseno_max_abs_sonda_azar": 0.0566,
+  "auroc_pareada_de_la_proyeccion_oof": 0.9258
+}

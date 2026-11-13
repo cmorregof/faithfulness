@@ -1,0 +1,71 @@
+{
+ "fecha": "2026-11-05T06:34-05:00",
+ "fuente": "revision_confirmacion_certificados_opus.md (Opus, xhigh, 5 nov 2026); aplicada por delegación de Carlos («aprueba lo recomendado y sigue»), ANTES de extraer ninguna activación del Nivel B",
+ "sha256_parquet": "fb80e4b2791fb43c96eba3fed4ad863c9773d3092b0064955c3daf54707d0df7",
+ "sha256_pares_indice": "a28ec18f7677defef3311c87a75b14329d0fc540b1c6477be4e8cc56c51674e7",
+ "sha256_resultados_certificacion": "0b57d7ae3e8b93984282a2e6e077b68b86200e0da080dcaafb9e5c550ae1e83b",
+ "excluir_obligatorio": {
+  "motivo": "original FormalMATH no fiel al NL (se excluye también su fila «original»)",
+  "origenes": [
+   "FormalMATH_lite[212]",
+   "FormalMATH_lite[53]",
+   "FormalMATH_lite[287]",
+   "FormalMATH_lite[70]",
+   "FormalMATH_lite[274]",
+   "FormalMATH_lite[31]",
+   "FormalMATH_lite[210]"
+  ],
+  "pares": [
+   23,
+   24,
+   26,
+   27,
+   29,
+   36,
+   50,
+   51,
+   55
+  ]
+ },
+ "excluir_del_principal_reportar_aparte": {
+  "motivo": "«equivalentes de hecho»: la infiel solo añade o quita un caso trivial",
+  "pares": [
+   17,
+   19,
+   23,
+   28,
+   34,
+   35,
+   38,
+   122,
+   147,
+   151,
+   215,
+   216,
+   297,
+   310,
+   312,
+   332,
+   333,
+   338,
+   350,
+   352,
+   367,
+   401,
+   402
+  ]
+ },
+ "sensibilidad": {
+  "motivo": "FM dudosos (FM[385], FM[136], FM[73]) y Erdős 650 (par 203); además, las B3 de caso base trivial (~10, §2.3 de la revisión: identificarlas antes del análisis)",
+  "pares": [
+   4,
+   45,
+   56,
+   203
+  ]
+ },
+ "corregir_verdad_variante": "§4 de la revisión: 7 pares de nivel 1 son variantes falsas; las 4 B4∘D4c (25, 45, 47, 56) son verdaderas si el original lo es",
+ "pares_analisis_principal": 377,
+ "origenes_analisis_principal": 256,
+ "pares_totales": 408
+}

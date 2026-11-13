@@ -1,0 +1,266 @@
+{
+ "nota": "Subconjuntos preespecificados de la regla del Nivel C §4 (se reportan, no deciden); puntajes OOF de probe_c.py; mismo bootstrap estratificado por tipo de grupo dentro de cada subconjunto.",
+ "subconjuntos": {
+  "split=test": {
+   "n": 1452,
+   "n_pos": 510,
+   "completo": 0.838,
+   "solo_lean": 0.679,
+   "delta": 0.159,
+   "ic": [
+    0.105,
+    0.211
+   ]
+  },
+  "split=valid": {
+   "n": 2300,
+   "n_pos": 632,
+   "completo": 0.827,
+   "solo_lean": 0.68,
+   "delta": 0.147,
+   "ic": [
+    0.108,
+    0.188
+   ]
+  },
+  "source=ProofNetVerif/test/Artin": {
+   "n": 108,
+   "n_pos": 59,
+   "completo": 0.832,
+   "solo_lean": 0.607,
+   "delta": 0.224,
+   "ic": [
+    0.076,
+    0.396
+   ]
+  },
+  "source=ProofNetVerif/test/Axler": {
+   "n": 66,
+   "n_pos": 28,
+   "completo": 0.914,
+   "solo_lean": 0.766,
+   "delta": 0.148,
+   "ic": [
+    -0.076,
+    0.44
+   ]
+  },
+  "source=ProofNetVerif/test/Dummit-Foote": {
+   "n": 286,
+   "n_pos": 113,
+   "completo": 0.839,
+   "solo_lean": 0.651,
+   "delta": 0.188,
+   "ic": [
+    0.087,
+    0.298
+   ]
+  },
+  "source=ProofNetVerif/test/Herstein": {
+   "n": 212,
+   "n_pos": 47,
+   "completo": 0.853,
+   "solo_lean": 0.671,
+   "delta": 0.182,
+   "ic": [
+    0.069,
+    0.322
+   ]
+  },
+  "source=ProofNetVerif/test/Ireland-Rosen": {
+   "n": 117,
+   "n_pos": 23,
+   "completo": 0.872,
+   "solo_lean": 0.836,
+   "delta": 0.036,
+   "ic": [
+    -0.114,
+    0.2
+   ]
+  },
+  "source=ProofNetVerif/test/Munkres": {
+   "n": 250,
+   "n_pos": 78,
+   "completo": 0.856,
+   "solo_lean": 0.628,
+   "delta": 0.227,
+   "ic": [
+    0.156,
+    0.307
+   ]
+  },
+  "source=ProofNetVerif/test/Pugh": {
+   "n": 80,
+   "n_pos": 47,
+   "completo": 0.784,
+   "solo_lean": 0.792,
+   "delta": -0.008,
+   "ic": [
+    -0.225,
+    0.151
+   ]
+  },
+  "source=ProofNetVerif/test/Putnam": {
+   "n": 72,
+   "n_pos": 11,
+   "completo": 0.797,
+   "solo_lean": 0.526,
+   "delta": 0.271,
+   "ic": [
+    0.004,
+    0.477
+   ]
+  },
+  "source=ProofNetVerif/test/Rudin": {
+   "n": 226,
+   "n_pos": 95,
+   "completo": 0.782,
+   "solo_lean": 0.625,
+   "delta": 0.157,
+   "ic": [
+    0.057,
+    0.264
+   ]
+  },
+  "source=ProofNetVerif/test/Shakarchi": {
+   "n": 35,
+   "n_pos": 9,
+   "completo": 0.991,
+   "solo_lean": 0.846,
+   "delta": 0.145,
+   "ic": [
+    0.059,
+    0.225
+   ]
+  },
+  "source=ProofNetVerif/valid/Artin": {
+   "n": 250,
+   "n_pos": 77,
+   "completo": 0.68,
+   "solo_lean": 0.545,
+   "delta": 0.136,
+   "ic": [
+    0.042,
+    0.229
+   ]
+  },
+  "source=ProofNetVerif/valid/Axler": {
+   "n": 90,
+   "n_pos": 31,
+   "completo": 0.904,
+   "solo_lean": 0.717,
+   "delta": 0.188,
+   "ic": [
+    0.021,
+    0.37
+   ]
+  },
+  "source=ProofNetVerif/valid/Dummit-Foote": {
+   "n": 400,
+   "n_pos": 122,
+   "completo": 0.901,
+   "solo_lean": 0.691,
+   "delta": 0.21,
+   "ic": [
+    0.132,
+    0.296
+   ]
+  },
+  "source=ProofNetVerif/valid/Herstein": {
+   "n": 276,
+   "n_pos": 77,
+   "completo": 0.846,
+   "solo_lean": 0.752,
+   "delta": 0.094,
+   "ic": [
+    -0.011,
+    0.223
+   ]
+  },
+  "source=ProofNetVerif/valid/Ireland-Rosen": {
+   "n": 208,
+   "n_pos": 64,
+   "completo": 0.836,
+   "solo_lean": 0.679,
+   "delta": 0.157,
+   "ic": [
+    0.05,
+    0.247
+   ]
+  },
+  "source=ProofNetVerif/valid/Munkres": {
+   "n": 378,
+   "n_pos": 86,
+   "completo": 0.868,
+   "solo_lean": 0.733,
+   "delta": 0.135,
+   "ic": [
+    0.036,
+    0.241
+   ]
+  },
+  "source=ProofNetVerif/valid/Pugh": {
+   "n": 113,
+   "n_pos": 21,
+   "completo": 0.833,
+   "solo_lean": 0.667,
+   "delta": 0.166,
+   "ic": [
+    -0.048,
+    0.32
+   ]
+  },
+  "source=ProofNetVerif/valid/Putnam": {
+   "n": 99,
+   "n_pos": 23,
+   "completo": 0.889,
+   "solo_lean": 0.784,
+   "delta": 0.105,
+   "ic": [
+    0.046,
+    0.238
+   ]
+  },
+  "source=ProofNetVerif/valid/Rudin": {
+   "n": 403,
+   "n_pos": 123,
+   "completo": 0.747,
+   "solo_lean": 0.641,
+   "delta": 0.106,
+   "ic": [
+    -0.002,
+    0.21
+   ]
+  },
+  "source=ProofNetVerif/valid/Shakarchi": {
+   "n": 83,
+   "n_pos": 8,
+   "completo": 0.69,
+   "solo_lean": 0.758,
+   "delta": -0.068,
+   "ic": [
+    -0.192,
+    0.06
+   ]
+  },
+  "tipo_grupo=mixto": {
+   "n": 2695,
+   "n_pos": 1073,
+   "completo": 0.814,
+   "solo_lean": 0.662,
+   "delta": 0.152,
+   "ic": [
+    0.119,
+    0.188
+   ]
+  },
+  "tipo_grupo=neg": {
+   "n": 988,
+   "nota": "una clase o n<30"
+  },
+  "tipo_grupo=pos": {
+   "n": 69,
+   "nota": "una clase o n<30"
+  }
+ }
+}

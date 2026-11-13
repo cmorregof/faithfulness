@@ -1,0 +1,20 @@
+principal
+  450/ultimo/completo: 99 s
+  450/ultimo/solo_lean: 250 s
+  450/ultimo/solo_nl: 429 s
+  450/ultimo/nl_desemparejado: 593 s
+  superficie: 642 s
+permutaciones
+  permutaciones: 3879 s
+500_ultimo
+  500_ultimo/ultimo/completo: 3920 s
+  500_ultimo/ultimo/solo_lean: 3972 s
+450_media
+  450_media/media/completo: 4015 s
+  450_media/media/solo_lean: 4054 s
+  450_media/media/solo_nl: 4086 s
+  450_media/media/nl_desemparejado: 4122 s
+450_sin_dudosas_ultimo
+  450_sin_dudosas_ultimo/ultimo/completo: 4172 s
+  450_sin_dudosas_ultimo/ultimo/solo_lean: 4212 s
+listo en 4217 s: /Users/cmorregof/Personal/Proyecto Godel/probes/referencia/resultados_referencia_qwen3_4b.json

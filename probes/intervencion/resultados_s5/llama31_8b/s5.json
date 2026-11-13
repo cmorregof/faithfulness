@@ -1,0 +1,208 @@
+{
+  "modelo": "llama31_8b",
+  "n_pares": 377,
+  "n_origenes": 256,
+  "base": {
+    "auroc": 0.7295,
+    "ic": [
+      0.6885,
+      0.7676
+    ]
+  },
+  "placebo": {
+    "auroc": 0.7119,
+    "movimiento_medio_del_margen": 0.0459
+  },
+  "principal_desplazar_f2": {
+    "auroc": 0.623,
+    "ic_auroc": [
+      0.5791,
+      0.667
+    ],
+    "caida": [
+      0.1064,
+      0.0635,
+      0.1475
+    ],
+    "caida_azar_media": 0.0041,
+    "caida_azar_max": 0.1201,
+    "caida_menos_media_azar": [
+      0.1024,
+      0.0717,
+      0.1322
+    ],
+    "mayor_que_todas_las_de_azar": false,
+    "p_frente_a_azar": 0.1429,
+    "margen_firmado": [
+      0.0249,
+      0.0188,
+      0.0314
+    ],
+    "margen_firmado_azar_media": -0.0004,
+    "margen_firmado_azar_max": 0.0278,
+    "margen_firmado_menos_media_azar": [
+      0.0253,
+      0.0209,
+      0.0301
+    ],
+    "p_margen_frente_a_azar": 0.1429
+  },
+  "dosis_f4": {
+    "auroc": 0.4844,
+    "ic_auroc": [
+      0.4365,
+      0.5322
+    ],
+    "caida": [
+      0.2451,
+      0.2021,
+      0.2891
+    ],
+    "caida_azar_media": 0.067,
+    "caida_azar_max": 0.21,
+    "caida_menos_media_azar": [
+      0.1781,
+      0.143,
+      0.2141
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      0.0603,
+      0.0543,
+      0.0663
+    ],
+    "margen_firmado_azar_media": 0.0159,
+    "margen_firmado_azar_max": 0.049,
+    "margen_firmado_menos_media_azar": [
+      0.0444,
+      0.0386,
+      0.0496
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "dosis_f8": {
+    "auroc": 0.3369,
+    "ic_auroc": [
+      0.291,
+      0.3858
+    ],
+    "caida": [
+      0.3926,
+      0.3457,
+      0.4395
+    ],
+    "caida_azar_media": 0.1562,
+    "caida_azar_max": 0.3701,
+    "caida_menos_media_azar": [
+      0.2363,
+      0.2018,
+      0.2688
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      0.116,
+      0.1074,
+      0.1248
+    ],
+    "margen_firmado_azar_media": 0.0365,
+    "margen_firmado_azar_max": 0.1034,
+    "margen_firmado_menos_media_azar": [
+      0.0795,
+      0.0711,
+      0.0876
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "pareja": {
+    "auroc": 0.6699,
+    "ic_auroc": [
+      0.627,
+      0.7139
+    ],
+    "caida": [
+      0.0596,
+      0.0107,
+      0.1064
+    ],
+    "caida_azar_media": 0.0074,
+    "caida_azar_max": 0.0322,
+    "caida_menos_media_azar": [
+      0.0521,
+      0.0117,
+      0.0916
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      0.026,
+      0.0181,
+      0.0337
+    ],
+    "margen_firmado_azar_media": 0.001,
+    "margen_firmado_azar_max": 0.0026,
+    "margen_firmado_menos_media_azar": [
+      0.025,
+      0.0184,
+      0.0316
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "borrar": {
+    "auroc": 0.6895,
+    "ic_auroc": [
+      0.6484,
+      0.7324
+    ],
+    "caida": [
+      0.04,
+      -0.0049,
+      0.0859
+    ],
+    "caida_azar_media": -0.0029,
+    "caida_azar_max": 0.0215,
+    "caida_menos_media_azar": [
+      0.043,
+      0.0061,
+      0.0782
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.0909,
+    "margen_firmado": [
+      0.0148,
+      0.0062,
+      0.0229
+    ],
+    "margen_firmado_azar_media": 0.0002,
+    "margen_firmado_azar_max": 0.0044,
+    "margen_firmado_menos_media_azar": [
+      0.0145,
+      0.0074,
+      0.0216
+    ],
+    "p_margen_frente_a_azar": 0.0909
+  },
+  "control_solo_lean": {
+    "desplazar_f2_auroc": 0.6377,
+    "borrar_auroc": 0.6914,
+    "caida_sonda_menos_solo_lean_f2": [
+      0.0146,
+      -0.0293,
+      0.0567
+    ],
+    "margen_firmado_f2": [
+      0.0242,
+      0.0183,
+      0.03
+    ],
+    "margen_firmado_sonda_menos_solo_lean_f2": [
+      0.0007,
+      -0.0054,
+      0.007
+    ]
+  },
+  "nota": "f se mide en unidades de h (mitad de la distancia entre medias de clase, por capa); los controles al azar reciben el mismo desplazamiento. Las dosis, la pareja y el borrado son secundarios y descriptivos.",
+  "criterio_principal_cumplido": false,
+  "lectura": "no se establece que desplazar a lo largo de la diferencia de medias cambie P(Yes) más que el mismo desplazamiento a lo largo de una dirección al azar"
+}

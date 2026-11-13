@@ -1,0 +1,10 @@
+{
+ "nombre": "qwen3_4b_sens_sin_dudosos",
+ "auroc_p_completo_reproducido": 0.7996031746031746,
+ "originales": 252,
+ "originales_con_puntaje": 252,
+ "p_original_mayor": 0.5238095238095238,
+ "p_original_mayor_que_infiel": 0.8432539682539683,
+ "nota": "≈ 0,5 frente a la fiel si «haber sido editado» no es la señal; desviación del 6 nov (emparejamiento por archivo)",
+ "segundos": 1319.4
+}

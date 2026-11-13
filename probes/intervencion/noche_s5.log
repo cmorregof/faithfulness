@@ -1,0 +1,812 @@
+
+################ noche S5, 2026-11-11 23:45 ################
+
+=== [23:45] S5 direcciones (CPU)
+{
+  "modelo": "qwen3_4b",
+  "capa_fija": 24,
+  "n_filas": 754,
+  "n_pares": 377,
+  "n_origenes": 256,
+  "condiciones": 54,
+  "parejas_en_la_misma_particion": 1.0,
+  "auroc_pareada_proyeccion_diferencia_de_medias_capa_fija": 0.8789,
+  "auroc_pareada_sonda_nueva_tras_borrar_en_capa_fija": 0.5,
+  "nota_sonda_nueva": "cercana a 0.5 por construcción: al igualar las medias de clase ninguna sonda lineal separa en entrenamiento; solo comprueba que el borrado hace lo que dice",
+  "coseno_sonda_solo_lean_capa_fija": [
+    0.5677,
+    0.5699,
+    0.5356,
+    0.5392,
+    0.5431
+  ],
+  "norma_media_activacion_capa_fija": 63.56,
+  "h_capa_fija": 0.342,
+  "h_en_desviaciones_tipicas_dentro_de_clase": {
+    "capa_fija": 0.147,
+    "minimo_entre_capas": 0.033,
+    "maximo_entre_capas": 0.162
+  },
+  "diferencia_de_pareja_en_unidades_de_h_capa_fija": {
+    "sonda_media_firmada": 1.89,
+    "azar_media_absoluta": 0.114
+  },
+  "h_por_capa_particion_0": [
+    0.002,
+    0.011,
+    0.017,
+    0.02,
+    0.027,
+    0.034,
+    0.044,
+    0.056,
+    0.066,
+    0.074,
+    0.079,
+    0.079,
+    0.091,
+    0.092,
+    0.101,
+    0.115,
+    0.126,
+    0.14,
+    0.16,
+    0.18,
+    0.216,
+    0.237,
+    0.267,
+    0.29,
+    0.339,
+    0.358,
+    0.387,
+    0.42,
+    0.495,
+    0.558,
+    0.599,
+    0.672,
+    0.74,
+    0.859,
+    1.015,
+    1.344,
+    0.827
+  ]
+}
+=== [23:45] S5 direcciones (CPU): hecho
+
+=== [23:45] S5 humo: 4 pares, 9 condiciones
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 8738.04it/s]
+ganchos (36 capas, 64 tokens de Lean, 7 condiciones con dirección): queda 1.98 % de la distancia al objetivo; base frente a sin ganchos 0.00166 y cambio antes del Lean 0.00166 (relativos al máximo de la capa)
+{
+  "filas_hechas": 8,
+  "condiciones": 9,
+  "lote": 4,
+  "segundos_por_fila": 16.47,
+  "base_vs_pyes_guardado_max_abs": 0.00205,
+  "coordenada_viva_vs_guardada_capa_fija_en_h": {
+    "mediana": 0.0014,
+    "maximo": 0.0044
+  },
+  "ruido_de_los_ganchos_placebo_vs_base": 0.3125,
+  "movimiento_medio_del_margen_logit": {
+    "base": 0.0,
+    "placebo": 0.3125,
+    "desp2_sonda": 0.3438,
+    "desp2_solo_lean": 0.1562,
+    "pareja_sonda": 0.8125,
+    "borrar_sonda": 0.8594,
+    "borrar_solo_lean": 0.375,
+    "desp8_sonda": 1.2969,
+    "desp2_azar_00": 0.2812
+  }
+}
+Esperado: placebo muy por debajo de las condiciones que desplazan (es el ruido numérico de los ganchos) y coordenada viva frente a guardada muy por debajo de 1 (en unidades de h).
+=== [23:48] S5 humo: 4 pares, 9 condiciones: hecho
+
+=== [23:48] S5 corrida completa: 754 filas, 54 condiciones
+Loading weights:   0%|          | 0/398 [00:00<?, ?it/s]Loading weights: 100%|██████████| 398/398 [00:00<00:00, 3971.82it/s]
+  25 filas en esta sesión, 12.8 s/fila, faltan 729 (unos 156 min)
+  50 filas en esta sesión, 13.4 s/fila, faltan 704 (unos 158 min)
+  75 filas en esta sesión, 15.8 s/fila, faltan 679 (unos 179 min)
+  100 filas en esta sesión, 15.5 s/fila, faltan 654 (unos 169 min)
+  125 filas en esta sesión, 14.8 s/fila, faltan 629 (unos 155 min)
+  150 filas en esta sesión, 14.8 s/fila, faltan 604 (unos 149 min)
+  175 filas en esta sesión, 15.0 s/fila, faltan 579 (unos 144 min)
+  200 filas en esta sesión, 14.7 s/fila, faltan 554 (unos 136 min)
+  225 filas en esta sesión, 14.1 s/fila, faltan 529 (unos 125 min)
+  250 filas en esta sesión, 13.9 s/fila, faltan 504 (unos 116 min)
+  275 filas en esta sesión, 13.8 s/fila, faltan 479 (unos 110 min)
+  300 filas en esta sesión, 14.0 s/fila, faltan 454 (unos 106 min)
+  325 filas en esta sesión, 14.0 s/fila, faltan 429 (unos 100 min)
+  350 filas en esta sesión, 14.2 s/fila, faltan 404 (unos 96 min)
+  375 filas en esta sesión, 13.9 s/fila, faltan 379 (unos 88 min)
+  400 filas en esta sesión, 13.7 s/fila, faltan 354 (unos 81 min)
+  425 filas en esta sesión, 13.6 s/fila, faltan 329 (unos 75 min)
+  450 filas en esta sesión, 13.6 s/fila, faltan 304 (unos 69 min)
+  475 filas en esta sesión, 13.5 s/fila, faltan 279 (unos 63 min)
+  500 filas en esta sesión, 13.5 s/fila, faltan 254 (unos 57 min)
+  525 filas en esta sesión, 13.5 s/fila, faltan 229 (unos 51 min)
+  550 filas en esta sesión, 13.6 s/fila, faltan 204 (unos 46 min)
+  575 filas en esta sesión, 13.7 s/fila, faltan 179 (unos 41 min)
+  600 filas en esta sesión, 13.7 s/fila, faltan 154 (unos 35 min)
+  625 filas en esta sesión, 13.5 s/fila, faltan 129 (unos 29 min)
+  650 filas en esta sesión, 13.3 s/fila, faltan 104 (unos 23 min)
+  675 filas en esta sesión, 13.2 s/fila, faltan 79 (unos 17 min)
+  700 filas en esta sesión, 13.1 s/fila, faltan 54 (unos 12 min)
+  725 filas en esta sesión, 13.1 s/fila, faltan 29 (unos 6 min)
+  750 filas en esta sesión, 13.1 s/fila, faltan 4 (unos 1 min)
+{
+  "filas_hechas": 754,
+  "condiciones": 54,
+  "lote": 4,
+  "segundos_por_fila": 13.09,
+  "base_vs_pyes_guardado_max_abs": 0.15484,
+  "coordenada_viva_vs_guardada_capa_fija_en_h": {
+    "mediana": 0.0013,
+    "maximo": 0.1405
+  },
+  "ruido_de_los_ganchos_placebo_vs_base": 0.1986,
+  "movimiento_medio_del_margen_logit": {
+    "base": 0.0,
+    "placebo": 0.1986,
+    "desp2_sonda": 0.3195,
+    "desp2_solo_lean": 0.2432,
+    "pareja_sonda": 0.3922,
+    "borrar_sonda": 0.8294,
+    "borrar_solo_lean": 0.4818,
+    "desp4_sonda": 0.5859,
+    "desp8_sonda": 1.1542,
+    "desp2_azar_00": 0.2576,
+    "desp2_azar_01": 0.2478,
+    "desp2_azar_02": 0.2341,
+    "desp2_azar_03": 0.2352,
+    "desp2_azar_04": 0.2621,
+    "desp2_azar_05": 0.2362,
+    "desp2_azar_06": 0.2271,
+    "desp2_azar_07": 0.2286,
+    "desp2_azar_08": 0.2406,
+    "desp2_azar_09": 0.2473,
+    "desp2_azar_10": 0.2351,
+    "desp2_azar_11": 0.2467,
+    "desp2_azar_12": 0.244,
+    "desp2_azar_13": 0.226,
+    "desp2_azar_14": 0.2483,
+    "desp2_azar_15": 0.2347,
+    "desp2_azar_16": 0.2419,
+    "desp2_azar_17": 0.2444,
+    "desp2_azar_18": 0.2352,
+    "desp2_azar_19": 0.2573,
+    "desp4_azar_00": 0.351,
+    "desp4_azar_01": 0.3026,
+    "desp4_azar_02": 0.2868,
+    "desp4_azar_03": 0.3155,
+    "desp4_azar_04": 0.3352,
+    "desp8_azar_00": 0.5849,
+    "desp8_azar_01": 0.4473,
+    "desp8_azar_02": 0.3967,
+    "desp8_azar_03": 0.4861,
+    "desp8_azar_04": 0.5753,
+    "pareja_azar_00": 0.215,
+    "pareja_azar_01": 0.2091,
+    "pareja_azar_02": 0.2076,
+    "pareja_azar_03": 0.2091,
+    "pareja_azar_04": 0.217,
+    "borrar_azar_00": 0.2261,
+    "borrar_azar_01": 0.2434,
+    "borrar_azar_02": 0.2326,
+    "borrar_azar_03": 0.2256,
+    "borrar_azar_04": 0.2256,
+    "borrar_azar_05": 0.2241,
+    "borrar_azar_06": 0.2394,
+    "borrar_azar_07": 0.2333,
+    "borrar_azar_08": 0.245,
+    "borrar_azar_09": 0.2326
+  }
+}
+Esperado: placebo muy por debajo de las condiciones que desplazan (es el ruido numérico de los ganchos) y coordenada viva frente a guardada muy por debajo de 1 (en unidades de h).
+=== [02:33] S5 corrida completa: 754 filas, 54 condiciones: hecho
+
+=== [02:33] S5 análisis
+{
+  "modelo": "qwen3_4b",
+  "n_pares": 377,
+  "n_origenes": 256,
+  "base": {
+    "auroc": 0.8379,
+    "ic": [
+      0.8008,
+      0.874
+    ]
+  },
+  "placebo": {
+    "auroc": 0.8477,
+    "movimiento_medio_del_margen": 0.1986
+  },
+  "principal_desplazar_f2": {
+    "auroc": 0.6885,
+    "ic_auroc": [
+      0.6416,
+      0.7383
+    ],
+    "caida": [
+      0.1494,
+      0.1104,
+      0.1875
+    ],
+    "caida_azar_media": 0.0048,
+    "caida_azar_max": 0.0684,
+    "caida_menos_media_azar": [
+      0.1446,
+      0.1116,
+      0.1768
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.0476,
+    "margen_firmado": [
+      0.2646,
+      0.2406,
+      0.2872
+    ],
+    "margen_firmado_azar_media": -0.008,
+    "margen_firmado_azar_max": 0.1174,
+    "margen_firmado_menos_media_azar": [
+      0.2727,
+      0.2525,
+      0.2919
+    ],
+    "p_margen_frente_a_azar": 0.0476
+  },
+  "dosis_f4": {
+    "auroc": 0.5391,
+    "ic_auroc": [
+      0.4883,
+      0.5957
+    ],
+    "caida": [
+      0.2988,
+      0.25,
+      0.3487
+    ],
+    "caida_azar_media": 0.0457,
+    "caida_azar_max": 0.1611,
+    "caida_menos_media_azar": [
+      0.2531,
+      0.2127,
+      0.2934
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      0.5641,
+      0.5303,
+      0.5988
+    ],
+    "margen_firmado_azar_media": 0.0208,
+    "margen_firmado_azar_max": 0.2339,
+    "margen_firmado_menos_media_azar": [
+      0.5433,
+      0.5121,
+      0.5749
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "dosis_f8": {
+    "auroc": 0.3965,
+    "ic_auroc": [
+      0.3438,
+      0.4512
+    ],
+    "caida": [
+      0.4414,
+      0.3877,
+      0.4942
+    ],
+    "caida_azar_media": 0.0811,
+    "caida_azar_max": 0.2695,
+    "caida_menos_media_azar": [
+      0.3604,
+      0.3185,
+      0.4025
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      1.1251,
+      1.0682,
+      1.1823
+    ],
+    "margen_firmado_azar_media": 0.0603,
+    "margen_firmado_azar_max": 0.4924,
+    "margen_firmado_menos_media_azar": [
+      1.0648,
+      1.0063,
+      1.1231
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "pareja": {
+    "auroc": 0.7588,
+    "ic_auroc": [
+      0.7119,
+      0.8028
+    ],
+    "caida": [
+      0.0791,
+      0.0459,
+      0.1143
+    ],
+    "caida_azar_media": 0.0076,
+    "caida_azar_max": 0.0215,
+    "caida_menos_media_azar": [
+      0.0715,
+      0.0395,
+      0.1045
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.1667,
+    "margen_firmado": [
+      0.2827,
+      0.2456,
+      0.3232
+    ],
+    "margen_firmado_azar_media": 0.0033,
+    "margen_firmado_azar_max": 0.0127,
+    "margen_firmado_menos_media_azar": [
+      0.2794,
+      0.243,
+      0.3188
+    ],
+    "p_margen_frente_a_azar": 0.1667
+  },
+  "borrar": {
+    "auroc": 0.793,
+    "ic_auroc": [
+      0.7549,
+      0.832
+    ],
+    "caida": [
+      0.0449,
+      0.0146,
+      0.0732
+    ],
+    "caida_azar_media": 0.0063,
+    "caida_azar_max": 0.0137,
+    "caida_menos_media_azar": [
+      0.0387,
+      0.0165,
+      0.0629
+    ],
+    "mayor_que_todas_las_de_azar": true,
+    "p_frente_a_azar": 0.0909,
+    "margen_firmado": [
+      0.2023,
+      0.1594,
+      0.2557
+    ],
+    "margen_firmado_azar_media": -0.0015,
+    "margen_firmado_azar_max": 0.0154,
+    "margen_firmado_menos_media_azar": [
+      0.2038,
+      0.1632,
+      0.2569
+    ],
+    "p_margen_frente_a_azar": 0.0909
+  },
+  "control_solo_lean": {
+    "desplazar_f2_auroc": 0.7852,
+    "borrar_auroc": 0.833,
+    "caida_sonda_menos_solo_lean_f2": [
+      0.0967,
+      0.0635,
+      0.1299
+    ],
+    "margen_firmado_f2": [
+      0.0731,
+      0.0487,
+      0.095
+    ],
+    "margen_firmado_sonda_menos_solo_lean_f2": [
+      0.1915,
+      0.1703,
+      0.2129
+    ]
+  },
+  "nota": "f se mide en unidades de h (mitad de la distancia entre medias de clase, por capa); los controles al azar reciben el mismo desplazamiento. Las dosis, la pareja y el borrado son secundarios y descriptivos.",
+  "criterio_principal_cumplido": true,
+  "lectura": "desplazar cada fila hacia la clase contraria a lo largo de la diferencia de medias reduce la AUROC pareada de P(Yes) más que el mismo desplazamiento a lo largo de direcciones al azar"
+}
+=== [02:33] S5 análisis: hecho
+
+=== [02:33] cola sin pregunta: gemma3_4b llama31_8b olmo2_7b
+Listo. Comparaciones en probes/activaciones/sin_pregunta/*/comprobacion_causal.json y al final de cada log.
+=== [04:22] cola sin pregunta: gemma3_4b llama31_8b olmo2_7b: hecho
+
+=== [04:22] S2b gemma3_4b (CPU)
+  completo, con pregunta: 0.684 (210 s)
+  solo_lean, con pregunta: 0.643 (395 s)
+  completo, sin pregunta: 0.768 (633 s)
+  solo_lean, sin pregunta: 0.666 (864 s)
+{
+ "modelo": "gemma3_4b",
+ "nivel": "B",
+ "n_pares": 377,
+ "n_origenes": 256,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "con_pregunta": {
+  "full": [
+   0.68359375,
+   0.63671875,
+   0.7285644531249997
+  ],
+  "lean_only": [
+   0.642578125,
+   0.591796875,
+   0.6953125
+  ],
+  "delta": [
+   0.041015625,
+   -0.0234375,
+   0.107421875
+  ]
+ },
+ "sin_pregunta": {
+  "full": [
+   0.767578125,
+   0.72265625,
+   0.8105957031249997
+  ],
+  "lean_only": [
+   0.666015625,
+   0.6171875,
+   0.71484375
+  ],
+  "delta_sp": [
+   0.1015625,
+   0.046875,
+   0.15625
+  ]
+ },
+ "delta_menos_delta_sp": [
+  -0.060546875,
+  -0.146484375,
+  0.025390625
+ ],
+ "segundos": 863.6,
+ "lectura": "en el último token la brecha no requiere la pregunta"
+}
+
+guardado en sin_pregunta/resultados/s2b_gemma3_4b.json
+=== [04:36] S2b gemma3_4b (CPU): hecho
+
+=== [04:36] S2a gemma3_4b (CPU)
+  completo sin pregunta: AUROC 0.715 (215 s)
+  solo_lean sin pregunta: AUROC 0.707 (424 s)
+{
+ "modelo": "gemma3_4b",
+ "nivel": "A",
+ "n": 450,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "sin_pregunta": {
+  "full": [
+   0.7150399999999999,
+   0.6661940693069307,
+   0.761367163316583
+  ],
+  "lean_only": [
+   0.7069799999999999,
+   0.6611429560739018,
+   0.7519805
+  ],
+  "delta_sp": [
+   0.008059999999999956,
+   -0.04076066336633656,
+   0.054292039800995104
+  ]
+ },
+ "con_pregunta": {
+  "full": [
+   0.7257399999999999,
+   0.6789243065326632,
+   0.7710955904522614
+  ],
+  "lean_only": [
+   0.68814,
+   0.6382176654416362,
+   0.7354034601990048
+  ],
+  "delta": [
+   0.03759999999999997,
+   -0.008851333399671939,
+   0.08468523713092838
+  ],
+  "fuente": "referencia/v2_puntajes_gemma3_4b_i_ultimo_cv.npz"
+ },
+ "delta_menos_delta_sp": [
+  0.02954000000000001,
+  -0.023621999999999872,
+  0.08263231580789507
+ ],
+ "lectura": "sin la pregunta la brecha no se establece en el último token",
+ "segundos": 431.9
+}
+
+guardado en sin_pregunta/resultados/s2a_gemma3_4b.json
+=== [04:44] S2a gemma3_4b (CPU): hecho
+
+=== [04:44] S2b llama31_8b (CPU)
+  completo, con pregunta: 0.762 (399 s)
+  solo_lean, con pregunta: 0.678 (768 s)
+  completo, sin pregunta: 0.819 (1226 s)
+  solo_lean, sin pregunta: 0.691 (1703 s)
+{
+ "modelo": "llama31_8b",
+ "nivel": "B",
+ "n_pares": 377,
+ "n_origenes": 256,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "con_pregunta": {
+  "full": [
+   0.76171875,
+   0.716796875,
+   0.8046875
+  ],
+  "lean_only": [
+   0.677734375,
+   0.62890625,
+   0.7265625
+  ],
+  "delta": [
+   0.083984375,
+   0.023388671875000003,
+   0.146484375
+  ]
+ },
+ "sin_pregunta": {
+  "full": [
+   0.8193359375,
+   0.77734375,
+   0.8583984375
+  ],
+  "lean_only": [
+   0.69140625,
+   0.642578125,
+   0.740234375
+  ],
+  "delta_sp": [
+   0.1279296875,
+   0.0673828125,
+   0.189453125
+  ]
+ },
+ "delta_menos_delta_sp": [
+  -0.0439453125,
+  -0.1171875,
+  0.0302734375
+ ],
+ "segundos": 1702.6,
+ "lectura": "en el último token la brecha no requiere la pregunta"
+}
+
+guardado en sin_pregunta/resultados/s2b_llama31_8b.json
+=== [05:12] S2b llama31_8b (CPU): hecho
+
+=== [05:12] S2a llama31_8b (CPU)
+  completo sin pregunta: AUROC 0.738 (275 s)
+  solo_lean sin pregunta: AUROC 0.706 (539 s)
+{
+ "modelo": "llama31_8b",
+ "nivel": "A",
+ "n": 450,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "sin_pregunta": {
+  "full": [
+   0.7380400000000001,
+   0.6929194179854496,
+   0.7829267388059701
+  ],
+  "lean_only": [
+   0.70574,
+   0.6545383090452261,
+   0.751466
+  ],
+  "delta_sp": [
+   0.032300000000000106,
+   -0.013087644691117391,
+   0.0771070973680283
+  ]
+ },
+ "con_pregunta": {
+  "full": [
+   0.7116800000000001,
+   0.6637404796406318,
+   0.7571076098313347
+  ],
+  "lean_only": [
+   0.7228399999999999,
+   0.675903015075377,
+   0.7687856087367531
+  ],
+  "delta": [
+   -0.011159999999999837,
+   -0.056423618090452245,
+   0.03129872381710541
+  ],
+  "fuente": "referencia/v2_puntajes_llama31_8b_i_ultimo_cv.npz"
+ },
+ "delta_menos_delta_sp": [
+  -0.04345999999999994,
+  -0.09206050000000003,
+  0.005446089357679487
+ ],
+ "lectura": "sin la pregunta la brecha no se establece en el último token",
+ "segundos": 547.2
+}
+
+guardado en sin_pregunta/resultados/s2a_llama31_8b.json
+=== [05:21] S2a llama31_8b (CPU): hecho
+
+=== [05:21] S2b olmo2_7b (CPU)
+  completo, con pregunta: 0.766 (445 s)
+  solo_lean, con pregunta: 0.664 (837 s)
+  completo, sin pregunta: 0.803 (1334 s)
+  solo_lean, sin pregunta: 0.689 (1785 s)
+{
+ "modelo": "olmo2_7b",
+ "nivel": "B",
+ "n_pares": 377,
+ "n_origenes": 256,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "con_pregunta": {
+  "full": [
+   0.765625,
+   0.71484375,
+   0.810546875
+  ],
+  "lean_only": [
+   0.6640625,
+   0.615234375,
+   0.712890625
+  ],
+  "delta": [
+   0.1015625,
+   0.0390625,
+   0.1640625
+  ]
+ },
+ "sin_pregunta": {
+  "full": [
+   0.802734375,
+   0.759765625,
+   0.8447265625
+  ],
+  "lean_only": [
+   0.689453125,
+   0.638671875,
+   0.740234375
+  ],
+  "delta_sp": [
+   0.11328125,
+   0.0614990234375,
+   0.166015625
+  ]
+ },
+ "delta_menos_delta_sp": [
+  -0.01171875,
+  -0.0830078125,
+  0.0615234375
+ ],
+ "segundos": 1785.3,
+ "lectura": "en el último token la brecha no requiere la pregunta"
+}
+
+guardado en sin_pregunta/resultados/s2b_olmo2_7b.json
+=== [05:51] S2b olmo2_7b (CPU): hecho
+
+=== [05:51] S2a olmo2_7b (CPU)
+  completo sin pregunta: AUROC 0.702 (265 s)
+  solo_lean sin pregunta: AUROC 0.721 (530 s)
+{
+ "modelo": "olmo2_7b",
+ "nivel": "A",
+ "n": 450,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "sin_pregunta": {
+  "full": [
+   0.7022600000000001,
+   0.6540270074626865,
+   0.7493691782178218
+  ],
+  "lean_only": [
+   0.7208600000000001,
+   0.6733198358208955,
+   0.767366104477612
+  ],
+  "delta_sp": [
+   -0.01859999999999995,
+   -0.06432355778894477,
+   0.028063819095477584
+  ]
+ },
+ "con_pregunta": {
+  "full": [
+   0.7375600000000001,
+   0.6933724743118578,
+   0.7806270376884422
+  ],
+  "lean_only": [
+   0.7051999999999999,
+   0.6566390759768994,
+   0.7545534447236181
+  ],
+  "delta": [
+   0.032360000000000166,
+   -0.011488544554455273,
+   0.0749956005025126
+  ],
+  "fuente": "referencia/v2_puntajes_olmo2_7b_i_ultimo_cv.npz"
+ },
+ "delta_menos_delta_sp": [
+  0.050960000000000116,
+  0.0033849851485148576,
+  0.09781517164179106
+ ],
+ "lectura": "sin la pregunta la brecha no se establece en el último token",
+ "segundos": 538.5
+}
+
+guardado en sin_pregunta/resultados/s2a_olmo2_7b.json
+=== [06:00] S2a olmo2_7b (CPU): hecho
+
+################ fin, 2026-11-12 06:00 ################
+S5 completo: sí
+  resultado: probes/intervencion/resultados_s5/qwen3_4b/s5.json
+  sin pregunta gemma3_4b: hay carpeta
+  sin pregunta nivel_b_gemma3_4b: hay carpeta
+  sin pregunta llama31_8b: hay carpeta
+  sin pregunta nivel_b_llama31_8b: hay carpeta
+  sin pregunta olmo2_7b: hay carpeta
+  sin pregunta nivel_b_olmo2_7b: hay carpeta
+  probes/sin_pregunta/resultados/s2a_gemma3_4b.json
+  probes/sin_pregunta/resultados/s2a_llama31_8b.json
+  probes/sin_pregunta/resultados/s2a_olmo2_7b.json
+  probes/sin_pregunta/resultados/s2a_qwen3_4b.json
+  probes/sin_pregunta/resultados/s2b_gemma3_4b.json
+  probes/sin_pregunta/resultados/s2b_llama31_8b.json
+  probes/sin_pregunta/resultados/s2b_olmo2_7b.json
+  probes/sin_pregunta/resultados/s2b_qwen3_4b.json
+Los dos entrenamientos siguen en pausa (kill -CONT 29700 59556 para reanudarlos).

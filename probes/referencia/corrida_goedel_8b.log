@@ -1,0 +1,20 @@
+principal
+  450/ultimo/completo: 182 s
+  450/ultimo/solo_lean: 386 s
+  450/ultimo/solo_nl: 571 s
+  450/ultimo/nl_desemparejado: 754 s
+  superficie: 806 s
+permutaciones
+  permutaciones: 5727 s
+500_ultimo
+  500_ultimo/ultimo/completo: 5816 s
+  500_ultimo/ultimo/solo_lean: 5923 s
+450_media
+  450_media/media/completo: 6009 s
+  450_media/media/solo_lean: 6097 s
+  450_media/media/solo_nl: 6164 s
+  450_media/media/nl_desemparejado: 6243 s
+450_sin_dudosas_ultimo
+  450_sin_dudosas_ultimo/ultimo/completo: 6338 s
+  450_sin_dudosas_ultimo/ultimo/solo_lean: 6440 s
+listo en 6445 s: /Users/cmorregof/Personal/Proyecto Godel/probes/referencia/resultados_referencia_goedel_8b.json

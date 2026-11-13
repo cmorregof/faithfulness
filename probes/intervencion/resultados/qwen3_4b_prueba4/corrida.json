@@ -1,0 +1,20 @@
+{
+  "filas_hechas": 8,
+  "condiciones": [
+    "base",
+    "sonda",
+    "solo_lean",
+    "azar_00",
+    "azar_01"
+  ],
+  "lote": 4,
+  "segundos_por_fila": 106.02,
+  "base_vs_pyes_guardado_max_abs": 0.00205,
+  "movimiento_medio_del_margen_logit": {
+    "base": 0.0,
+    "sonda": 0.7969,
+    "solo_lean": 0.2969,
+    "azar_00": 0.3594,
+    "azar_01": 0.3594
+  }
+}

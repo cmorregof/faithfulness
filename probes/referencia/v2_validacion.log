@@ -1,0 +1,2 @@
+completo {'auroc_v2': 0.8142600000000001, 'auroc_ref': 0.81138, 'dif': 0.0028800000000001047, 'ok': True, 'capas_iguales': 24, 'de': 25} 1361 s
+solo_lean {'auroc_v2': 0.7229800000000001, 'auroc_ref': 0.72312, 'dif': -0.00013999999999991797, 'ok': True, 'capas_iguales': 25, 'de': 25} 3089 s

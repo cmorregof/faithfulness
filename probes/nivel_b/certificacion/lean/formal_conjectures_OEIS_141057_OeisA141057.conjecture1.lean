@@ -1,0 +1,2393 @@
+import Mathlib
+set_option relaxedAutoImplicit false
+set_option maxSynthPendingDepth 3
+set_option autoImplicit false
+
+/-!
+# Number of Abelian cubes of length $3n$ over an alphabet of size 3
+
+An Abelian cube is a string of the form $x x' x''$ with $|x| = |x'| = |x''|$ and $x$ is a
+permutation of $x'$ and $x''$. The number of Abelian cubes of length $3n$ over an alphabet of
+size 3 is given by
+$$a(n) = \sum_{k=0}^n \binom{n}{k}^3 \sum_{j=0}^k \binom{k}{j}^3.$$
+
+*References:*
+- [A141057](https://oeis.org/A141057)-/
+
+section
+
+namespace OeisA141057
+
+/-- Number of Abelian cubes of length $3n$ over an alphabet of size 3. -/
+def a (n : ℕ) : ℕ :=
+  ∑ k ∈ Finset.range (n + 1), (n.choose k ^ 3) * ∑ j ∈ Finset.range (k + 1), (k.choose j ^ 3)
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (True) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (True))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (True)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (5 < p) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (5 < p))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (5 < p)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 6 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (6 ≤ p) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (6 ≤ p))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(7 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (6 ≤ p)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (p ≥ 5) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (h_p_ge_5 : 5 ≤ p) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (h_p_ge_5 : 5 ≤ p) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (h_p_ge_5 : 5 ≤ p) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (h_p_ge_5 : 5 ≤ p) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (h_p_ge_5 : 5 ≤ p) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp₀ : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp₀ : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp₀ : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp₀ : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp₀ : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : ¬(p < 5)) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (¬(p < 5)) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : ¬(p < 5)) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : ¬(p < 5)) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : ¬(p < 5)) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : ¬(p < 5)) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) :
+    (5 ≤ p) ↔ (4 < p) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p > 5) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p > 5) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p > 5))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p > 5)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : p ≥ 6) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (p ≥ 6) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (p ≥ 6))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(7 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (p ≥ 6)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    (5 ≤ p) ↔ (4 ≤ p) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(0 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((5 ≤ p) ↔ (4 ≤ p))) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ), ¬((5 ≤ p) ↔ (4 ≤ p)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 < k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_n_pos : 1 ≤ n) :
+    (1 ≤ k) ↔ (1 < k) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (4 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (6 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(1 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (6 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(5 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (4 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (6 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(4 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ n) ∧ (¬((1 ≤ k) ↔ (1 < k))) :=
+  ⟨(6 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (k : ℕ), ¬((1 ≤ k) ↔ (1 < k)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) →
+    (∀ (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 4 < p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n), (a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))]) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (4 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (6 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (5 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (4 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (5 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (5 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (6 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(5 : ℕ), (0 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (5 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (4 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (6 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(4 : ℕ), (1 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (5 : ℕ), (6 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (4 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), (p.Prime) ∧ (5 ≤ p) ∧ (1 ≤ k) ∧ (1 ≤ n) ∧ (¬((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(6 : ℕ), (6 : ℕ), (5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (1 : ℕ), (3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (3 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (1 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (0 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(3 : ℕ), (1 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (1 : ℕ), (4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (0 : ℕ), (3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (2 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (3 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(1 : ℕ), (4 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (1 : ℕ), (3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (0 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (2 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(0 : ℕ), (3 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (1 : ℕ), (2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (0 : ℕ), (0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (p : ℕ) (k : ℕ) (n : ℕ), ¬(((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (3 * k))]) ↔ ((a (n * p ^ k) : ℤ) ≡ a (n * p ^ (k - 1)) [ZMOD (p ^ (4 * k))])) :=
+  ⟨(2 : ℕ), (2 : ℕ), (1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    False := by
+  linarith
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    False := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    False := by
+  norm_num at *
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    False := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (p k n : ℕ) (hp : p.Prime) (h_p_ge_5 : 5 ≤ p) (h_k_pos : 1 ≤ k) (h_n_pos : 1 ≤ n) :
+    False := by
+  nlinarith
+
+#eval "FIN_CERTIFICAR"

@@ -1,0 +1,1589 @@
+import Mathlib
+set_option relaxedAutoImplicit false
+set_option maxSynthPendingDepth 3
+set_option autoImplicit false
+
+/-!
+# Erdős Problem 408
+
+*References:*
+- [erdosproblems.com/408](https://www.erdosproblems.com/408)
+- [OEIS A003434](https://oeis.org/A003434): the values $f(n)$ for $n \geq 2$.
+- [ErGr80] Erdős, P. and Graham, R., *Old and new problems and results in combinatorial number
+  theory*. Monographies de L'Enseignement Mathématique (1980).
+- [Pi29] Pillai, S. Sivasankaranarayana, *On a function connected with $\phi(n)$*. Bull. Amer.
+  Math. Soc. 35 (1929), 837-841.
+  [doi:10.1090/S0002-9904-1929-04800-6](https://doi.org/10.1090/S0002-9904-1929-04800-6)
+- [Sh50] Shapiro, Harold N., *On the iterates of a certain class of arithmetic functions*. Comm.
+  Pure Appl. Math. 3 (1950), 259-272.
+- [EGPS90] Erdős, P., Granville, A., Pomerance, C. and Spiro, C., *On the normal behavior of the
+  iterates of some arithmetic functions*. Analytic number theory (Allerton Park, IL, 1989),
+  Progr. Math. 85 (1990), 165-204.
+- [Gu04] Guy, Richard K., *Unsolved problems in number theory*. Third edition, Springer (2004),
+  Problem B41.
+- [FKL10] Ford, K., Konyagin, S. V. and Luca, F., *Prime chains and Pratt trees*. Geom. Funct.
+  Anal. 20 (2010), 1231-1258. [arXiv:0904.0473](https://arxiv.org/abs/0904.0473)
+  [doi:10.1007/s00039-010-0089-0](https://doi.org/10.1007/s00039-010-0089-0)
+-/
+
+section
+
+open Filter
+open scoped Topology
+
+namespace Erdos408
+
+/--
+`f n` is $f(n) = \min\{k \geq 1 : \phi_k(n) = 1\}$, where $\phi_1 = \phi$ is Euler's totient
+function and $\phi_k(n) = \phi(\phi_{k-1}(n))$. As in the source, $k$ starts at $1$, so
+$f(1) = 1$. Every iterate of $\phi$ at $0$ is $0$, so `sInf ∅ = 0` gives the junk value
+$f(0) = 0$.
+-/
+noncomputable def f (n : ℕ) : ℕ :=
+  sInf {k : ℕ | 1 ≤ k ∧ Nat.totient^[k] n = 1}
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (2 < n) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (2 < n))) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (2 < n)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 3 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (3 ≤ n) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (3 ≤ n))) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (3 ≤ n)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : n ≥ 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (n ≥ 2) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : n ≥ 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : n ≥ 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : n ≥ 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : n ≥ 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1 ∧ ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn₀ : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn₀ : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn₀ : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn₀ : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn₀ : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : ¬(n < 2)), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (¬(n < 2)) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : ¬(n < 2)), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : ¬(n < 2)), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : ¬(n < 2)), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : ¬(n < 2)), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  exact and_comm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  exact not_lt.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  exact not_le.symm
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  constructor <;> intro _ <;> omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) :
+    (2 ≤ n) ↔ (1 < n) := by
+  constructor <;> intro _ <;> linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  exact Iff.rfl
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [gt_iff_lt, ge_iff_le, ne_eq, not_lt, not_le, Set.mem_Icc, Finset.mem_Icc]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  simp only [and_comm]
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  constructor <;> intro h <;> intros <;> apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n > 2), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n > 2) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n > 2))) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n > 2)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : n ≥ 3), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (n ≥ 3) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (n ≥ 3))) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (n ≥ 3)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | omega)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | linarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | nlinarith)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  constructor <;> intro _ <;> (first | trivial | positivity)
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ)  :
+    (2 ≤ n) ↔ (1 ≤ n) := by
+  plausible
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (¬((2 ≤ n) ↔ (1 ≤ n))) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((2 ≤ n) ↔ (1 ≤ n)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 1 < n), ⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), (2 ≤ n) ∧ (¬(⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (⌊(Real.log n - Real.log 3) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example : Prop :=
+  ∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply le_of_lt; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | (apply le_of_lt; assumption)
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply And.left; apply h <;> assumption
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | omega
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; apply h <;> first | assumption | linarith
+
+set_option maxHeartbeats 200000 in
+example :
+    (∀ (n : ℕ) (hn : 2 ≤ n), ⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) →
+    (∀ (n : ℕ) (hn : 2 ≤ n), f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) := by
+  intro h; intros; aesop
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(2 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(1 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(3 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(4 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(0 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(5 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example : ∃ (n : ℕ), ¬((⌊(Real.log n - Real.log 2) / Real.log 3⌋₊ + 1 ≤ f n ∧
+      f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1) ↔ (f n ≤ ⌊Real.log n / Real.log 2⌋₊ + 1)) :=
+  ⟨(10 : ℕ), by norm_num⟩
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) (hn : 2 ≤ n) :
+    False := by
+  linarith
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) (hn : 2 ≤ n) :
+    False := by
+  omega
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) (hn : 2 ≤ n) :
+    False := by
+  norm_num at *
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) (hn : 2 ≤ n) :
+    False := by
+  simp_all
+
+set_option maxHeartbeats 200000 in
+example (n : ℕ) (hn : 2 ≤ n) :
+    False := by
+  nlinarith
+
+#eval "FIN_CERTIFICAR"

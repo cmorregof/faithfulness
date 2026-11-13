@@ -1,0 +1,25 @@
+{
+ "modelo": "BAAI/bge-m3",
+ "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+ "n": 450,
+ "truncados": {
+  "completo": 0,
+  "solo_lean": 0
+ },
+ "auroc_completo": 0.54372,
+ "ic_completo": [
+  0.4914585,
+  0.5963464146341462
+ ],
+ "auroc_solo_lean": 0.6419599999999999,
+ "ic_solo_lean": [
+  0.5917519296482412,
+  0.6957584402985072
+ ],
+ "delta": -0.09823999999999988,
+ "ic_delta": [
+  -0.15330418341708543,
+  -0.04410636765919147
+ ],
+ "segundos": 92
+}

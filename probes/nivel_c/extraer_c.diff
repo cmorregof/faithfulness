@@ -1,0 +1,121 @@
+--- ../extraer.py	2026-11-04 12:56:49
++++ extraer_c.py	2026-11-04 16:14:17
+@@ -1,5 +1,14 @@
+ """Extracción de activaciones para el piloto de adecuación (faithfulness) NL ↔ Lean 4.
+ 
++NIVEL C: copia de probes/extraer.py con cinco cambios mínimos (diff en probes/nivel_c/extraer_c.diff):
++  1. el parquet se pasa con --datos (antes fijo: probes/datos/criticleanbench_test.parquet);
++  2. «compila» se toma de la columna «compila» del parquet si existe (puede ser null);
++  3. meta.json registra la ruta y el SHA-256 del parquet usado y no dice «CriticLeanBench»;
++  4. las líneas de la bitácora dicen «extraer_c.py:» en lugar de «extraer.py:»;
++  5. desarreglo: si el rechazo puro falla (grupos grandes), se repara la permutación con
++     intercambios (misma rng, mismo criterio); en CriticLeanBench el resultado es idéntico.
++Todo lo demás (plantillas, desarreglo, posiciones, P(Yes), reanudación) es idéntico.
++
+ Para cada fila de CriticLeanBench corre hasta cuatro prompts por el modelo congelado:
+   - «completo»:         enunciado NL + Lean + pregunta
+   - «solo_lean»:        Lean + pregunta (sin el enunciado NL)
+@@ -29,9 +38,10 @@
+   meta.json                             modelo, revisión, versiones, plantilla; «corridas»
+                                         guarda tiempo y memoria de cada sesión
+ 
+-Uso (de punta a punta probado el 4 nov 2026 con --limite 5):
+-  biblioteca/.venv/bin/python -I probes/extraer.py --salida probes/activaciones/qwen3_4b
+-  ... --variantes solo_nl nl_desemparejado   (solo esas, sobre una salida existente)
++Uso (Nivel C; ver probes/nivel_c/lanzar.sh):
++  biblioteca/.venv/bin/python -I probes/nivel_c/extraer_c.py \
++      --datos probes/nivel_c/datos_proc/proofnetverif.parquet \
++      --salida probes/nivel_c/activaciones/qwen3_4b_proofnetverif --bitacora
+ """
+ 
+ import argparse
+@@ -50,8 +60,7 @@
+ import transformers
+ from transformers import AutoModelForCausalLM, AutoTokenizer
+ 
+-RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+-DATOS = os.path.join(RAIZ, "probes", "datos", "criticleanbench_test.parquet")
++RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+ BITACORA = os.path.join(RAIZ, "probes", "BITACORA.md")
+ 
+ PREFIJO_RESPUESTA = "**Answer:"
+@@ -79,7 +88,7 @@
+     print(msg, flush=True)
+     if bitacora:
+         with open(BITACORA, "a", encoding="utf-8") as f:
+-            f.write(f"- [{ahora()}] extraer.py: {msg}\n")
++            f.write(f"- [{ahora()}] extraer_c.py: {msg}\n")
+ 
+ 
+ def grupo_de(nl):
+@@ -112,7 +121,27 @@
+             if all(grupos[j] != grupos[k] for j, k in zip(trozo, perm)):
+                 break
+         else:
+-            raise SystemExit(f"No encontré desarreglo en la banda {b}")
++            # Nivel C (cambio 5): con muchos grupos grandes (p. ej. ProofNetVerif, hasta 36 filas
++            # por enunciado) el rechazo puro no encuentra desarreglo. Se repara la última
++            # permutación con intercambios al azar (misma rng) hasta que ninguna fila quede con un
++            # NL de su grupo. En CriticLeanBench el rechazo sí encuentra uno: resultado idéntico.
++            perm = list(perm)
++            for _ in range(1000):
++                malos = [p for p in range(len(trozo)) if grupos[trozo[p]] == grupos[perm[p]]]
++                if not malos:
++                    break
++                for p in malos:
++                    if grupos[trozo[p]] != grupos[perm[p]]:
++                        continue
++                    for q in rng.permutation(len(trozo)).tolist():
++                        if (grupos[trozo[p]] != grupos[perm[q]]
++                                and grupos[trozo[q]] != grupos[perm[p]]):
++                            perm[p], perm[q] = perm[q], perm[p]
++                            break
++            else:
++                raise SystemExit(f"No encontré desarreglo en la banda {b}")
++            if any(grupos[j] == grupos[k] for j, k in zip(trozo, perm)):
++                raise SystemExit(f"No encontré desarreglo en la banda {b}")
+         for j, k in zip(trozo, perm):
+             donante[j], banda[j] = k, b
+     return donante, banda
+@@ -168,6 +197,8 @@
+     ap.add_argument("--modelo", default="Qwen/Qwen3-4B")
+     ap.add_argument("--revision", default="1cfa9a7208912126459214e8b04321603b3df60c")
+     ap.add_argument("--salida", required=True)
++    ap.add_argument("--datos", required=True, help="parquet con id, source, refined_statement, autoformalization, tag")
++    ap.add_argument("--nombre_datos", default=None, help="nombre@revisión del conjunto, para meta.json")
+     ap.add_argument("--limite", type=int, default=None, help="solo las primeras N filas")
+     ap.add_argument("--idx", type=int, nargs="+", default=None,
+                     help="solo estas filas (pruebas de humo); el manifiesto guarda el idx original")
+@@ -180,7 +211,7 @@
+     a = ap.parse_args()
+ 
+     os.makedirs(a.salida, exist_ok=True)
+-    filas = pq.read_table(DATOS).to_pylist()
++    filas = pq.read_table(a.datos).to_pylist()
+     todas = filas
+     donante, banda = desarreglo(todas)
+     orig = list(range(len(filas)))
+@@ -208,8 +239,8 @@
+     for i, f in enumerate(filas):
+         man.append({
+             "idx": orig[i], "id": int(f["id"]), "source": f["source"], "tag": f["tag"],
+-            "etiqueta": int(f["tag"] == "compile_right_is_right"),  # 1 = adecuada (etiqueta humana)
+-            "compila": int(f["tag"] != "compile_false"),
++            "etiqueta": int(f["tag"] == "compile_right_is_right"),  # 1 = adecuada
++            "compila": (f["compila"] if "compila" in f else int(f["tag"] != "compile_false")),
+             "grupo": grupo_de(f["refined_statement"]),
+             "nl_desemparejado_idx": donante[orig[i]],
+             "nl_desemparejado_id": int(todas[donante[orig[i]]]["id"]),
+@@ -347,9 +378,9 @@
+         "columnas_pyes": ["p_yes", "p_no", "logit_yes", "logit_no", "p_yes_prefijo",
+                           "p_no_prefijo", "logit_yes_prefijo", "logit_no_prefijo"],
+         "posiciones": {v: list(posiciones(v)) for v in VARIANTES}, "variantes_completas": hechas,
+-        "etiqueta": "1 = compile_right_is_right (adecuada, etiqueta humana de CriticLeanBench); 0 = resto",
+-        "dataset": "m-a-p/CriticLeanBench@6225522bce304f62d4907aedb9642255f9417bf0",
+-        "dataset_sha256": "baf3e43bcfe0c476114e744b7cde098fe02292a5ab9b0b0fa84dc279f1e203d3",
++        "etiqueta": "1 = tag compile_right_is_right (adecuada según la fuente del conjunto); 0 = resto",
++        "dataset": a.nombre_datos, "dataset_ruta": os.path.relpath(os.path.abspath(a.datos), RAIZ),
++        "dataset_sha256": hashlib.sha256(open(a.datos, "rb").read()).hexdigest(),
+         "versiones": {"python": sys.version.split()[0], "torch": torch.__version__,
+                       "transformers": transformers.__version__, "numpy": np.__version__,
+                       "macos": platform.mac_ver()[0]},

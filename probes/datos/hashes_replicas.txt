@@ -1,0 +1,15 @@
+# Consultado en Hugging Face el 2026-11-04 (HfApi.repo_info, files_metadata=True). NO descargados.
+AI-MO/Kimina-Autoformalizer-7B  rev ddd47cb477d93b3ca990468e1c0d5ad6b60973dd  license:apache-2.0
+0eef469efc42b223e0fb73869c53db8ece24e935583720d61bb93dd23cd461de  model-00001-of-00004.safetensors  4877660776
+4538537963213497592b063ffc7b29ed094f05a53f6f31fc0d0a030d10e10c61  model-00002-of-00004.safetensors  4932751008
+98a2514143b5709fdce5641450119c7f5459c2f0ea0080c97cbef22a2d5807bc  model-00003-of-00004.safetensors  4330865200
+a3a1aa2b28aa887f63d39a53f5700d8d20016a41cb11cbdb88a0ee18251cfd35  model-00004-of-00004.safetensors  1089994880
+9c5ae00e602b8860cbd784ba82a8aa14e8feecec692e7076590d014d7b7fdafa  tokenizer.json
+
+Goedel-LM/Goedel-Prover-V2-8B  rev dfd02e6271a58375dfbf3ece0175277cf6b6a89a  license:apache-2.0
+72c82e0977a9627569f2e562ed86eaa2bade1a00b8cd09bbc3522954c2318950  model-00001-of-00004.safetensors  4902257696
+ef80cce6b59ee8be7504ab5bf2cf1b40da0dd37d1cdf322874c09a4d071478bc  model-00002-of-00004.safetensors  4915960368
+052321b8825a7266b7c8e3b81977dd4e96fc8d1e04a01030042a651dcea5fb6f  model-00003-of-00004.safetensors  4983068496
+b13cdd833655cd9a968ac1bd053eb36f8f963e9ae6372bcaab9b3d49a7b3f5ae  model-00004-of-00004.safetensors  1580230264
+aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4  tokenizer.json
+# Capas (config.json): Kimina-Autoformalizer-7B Qwen2ForCausalLM 28 capas d=3584 bf16; Goedel-Prover-V2-8B Qwen3ForCausalLM 36 capas d=4096 bf16

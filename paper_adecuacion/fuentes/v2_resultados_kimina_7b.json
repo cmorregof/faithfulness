@@ -1,0 +1,229 @@
+{
+ "modelo": "AI-MO/Kimina-Autoformalizer-7B",
+ "revision": "ddd47cb477d93b3ca990468e1c0d5ad6b60973dd",
+ "nombre": "kimina_7b",
+ "fecha": "2026-11-05T05:46-05:00",
+ "prerregistro": "probes/prerregistro_v2.md",
+ "n": 450,
+ "n_pos": 250,
+ "n_capas_mas_embeddings": 29,
+ "capa_fija_lectura_ii": 18,
+ "n_perm": 1000,
+ "semillas": [
+  0,
+  1,
+  2,
+  3,
+  4
+ ],
+ "n_boot": 2000,
+ "lecturas": {
+  "i_ultimo_cv": {
+   "auroc_completo": 0.7491599999999998,
+   "ic_completo": [
+    0.7037585000000001,
+    0.79294866080402
+   ],
+   "auroc_solo_lean": 0.7054999999999999,
+   "ic_solo_lean": [
+    0.6577506787669692,
+    0.7510635
+   ],
+   "delta": 0.04365999999999992,
+   "ic_delta": [
+    0.004846268656716399,
+    0.08362145979899499
+   ],
+   "de_bootstrap_delta": 0.02039786324049843,
+   "auroc_solo_nl": 0.7188399999999999,
+   "apilado": 0.7389600000000001,
+   "completo_menos_apilado": 0.010199999999999765,
+   "ic_completo_menos_apilado": [
+    -0.020582914572864323,
+    0.04284535467980302
+   ],
+   "apilado_ic_sobre_0": false,
+   "perm": {
+    "n": 0,
+    "observado": 0.04366000000000003,
+    "p": null,
+    "nulo_media": null,
+    "nulo_p95": null,
+    "nulo_max": null
+   },
+   "capas_elegidas": {
+    "completo": [
+     23,
+     19,
+     27,
+     19,
+     26,
+     25,
+     25,
+     9,
+     25,
+     18,
+     18,
+     25,
+     22,
+     25,
+     22,
+     25,
+     11,
+     27,
+     19,
+     26,
+     27,
+     9,
+     19,
+     19,
+     19
+    ],
+    "solo_lean": [
+     22,
+     22,
+     12,
+     25,
+     23,
+     25,
+     14,
+     24,
+     23,
+     16,
+     5,
+     26,
+     16,
+     18,
+     24,
+     22,
+     13,
+     28,
+     23,
+     23,
+     23,
+     28,
+     13,
+     23,
+     24
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.052846153846153876,
+    "ic": [
+     0.012818471337579684,
+     0.09298193548387097
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  },
+  "ii_media_lean_capa_fija": {
+   "auroc_completo": 0.75054,
+   "ic_completo": [
+    0.7044139953498837,
+    0.7951623115577889
+   ],
+   "auroc_solo_lean": 0.69994,
+   "ic_solo_lean": [
+    0.6499256281407035,
+    0.7472300472636816
+   ],
+   "delta": 0.05059999999999998,
+   "ic_delta": [
+    0.01463967164179103,
+    0.08745390594059409
+   ],
+   "de_bootstrap_delta": 0.0189960503105339,
+   "auroc_solo_nl": 0.6828399999999999,
+   "apilado": 0.6970000000000001,
+   "completo_menos_apilado": 0.05353999999999992,
+   "ic_completo_menos_apilado": [
+    0.019898010050251096,
+    0.08724442713567836
+   ],
+   "apilado_ic_sobre_0": true,
+   "perm": {
+    "n": 1000,
+    "observado": 0.05059999999999998,
+    "p": 0.061938061938061936,
+    "nulo_media": -0.0005221800000000008,
+    "nulo_p95": 0.053105000000000034,
+    "nulo_max": 0.10036
+   },
+   "capas_elegidas": {
+    "completo": [
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18
+    ],
+    "solo_lean": [
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18,
+     18
+    ]
+   },
+   "sensibilidad_sin_dudosas": {
+    "n": 406,
+    "delta_sobre_puntajes_del_primario": 0.052435897435897494,
+    "ic": [
+     0.01199807692307693,
+     0.09058087262200172
+    ],
+    "nota": "puntajes OOF del primario restringidos a las filas no dudosas"
+   }
+  }
+ },
+ "secundario_pyes_completo": {
+  "auroc": 0.55888,
+  "masa_media": 0.22827836871147156,
+  "interpretable": false
+ },
+ "secundario_superficie_lean": {
+  "auroc": 0.68212
+ },
+ "segundos": 1688
+}

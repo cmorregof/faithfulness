@@ -1,0 +1,516 @@
+{
+ "semilla": 20261104,
+ "origenes_por_fuente": {
+  "FormalMATH-Lite": 425,
+  "formal_conjectures": 3989
+ },
+ "origenes_analizables": 4376,
+ "descartes": {
+  "no_analizable": 1,
+  "longitud": 37
+ },
+ "aplicables_por_regla": {
+  "A3": 257,
+  "C2": 2166,
+  "D3": 1393,
+  "D4h": 508,
+  "D6": 1165,
+  "A2": 287,
+  "C3": 367,
+  "D1": 802,
+  "D1c": 337,
+  "C1": 6,
+  "B2": 80,
+  "D7": 594,
+  "B3": 255,
+  "D8": 315,
+  "B1": 49,
+  "A1": 283,
+  "B4": 38,
+  "D4c": 43,
+  "D2": 64,
+  "D5": 16
+ },
+ "origenes_con_algun_candidato": 3429,
+ "candidatos": 9025,
+ "candidatos_por_etiqueta": {
+  "inadecuada": 3788,
+  "adecuada": 5237
+ },
+ "candidatos_por_fuente_y_familia": {
+  "FormalMATH-Lite|A": 167,
+  "FormalMATH-Lite|B": 76,
+  "FormalMATH-Lite|C": 392,
+  "FormalMATH-Lite|D": 784,
+  "formal_conjectures|A": 660,
+  "formal_conjectures|B": 346,
+  "formal_conjectures|C": 2147,
+  "formal_conjectures|D": 4453
+ },
+ "tokens_por_regla": {
+  "A1": {
+   "n": 283,
+   "mediana": 8,
+   "media": 9.72,
+   "bins": {
+    "1-4": 0,
+    "5-8": 151,
+    "9-14": 114,
+    "15-24": 15,
+    "25+": 3
+   }
+  },
+  "A2": {
+   "n": 287,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 287,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "A3": {
+   "n": 257,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 257,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B1": {
+   "n": 49,
+   "mediana": 9,
+   "media": 9.06,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 49,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B2": {
+   "n": 80,
+   "mediana": 1.0,
+   "media": 1,
+   "bins": {
+    "1-4": 80,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B3": {
+   "n": 255,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 255,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "B4": {
+   "n": 38,
+   "mediana": 13.5,
+   "media": 16.58,
+   "bins": {
+    "1-4": 0,
+    "5-8": 10,
+    "9-14": 12,
+    "15-24": 7,
+    "25+": 9
+   }
+  },
+  "C1": {
+   "n": 6,
+   "mediana": 8.0,
+   "media": 9,
+   "bins": {
+    "1-4": 0,
+    "5-8": 3,
+    "9-14": 2,
+    "15-24": 1,
+    "25+": 0
+   }
+  },
+  "C2": {
+   "n": 2166,
+   "mediana": 1.0,
+   "media": 1.02,
+   "bins": {
+    "1-4": 2166,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "C3": {
+   "n": 367,
+   "mediana": 1,
+   "media": 1,
+   "bins": {
+    "1-4": 367,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D1": {
+   "n": 802,
+   "mediana": 4.0,
+   "media": 5.88,
+   "bins": {
+    "1-4": 490,
+    "5-8": 217,
+    "9-14": 59,
+    "15-24": 36,
+    "25+": 0
+   }
+  },
+  "D1c": {
+   "n": 337,
+   "mediana": 6,
+   "media": 9.36,
+   "bins": {
+    "1-4": 34,
+    "5-8": 186,
+    "9-14": 65,
+    "15-24": 48,
+    "25+": 4
+   }
+  },
+  "D2": {
+   "n": 64,
+   "mediana": 5.0,
+   "media": 5.19,
+   "bins": {
+    "1-4": 1,
+    "5-8": 61,
+    "9-14": 2,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D3": {
+   "n": 1393,
+   "mediana": 3,
+   "media": 3.35,
+   "bins": {
+    "1-4": 1180,
+    "5-8": 184,
+    "9-14": 22,
+    "15-24": 7,
+    "25+": 0
+   }
+  },
+  "D4c": {
+   "n": 43,
+   "mediana": 22,
+   "media": 27.95,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 11,
+    "15-24": 13,
+    "25+": 19
+   }
+  },
+  "D4h": {
+   "n": 508,
+   "mediana": 18.0,
+   "media": 21.19,
+   "bins": {
+    "1-4": 21,
+    "5-8": 5,
+    "9-14": 56,
+    "15-24": 319,
+    "25+": 107
+   }
+  },
+  "D5": {
+   "n": 16,
+   "mediana": 9.0,
+   "media": 9.69,
+   "bins": {
+    "1-4": 0,
+    "5-8": 0,
+    "9-14": 16,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D6": {
+   "n": 1165,
+   "mediana": 1,
+   "media": 1.06,
+   "bins": {
+    "1-4": 1163,
+    "5-8": 2,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  },
+  "D7": {
+   "n": 594,
+   "mediana": 7.0,
+   "media": 7.77,
+   "bins": {
+    "1-4": 1,
+    "5-8": 509,
+    "9-14": 57,
+    "15-24": 25,
+    "25+": 2
+   }
+  },
+  "D8": {
+   "n": 315,
+   "mediana": 2,
+   "media": 2.02,
+   "bins": {
+    "1-4": 315,
+    "5-8": 0,
+    "9-14": 0,
+    "15-24": 0,
+    "25+": 0
+   }
+  }
+ },
+ "huellas_por_regla": {
+  "A1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "A3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.816
+  },
+  "B2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "B4": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "C2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.793
+  },
+  "C3": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D1": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D1c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D2": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.984,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D3": {
+   "subindice_o_prima_nuevo": 1.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D4h": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D4c": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D5": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D6": {
+   "subindice_o_prima_nuevo": 1.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D7": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 1.0,
+   "numeral_ausente_del_nl_nuevo": 0.0
+  },
+  "D8": {
+   "subindice_o_prima_nuevo": 0.0,
+   "negacion_nueva": 0.0,
+   "numeral_ausente_del_nl_nuevo": 0.362
+  }
+ },
+ "excluidas_de_pares": [
+  "D2",
+  "D3",
+  "D6",
+  "D7"
+ ],
+ "intervalos_tokens": [
+  "1-4",
+  "5-8",
+  "9-14",
+  "15-24",
+  "25+"
+ ],
+ "tokens_infieles": {
+  "n": 3788,
+  "mediana": 1.0,
+  "media": 1.94,
+  "bins": {
+   "1-4": 3412,
+   "5-8": 164,
+   "9-14": 177,
+   "15-24": 23,
+   "25+": 12
+  }
+ },
+ "tokens_fieles": {
+  "n": 5237,
+  "mediana": 4,
+  "media": 6.01,
+  "bins": {
+   "1-4": 3205,
+   "5-8": 1164,
+   "9-14": 288,
+   "15-24": 448,
+   "25+": 132
+  }
+ },
+ "emparejamiento_provisional": {
+  "nota": "Antes de certificar. El emparejamiento definitivo se rehace solo con candidatos certificados.",
+  "pares": 730,
+  "origenes_con_par": 472,
+  "pares_por_familia_infiel": {
+   "A": 240,
+   "C": 288,
+   "B": 202
+  },
+  "pares_por_regla_infiel": {
+   "A3": 162,
+   "C2": 216,
+   "B3": 175,
+   "A1": 32,
+   "C3": 72,
+   "B4": 12,
+   "B2": 15,
+   "A2": 46
+  },
+  "pares_por_regla_fiel": {
+   "D8": 289,
+   "D1": 352,
+   "D4h": 37,
+   "D1c": 41,
+   "D4c": 11
+  },
+  "misma_zona": 578,
+  "mismo_objeto": 590,
+  "combinaciones": {
+   "C2~D1": 115,
+   "B3~D8": 101,
+   "A3~D1": 92,
+   "C2~D8": 89,
+   "B3~D1": 74,
+   "A3~D8": 70,
+   "C3~D1": 41,
+   "A1~D4h": 23,
+   "A2~D1": 23,
+   "C3~D8": 18,
+   "A2~D1c": 15,
+   "C3~D1c": 12,
+   "B4~D4c": 11,
+   "C2~D4h": 10,
+   "A1~D1c": 9,
+   "A2~D8": 8,
+   "B2~D1": 7,
+   "B2~D1c": 3,
+   "B2~D8": 3,
+   "B2~D4h": 2,
+   "C2~D1c": 2,
+   "C3~D4h": 1,
+   "B4~D4h": 1
+  },
+  "tokens_infiel": {
+   "n": 730,
+   "mediana": 1.0,
+   "media": 1.89,
+   "bins": {
+    "1-4": 686,
+    "5-8": 6,
+    "9-14": 22,
+    "15-24": 9,
+    "25+": 7
+   }
+  },
+  "tokens_fiel": {
+   "n": 730,
+   "mediana": 4.0,
+   "media": 4.11,
+   "bins": {
+    "1-4": 686,
+    "5-8": 6,
+    "9-14": 22,
+    "15-24": 9,
+    "25+": 7
+   }
+  },
+  "delta_abs_media": 2.322,
+  "pares_por_fuente": {
+   "FormalMATH-Lite": 124,
+   "formal_conjectures": 606
+  }
+ },
+ "tokenizador": "Qwen/Qwen3-4B@1cfa9a7208912126459214e8b04321603b3df60c",
+ "sha256_candidatos": "83d13a0c22de666f951ec43a60492cc4ceb6d9699de9b8cea1beee63b8281246"
+}
