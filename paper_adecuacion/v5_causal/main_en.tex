@@ -1,4 +1,4 @@
-% Beyond the Lean code Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
+% Beyond the Lean Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
 \documentclass[10pt]{article}
 \usepackage[preprint]{tmlr}
 \usepackage[utf8]{inputenc}
@@ -17,7 +17,7 @@
 \newenvironment{idea}{\begin{quote}\noindent}{\end{quote}}
 \newenvironment{pendiente}{\begin{quote}\small\noindent\textbf{Pending.}\ }{\end{quote}}
 
-\title{Beyond the Lean code Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
+\title{Beyond the Lean Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
 
 \author{\name Carlos Manuel Orrego-Franco \email corregof@unal.edu.co \\
       \addr Departamento de Matem\'aticas y Estad\'istica\\
@@ -844,9 +844,10 @@ against an implementation he writes by hand before they are reported as findings
 authors are responsible for all claims.
 
 \paragraph{Code and data.}
-The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain the decision
-rules with their hashes and times, the certified pairs, the cross-surface features, and every result file cited
-here.
+The repository is at \url{https://github.com/cmorregof/faithfullness}, and the numbers reported here correspond to
+commit \vr{ea66bad}. It contains the decision rules with their hashes and times, the certified pairs, the
+cross-surface features, every result file cited here and the project log. It does not contain the extracted
+activations or the CriticLeanBench texts.
 
 
 \bibliography{refs}
@@ -876,8 +877,7 @@ Kimina-7B             & \vr{AI-MO/Kimina-Autoformalizer-7B}        & \vr{ddd47cb
 
 \section{Deviations and late decisions}\label{app:desviaciones}
 
-The list below is taken from the reports of each level. The project log holds a longer numbered list, which will be
-released with the repository, and nothing here replaces it.
+The list below is taken from the reports of each level. The project log holds a longer numbered list, which is in the repository (\vr{probes/BITACORA.md}), and nothing here replaces it.
 
 \begin{description}[leftmargin=1.2em]
 \item[4 Nov] Three versions of the Level~A rule were written in one day. The third, signed at 22:29, is the one

@@ -1,5 +1,5 @@
---- ../v4_voz/main_es.tex	2026-11-11 14:31:23.744686861 +0000
-+++ main_es.tex	2026-11-13 19:07:15.021743521 +0000
+--- ../v4_voz/main_es.tex	2026-11-11 09:31:23
++++ main_es.tex	2026-11-13 14:30:38
 @@ -15,13 +15,14 @@
  \definecolor{tinta}{HTML}{4F4086}
  \usepackage[colorlinks=true,linkcolor=black,citecolor=tinta,urlcolor=tinta]{hyperref}
@@ -42,14 +42,14 @@
  \end{abstract}
  
  \section{Introducción}
-@@ -62,6 +62,20 @@
+@@ -62,7 +62,21 @@
  converge» a Lean~4, el kernel aceptará cualquier proposición bien tipada, incluida una que omita la hipótesis de
  acotación o cuantifique sobre el conjunto equivocado. A medida que la autoformalización crece en escala, los errores
  de este tipo pueden esconderse allí donde un enunciado compila y no es el que se quería.
 +El problema ya se ve a escala. De unos 290 artículos con Lean en un lote reciente de matemática generada por IA, cerca
 +de 38 no enuncian el teorema principal del artículo \citep{xena2026checked}, y una prueba comprobada en Lean no tiene
 +por qué coincidir con el argumento escrito al que acompaña \citep{bastounis2026lost}.
-+
+ 
 +El experimento se enuncia en pocas líneas. Le mostramos a un modelo de lenguaje congelado un enunciado en lenguaje
 +natural y una formalización suya en Lean~4, y le preguntamos: «Is this formalization faithful? Answer Yes or No.» Su
 +respuesta la guardamos como control. Lo que estudiamos son sus activaciones, sobre las que entrenamos una sonda lineal
@@ -60,9 +60,10 @@
 +de una sonda tomada aisladamente. Cada resultado es una brecha, la AUROC de la sonda que lee el enunciado junto con el
 +código de Lean menos la de la sonda que lee solo el código de Lean. Una brecha positiva es evidencia de que la
 +representación lleva información sobre la \emph{relación} entre los dos textos.
- 
++
  La mayor parte de los trabajos mide la adecuación (\emph{faithfulness}) desde afuera. Recurre a un modelo juez
  \citep{criticlean,formalalign,zhang2026beyondcompilation,wang2026formalrx}, a una traducción de ida y vuelta al
+ lenguaje natural \citep{amrollahi2026roundtrip}, o a una comprobación de equivalencia con una formalización de
 @@ -70,13 +84,6 @@
  congelado, que nunca fue entrenado para juzgar formalizaciones, lleva ya una señal decodificable linealmente que
  distingue una formalización adecuada de una inadecuada.
@@ -242,7 +243,7 @@
  Las ediciones inadecuadas caen en tres familias. La familia A hace el teorema más fuerte, B lo hace más débil y C
  lo convierte en un teorema distinto. Dentro de C, C2 cambia un numeral y C3 cambia otra cosa.
 +La Tabla~\ref{tab:bejemplos} muestra un par de cada una.
-+
+ 
 +\begin{table}[h]
 +\centering
 +\caption{Nivel B, un par por familia de edición, elegido con una regla fija: el par con menos tokens editados entre sus dos miembros y, en caso de empate, el primero del índice. Solo se muestra el fragmento editado de cada enunciado en Lean. El miembro inadecuado lleva también la edición adecuada. El enunciado del par de C2 se corta tras su primera frase. Los enunciados van en su inglés original.}
@@ -263,7 +264,7 @@
 +\bottomrule
 +\end{tabularx}}
 +\end{table}
- 
++
  Los orígenes provienen de formal-conjectures \citep{fc,fcpaper} (323 pares) y de
  FormalMATH-Lite \citep{formalmath} (54 pares). Tras las exclusiones fijadas antes de extraer cualquier activación, el
  lote principal tiene 377 pares de 256 orígenes en 189 archivos fuente, certificados con Lean~4.34.1 \citep{lean4,mathlib}.
@@ -284,11 +285,11 @@
 +Tampoco pasó una comprobación de superficie fijada de antemano. En los 408 pares certificados, una regresión logística
 +sobre unigramas y bigramas del código de Lean solo alcanza una AUROC pareada de 0.706, un exceso de 0.081 sobre una línea base
 +no supervisada, frente a un límite de 0.05.
-+
+ 
 +Las particiones se agrupan por archivo fuente, mientras que la AUROC pareada y el bootstrap toman el origen como
 +unidad. Con los 189 archivos fuente como unidad, la brecha es +0.229 \ic{0.157}{0.301}, +0.109 \ic{0.046}{0.174},
 ++0.086 \ic{0.019}{0.158} y +0.037 \ic{−0.038}{0.106}, en el orden de la Tabla~\ref{tab:b}.
- 
++
  \begin{table}[h]
  \centering
  \caption{Nivel B, 377 pares. Arriba: la prueba central, AUROC pareada en el último token. Con 100 permutaciones dentro de cada par, el
@@ -540,7 +541,30 @@
  
  \paragraph{Uso de herramientas de IA.}
  El código de análisis y la primera implementación de cada nivel se escribieron con asistentes de programación de IA,
-@@ -744,6 +914,8 @@
+@@ -701,9 +871,10 @@
+ comparación está pendiente. Los autores son responsables de todas las afirmaciones.
+ 
+ \paragraph{Código y datos.}
+-El repositorio se publicará con el preprint en \url{https://github.com/cmorregof}. Contendrá las reglas de decisión
+-con sus hashes y horas, los pares certificados, los rasgos de superficie cruzada y todos los archivos de resultados
+-citados aquí.
++El repositorio está en \url{https://github.com/cmorregof/faithfullness}, y las cifras reportadas aquí corresponden
++al commit \vr{ea66bad}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los
++rasgos de superficie cruzada, todos los archivos de resultados citados aquí y la bitácora del proyecto. No
++contiene las activaciones extraídas ni los textos de CriticLeanBench.
+ 
+ 
+ \bibliography{refs}
+@@ -734,7 +905,7 @@
+ \section{Desviaciones y decisiones tardías}\label{app:desviaciones}
+ 
+ La lista que sigue sale de los informes de cada nivel. La bitácora del proyecto guarda una lista numerada más larga,
+-que se publicará con el repositorio, y nada de lo que hay aquí la reemplaza.
++que está en el repositorio (\vr{probes/BITACORA.md}), y nada de lo que hay aquí la reemplaza.
+ 
+ \begin{description}[leftmargin=1.2em]
+ \item[4 nov] En un solo día se escribieron tres versiones de la regla del Nivel~A. La tercera, firmada a las 22:29,
+@@ -744,6 +915,8 @@
  se volvió a correr DeepSeek-Prover-V2. La lectura~(ii) no se vio afectada.
  \item[5 nov] Cuando los \emph{offsets} del tokenizador no cuadran con el texto, la extracción localiza los tokens
  de Lean por prefijo. Esto cambió un solo modelo, DeepSeek-Prover-V2, en 1972 de sus 2000 prompts.
@@ -549,7 +573,7 @@
  \item[5 nov] El primer autor confirmó dos cláusulas del documento del Nivel~A cuando ya se habían visto los
  resultados de la lectura~(ii). Una es que un modelo puede pasar con cualquiera de las dos lecturas, y la otra, que
  el metaanálisis se lee lectura por lectura. Las demás cláusulas de implementación de ese documento las redactó el
-@@ -763,13 +935,135 @@
+@@ -763,13 +936,135 @@
  \item[9 nov] Se añadieron el control por fuente, el bootstrap conjunto, los mapas por capa y posición, sus
  estadísticos de región y el nulo de intercambio. La hipótesis del borrador de protocolo pasó a exigir los dos
  controles de superficie.

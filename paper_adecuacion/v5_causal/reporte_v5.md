@@ -319,3 +319,21 @@ Sin cambio, por decisión de Carlos: el párrafo de los pares de numeral («A na
 Siguen abiertos y no dependen de esta tanda: el recuadro «Pending» y «Use of AI tools» (cambian cuando `probe.py` esté comparado), la fecha de CriticLeanBench en «Contamination», «Code and data» (repositorio) y los rótulos dentro de las figuras.
 
 `verifica_v5.py` pasa en los dos idiomas (el redondeo de 18.4 se comprueba ahí; resumen: 245 y 250 palabras); `coteja_en_es.py`: 130 bloques, mismas secuencias; `main_en.pdf` recompilado. `main_es.pdf` hay que compilarlo en el Mac.
+
+## Decimonovena tanda (13 nov, tarde): repositorio y título
+
+Aprobada por Carlos en el chat («Sí, aplícala»), después de ver el texto en los dos idiomas. `aplica_v5.py` aplica ahora 65 pasajes en inglés y 65 en español.
+
+| # | Dónde | Antes | Después |
+|---|---|---|---|
+| 19.1 | Título en inglés y comentario de la línea 1 | «Beyond the Lean code Code Alone» | «Beyond the Lean Code Alone». La sustitución 18.6 («the Lean» → «the Lean code») había caído sobre el título ya corregido en la decimosexta tanda. El español no tenía el defecto |
+| 19.2 | «Code and data» | «The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain…» | En presente, con la URL `https://github.com/cmorregof/faithfullness` y el commit `ea66bad`. Añade la bitácora a lo que contiene y dice lo que no contiene: las activaciones extraídas y los textos de CriticLeanBench |
+| 19.3 | Apéndice «Deviations and late decisions» | «…which will be released with the repository…» | «…which is in the repository (`probes/BITACORA.md`)…» |
+
+**Repositorio.** `cmorregof/faithfullness`, privado al momento de esta tanda; hacerlo público es un paso que confirma Carlos. Primer commit `ea66bad`: 1002 archivos, 65 MB. Código bajo MIT; datos y texto bajo CC BY 4.0; `NOTICE.md` lista las fuentes y sus licencias. Fuera: activaciones, `direcciones.npz`, `revision_humana/` (con la clave de la revisión ciega), `prerregistro_v3_BORRADOR.md`, `probe.py`, `revisiones/`, los textos de CriticLeanBench, y de `nivel_b/` las carpetas `abiertos/`, `tripletas/`, `v3_previo/`, los `candidatos*.jsonl` y las revisiones hechas por modelos. Desde un clon de GitHub, `aplica_v5.py` reproduce los dos `.tex`, `verifica_v5.py` y `coteja_en_es.py` pasan y `latexmk` compila los dos PDF. El commit citado es el de los archivos de resultados; el texto con esta tanda entra en un commit posterior.
+
+`verifica_v5.py` cambió en una cosa: el identificador del commit no cuenta como cifra, en la forma exacta `commit \vr{…}` y exactamente una vez. Sin ese cambio leía «66» dentro de `ea66bad` como cifra sin fuente. No detectaba el título duplicado; sigue sin comprobar el título.
+
+`verifica_v5.py` pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; `main_en.pdf` (23 páginas) y `main_es.pdf` (24) compilados en el Mac, sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` contra v4 están regenerados.
+
+Siguen abiertos: los rótulos dentro de las figuras (las cuatro con LaTeX se regeneran idénticas a las actuales en un entorno desechable, comprobado píxel a píxel; faltan los rótulos aprobados), la frase de CriticLeanBench en «Contamination», el recuadro «Pending» y «Use of AI tools».

@@ -1,8 +1,8 @@
---- ../v4_voz/main_en.tex	2026-11-11 14:31:23.378693166 +0000
-+++ main_en.tex	2026-11-13 19:07:15.004983539 +0000
+--- ../v4_voz/main_en.tex	2026-11-11 09:31:23
++++ main_en.tex	2026-11-13 14:30:38
 @@ -1,4 +1,4 @@
 -% Beyond the Lean Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
-+% Beyond the Lean code Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
++% Beyond the Lean Code Alone -- TMLR preprint style. Compile: latexmk -pdf main_en.tex
  \documentclass[10pt]{article}
  \usepackage[preprint]{tmlr}
  \usepackage[utf8]{inputenc}
@@ -18,7 +18,7 @@
  \newenvironment{pendiente}{\begin{quote}\small\noindent\textbf{Pending.}\ }{\end{quote}}
  
 -\title{Beyond the Lean Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
-+\title{Beyond the Lean code Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
++\title{Beyond the Lean Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
  
  \author{\name Carlos Manuel Orrego-Franco \email corregof@unal.edu.co \\
        \addr Departamento de Matem\'aticas y Estad\'istica\\
@@ -46,14 +46,14 @@
  after the models' release and after this pilot.
  \end{abstract}
  
-@@ -56,6 +58,20 @@
+@@ -56,7 +58,21 @@
  kernel will accept any well-typed proposition, including one that drops the boundedness hypothesis or quantifies
  over the wrong set. As autoformalization scales, errors of this kind can hide wherever a statement compiles and is
  not the one intended.
 +The problem is now visible at scale. Of some 290 Lean-bearing papers in a recent batch of AI-generated mathematics, about
 +38 do not state the paper's main theorem \citep{xena2026checked}, and a proof checked in Lean need not match the
 +written argument it accompanies \citep{bastounis2026lost}.
-+
+ 
 +The experiment is simple to state. We show a frozen language model a natural-language statement and a Lean~4
 +formalization of it, and ask: ``Is this formalization faithful? Answer Yes or No.'' We keep its answer as a control.
 +What we study is its activations, on which we train a linear probe to separate faithful from unfaithful
@@ -64,9 +64,10 @@
 +Every result is a gap, the AUROC of the probe that reads the statement with the Lean code minus that of the probe that
 +reads the Lean code alone. A positive gap is evidence that the representation carries information about the
 +\emph{relation} between the two texts.
- 
++
  Most work measures faithfulness from the outside. It relies on a judge model
  \citep{criticlean,formalalign,zhang2026beyondcompilation,wang2026formalrx}, on a round trip back to natural language
+ \citep{amrollahi2026roundtrip}, or on an equivalence check against a reference formalization
 @@ -64,13 +80,6 @@
  one that was never trained to judge formalizations, already carries a linearly decodable signal that distinguishes a
  faithful formalization from an unfaithful one.
@@ -266,11 +267,11 @@
 +A surface check fixed in advance also failed. On the 408 certified pairs, a logistic regression on unigrams and
 +bigrams of the Lean code alone reaches a paired AUROC of 0.706, an excess of 0.081 over an unsupervised baseline, against a
 +limit of 0.05.
-+
+ 
 +Folds are grouped by source file, whereas the paired AUROC and the bootstrap take the origin as their unit. With the
 +189 source files as the unit instead, the gap is +0.229 \ic{0.157}{0.301}, +0.109 \ic{0.046}{0.174}, +0.086
 +\ic{0.019}{0.158} and +0.037 \ic{−0.038}{0.106}, in the order of Table~\ref{tab:b}.
- 
++
  \begin{table}[h]
  \centering
  \caption{Level B, 377 pairs. Top: the central test, paired AUROC at the last token. With 100 within-pair permutations the
@@ -517,6 +518,30 @@
  
  \paragraph{Use of AI tools.}
  The analysis code and the first implementation of every level were written with AI coding assistants under rules
+@@ -673,9 +844,10 @@
+ authors are responsible for all claims.
+ 
+ \paragraph{Code and data.}
+-The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain the decision
+-rules with their hashes and times, the certified pairs, the cross-surface features, and every result file cited
+-here.
++The repository is at \url{https://github.com/cmorregof/faithfullness}, and the numbers reported here correspond to
++commit \vr{ea66bad}. It contains the decision rules with their hashes and times, the certified pairs, the
++cross-surface features, every result file cited here and the project log. It does not contain the extracted
++activations or the CriticLeanBench texts.
+ 
+ 
+ \bibliography{refs}
+@@ -705,8 +877,7 @@
+ 
+ \section{Deviations and late decisions}\label{app:desviaciones}
+ 
+-The list below is taken from the reports of each level. The project log holds a longer numbered list, which will be
+-released with the repository, and nothing here replaces it.
++The list below is taken from the reports of each level. The project log holds a longer numbered list, which is in the repository (\vr{probes/BITACORA.md}), and nothing here replaces it.
+ 
+ \begin{description}[leftmargin=1.2em]
+ \item[4 Nov] Three versions of the Level~A rule were written in one day. The third, signed at 22:29, is the one
 @@ -715,6 +886,8 @@
  DeepSeek-Prover-V2 was rerun. Readout~(ii) was not affected.
  \item[5 Nov] When the tokenizer's offsets do not line up with the text, extraction falls back to locating the Lean
@@ -550,7 +575,7 @@
 +before the split was computed. The Holm values were already known when it was written, because they follow from the
 +printed $p$-values. Both are exploratory and post hoc.
  \end{description}
- 
++
 +\section{Secondary results of the Level~B intervention}\label{app:intervencion}
 +
 +Table~\ref{tab:bsecundarios} gives the secondary analyses of the intervention. The placebo runs the hooks with the
@@ -560,7 +585,7 @@
 +more than the one built from \vr{lean\_only} in Qwen3-4B and OLMo-2, and in Llama-3.1 and Gemma-3 that interval
 +includes zero. With shifts two and four times larger, the direction exceeds its five random directions in every model
 +except Gemma-3.
-+
+ 
 +The probability mass on Yes and No at the answer position is at least 0.982 without intervention, and the shift
 +changes it by less than 0.001 in every model, along the difference of means and along the random directions. The model
 +therefore keeps answering yes or no under the shift. This measure is near its ceiling, so it rules out only that kind

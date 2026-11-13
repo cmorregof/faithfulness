@@ -125,6 +125,11 @@ def revisa(nombre):
     cita = re.compile(r"(?:Of some 290 Lean-bearing papers|De unos 290 artículos con Lean)[^.]*?\\citep\{xena2026checked\}")
     if len(cita.findall(nuevo)) != 1: falla("la frase que cita el post de Xena no aparece exactamente una vez")
     nuevo_sin_cita = cita.sub(" ", nuevo)
+    # decimonovena tanda: el identificador del commit del repositorio («ea66bad») no es una cifra. Se saca del conteo
+    # solo en esa forma exacta, que debe aparecer exactamente una vez, en «Code and data».
+    commit = re.compile(r"commit\s+\\vr\{[0-9a-f]{7}\}")
+    if len(commit.findall(nuevo)) != 1: falla("el commit del repositorio no aparece exactamente una vez")
+    nuevo_sin_cita = commit.sub(" ", nuevo_sin_cita)
     sv, sn = V["dif"](V["numeros"](sin_nombres(viejo)), V["numeros"](sin_nombres(ejemplos(nuevo_sin_cita, falla))))
     # decimoctava tanda: la segunda implementación del Nivel C pasa de cinco a tres decimales, por redondeo
     REDONDEADAS = {"+0.15354": "+0.154", "0.12102": "0.121", "0.18714": "0.187"}

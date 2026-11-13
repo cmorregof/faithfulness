@@ -582,6 +582,16 @@ def ingles():
     d.cambia("keep a positive margin and Gemma does not.", "keep a positive margin and Gemma-3 does not.")
     # «the Lean» como sustantivo suelto pasa a «the Lean code», para que el texto diga lo mismo que el título
     d.sustituciones.append(d.todas_re(r"\bthe Lean\b(?!~)(?!\s+(?:code|tokens|text|statements?|formalization|block)\b)", "the Lean code"))
+    # ---- decimonovena tanda (13 nov, tarde): repositorio publicado; «Code and data» en presente, con URL y commit
+    # La sustitución anterior duplicó «code» en el título («the Lean code Code Alone»): se corrige aquí (comentario y \title).
+    assert d.todas("the Lean code Code Alone", "the Lean Code Alone") == 2
+    d.cambia(r"The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain the decision rules with their hashes and times, the certified pairs, the cross-surface features, and every result file cited here.",
+             "The repository is at \\url{https://github.com/cmorregof/faithfullness}, and the numbers reported here correspond to\n"
+             "commit \\vr{ea66bad}. It contains the decision rules with their hashes and times, the certified pairs, the\n"
+             "cross-surface features, every result file cited here and the project log. It does not contain the extracted\n"
+             "activations or the CriticLeanBench texts.")
+    d.cambia("which will be released with the repository, and nothing here replaces it.",
+             r"which is in the repository (\vr{probes/BITACORA.md}), and nothing here replaces it.")
     return d
 
 
@@ -962,6 +972,14 @@ def espanol():
     d.cambia("conservan un margen positivo y Gemma no.", "conservan un margen positivo y Gemma-3 no.")
     # «el Lean» como sustantivo suelto pasa a «el código de Lean» (también «del» y «al»)
     d.sustituciones.append(d.todas_re(r"\b([Ee]l|del|al) Lean\b(?!~)", r"\1 código de Lean"))
+    # ---- decimonovena tanda (13 nov, tarde): repositorio publicado; «Código y datos» en presente, con URL y commit
+    d.cambia(r"El repositorio se publicará con el preprint en \url{https://github.com/cmorregof}. Contendrá las reglas de decisión con sus hashes y horas, los pares certificados, los rasgos de superficie cruzada y todos los archivos de resultados citados aquí.",
+             "El repositorio está en \\url{https://github.com/cmorregof/faithfullness}, y las cifras reportadas aquí corresponden\n"
+             "al commit \\vr{ea66bad}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los\n"
+             "rasgos de superficie cruzada, todos los archivos de resultados citados aquí y la bitácora del proyecto. No\n"
+             "contiene las activaciones extraídas ni los textos de CriticLeanBench.")
+    d.cambia("que se publicará con el repositorio, y nada de lo que hay aquí la reemplaza.",
+             r"que está en el repositorio (\vr{probes/BITACORA.md}), y nada de lo que hay aquí la reemplaza.")
     return d
 
 

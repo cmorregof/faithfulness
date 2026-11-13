@@ -1,4 +1,4 @@
-\begin{thebibliography}{38}
+\begin{thebibliography}{40}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -20,6 +20,13 @@ Pawan~Sasanka Ammanamanchi, Siddharth Bhat, and Stella Biderman.
 Daneshvar Amrollahi, Jerry Lopez, and Clark Barrett.
 \newblock Faithful autoformalization via roundtrip verification and repair.
 \newblock \emph{arXiv preprint arXiv:2604.25031}, 2026.
+
+\bibitem[Bastounis et~al.(2026)Bastounis, Circelli, and
+  Hansen]{bastounis2026lost}
+Alexander Bastounis, Fabian Circelli, and Anders~C. Hansen.
+\newblock {N}avier--{S}tokes lost in translation: Why {L}ean verification of
+  {AI} autoformalisation does not guarantee correct natural language proofs.
+\newblock \emph{arXiv preprint arXiv:2610.08144}, 2026.
 
 \bibitem[Belrose et~al.(2023)Belrose, Schneider-Joseph, Ravfogel, Cotterell,
   Raff, and Biderman]{belrose2023leace}
@@ -274,6 +281,14 @@ Haocheng Wang, Baiyu Huang, Yingjia Wan, Xiao Zhu, Xiaoyang Liu, Yinya Huang,
 \newblock {FormalRx}: Rectify and e{X}amine semantic failures in
   autoformalization.
 \newblock \emph{arXiv preprint arXiv:2607.04655}, 2026.
+
+\bibitem[{Xena Project}(2026)]{xena2026checked}
+{Xena Project}.
+\newblock \ldots and the proof is checked in {L}ean.
+\newblock Blog post,
+  \url{https://xenaproject.wordpress.com/2026/11/12/and-the-proof-is-checked-in-lean/},
+  2026.
+\newblock Accessed 13 November 2026.
 
 \bibitem[Yang et~al.(2025)Yang, Li, Yang, Zhang, Hui, et~al.]{qwen3}
 An~Yang, Anfeng Li, Baosong Yang, Beichen Zhang, Binyuan Hui, et~al.
