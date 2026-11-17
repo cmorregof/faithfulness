@@ -37,16 +37,9 @@ DATOS = os.environ.get("ESCANER_DATOS", os.path.join(RAIZ, "escaner_out"))
 #    saved here as wada_colors.json). "con" = a Wada combination that pairs it with a colour of 214.
 # ------------------------------------------------------------------------------------------------
 TEXTO, CENIZA, GUIA = "#24212B", "#6E6878", "#B9B4C0"
-MODELOS = {   # key: (display name, Wada name, Wada hex, preregistered?)
-    "olmo2_7b":     ("OLMo-2-7B",             "Cossack Green",       "#437742", True),
-    "gemma3_4b":    ("Gemma-3-4B",            "Sudan Brown",         "#A36752", True),
-    "llama31_8b":   ("Llama-3.1-8B",          "Pansy Purple",        "#7D133A", True),
-    "dsprover2_7b": ("DeepSeek-Prover-V2-7B", "Dusky Green",         "#004F46", True),
-    "qwen3_4b":     ("Qwen3-4B",              "Violet",              "#4F4086", False),
-    "goedel_8b":    ("Goedel-Prover-V2-8B",   "Aconite Violet",      "#A36AA5", False),
-    "kimina_7b":    ("Kimina-7B",             "Deep Grayish Olive",  "#635A3A", False),
-    "qwen3_8b":     ("Qwen3-8B",              "Vandar Poel's Blue",  "#064F6E", False),
-}
+import paleta_v5   # noqa: E402  (v5: la paleta de los modelos vive en paleta_v5.py; PALETA_FIGURAS la cambia)
+PALETA = os.environ.get("PALETA_FIGURAS") or paleta_v5.ESCOGIDA or "WADA"
+MODELOS = paleta_v5.modelos(PALETA)   # key: (display name, colour label, identity hex, preregistered?)
 ORDEN = list(MODELOS)
 COMBO = {"olmo2_7b": "262 + Ivory Buff", "gemma3_4b": "214", "llama31_8b": "273 + Sudan Brown",
          "dsprover2_7b": "94 + Ivory Buff", "qwen3_4b": "214", "goedel_8b": "301 + Ivory Buff",
@@ -56,8 +49,10 @@ COMBO = {"olmo2_7b": "262 + Ivory Buff", "gemma3_4b": "214", "llama31_8b": "273 
 # only the hue angle differs. Chroma follows one shared, sober envelope (peak 20, below Wada's Violet, 23).
 VMIN, VMAX = 0.50, 0.70        # AUROC: chance -> highest value seen (0.689)
 J_CLARO, J_OSCURO = 96.0, 24.0 # light end (chance, a tinted paper) and dark end
-C_PICO, J_PICO = 18.5, 46.0    # chroma peak (sober: below Wada Violet, 23) and the lightness where it sits
-C_CLARO, C_OSCURO = 2.5, 13.0  # chroma at the two ends
+# Chroma envelope: comes with the palette (paleta_v5.py). v3 (Wada): peak 18.5 at J' 46, ends 2.5 and 13.
+# RECORTE: if set, each model's chroma is also capped at RECORTE x the largest chroma sRGB holds at that J' and hue,
+# so lightness stays exact for every hue (no channel clipping). None = no cap (v3).
+globals().update(paleta_v5.envolvente(PALETA))
 DMAX = 0.12                    # difference map: symmetric limits, values beyond are clipped (counted below)
 J_CENTRO = 97.5                # difference map: neutral centre
 H_CENIZA = 291.1               # hue of ash grey #6E6878 in CAM02-UCS; negative arm of the difference map
@@ -73,12 +68,17 @@ def tono(hexa):
     return float(np.degrees(np.arctan2(b, a)) % 360)
 
 
-def croma(J):
-    """Shared chroma envelope as a function of lightness: rises from the dark end to the peak, falls to the light end."""
+def croma(J, h=None):
+    """Shared chroma envelope as a function of lightness: rises from the dark end to the peak, falls to the light end.
+    With RECORTE and a hue h, capped per hue to stay inside sRGB (see above)."""
     J = np.asarray(J, float)
     sub = C_OSCURO + (C_PICO - C_OSCURO) * np.sin(0.5 * np.pi * np.clip((J - J_OSCURO) / (J_PICO - J_OSCURO), 0, 1))
     baja = C_CLARO + (C_PICO - C_CLARO) * np.cos(0.5 * np.pi * np.clip((J - J_PICO) / (J_CLARO - J_PICO), 0, 1)) ** 1.3
-    return np.where(J <= J_PICO, sub, baja)
+    env = np.where(J <= J_PICO, sub, baja)
+    if RECORTE is None or h is None:
+        return env
+    an, bn = neutro_ab(J)
+    return np.minimum(env, RECORTE * paleta_v5.croma_maxima(J, h, an, bn).reshape(np.shape(J)))
 
 
 _G = np.linspace(0, 1, 2001)
@@ -109,7 +109,7 @@ def J_de(v):
 
 def rampa(m, n=256, informe=None):
     J = np.linspace(J_CLARO, J_OSCURO, n)
-    return ListedColormap(ucs_a_rgb(J, croma(J), tono(MODELOS[m][2]), informe, f"gamut_rampa_{m}"), name=f"r_{m}")
+    return ListedColormap(ucs_a_rgb(J, croma(J, tono(MODELOS[m][2])), tono(MODELOS[m][2]), informe, f"gamut_rampa_{m}"), name=f"r_{m}")
 
 
 def divergente(m, n=257, informe=None):
@@ -117,7 +117,7 @@ def divergente(m, n=257, informe=None):
     Equal |Delta| gives equal J' on both arms and in every model."""
     s = np.linspace(-1, 1, n)
     J = J_CENTRO + (J_OSCURO + 4 - J_CENTRO) * np.abs(s)
-    Cm = croma(J) * np.clip(np.abs(s) / 0.08, 0, 1)          # neutral exactly at 0
+    Cm = croma(J, tono(MODELOS[m][2])) * np.clip(np.abs(s) / 0.08, 0, 1)          # neutral exactly at 0
     C = np.where(s >= 0, Cm, 0.0)   # negative arm: neutral grey, so it cannot be mistaken for any model hue
     H = np.where(s >= 0, tono(MODELOS[m][2]), H_CENIZA)
     return ListedColormap(ucs_a_rgb(J, C, H, informe, f"gamut_div_{m}"), name=f"d_{m}")
@@ -314,7 +314,7 @@ def J_simetrica(v):
 def rampa_v3(m, n=321, informe=None):
     v = np.linspace(VMIN_BAJO, VMAX, n)
     J = J_simetrica(v)
-    C = np.where(v >= 0.5, croma(J), 0.0)
+    C = np.where(v >= 0.5, croma(J, tono(MODELOS[m][2])), 0.0)
     H = np.full_like(v, tono(MODELOS[m][2]))
     return ListedColormap(ucs_a_rgb(J, C, H, informe, f"gamut_rampa_v3_{m}"), name=f"r3_{m}")
 
@@ -484,13 +484,24 @@ def suavizar(z):
     return gaussian_filter1d(z, SUAVE, mode="nearest")
 
 
+def _translucido(a):
+    """agg_filter that multiplies the alpha of an artist rendered as a whole (group opacity)."""
+    def f(img, dpi):
+        img = img.copy()
+        img[..., 3] *= a
+        return img, 0, 0
+    return f
+
+
 def relieve(ax, m, dx=0.95, dy=1.55, alto=24.0, fantasma=True, lw_borde=0.32, tramos=TRAMOS,
-            etiquetas=True, fs=7.5, borde="white", cada_fantasma=1, lw_fantasma=0.28):
+            etiquetas=True, fs=7.5, borde="white", cada_fantasma=1, lw_fantasma=0.28, opacidad=1.0):
     """Oblique slice relief drawn in 2D with the painter's algorithm (deepest layer first, first layer in front).
     x = position (spans separated by gaps); each layer is one slice, shifted right by dx and up by dy per layer.
     Height above a slice's baseline = AUROC - 0.5 (cells below chance sit on the baseline), alto units per 0.1.
     Fill colour = the model ramp at that cell's AUROC (raw value). Slices are never joined to each other.
-    Ash line on a slice = Lean alone at that layer (Lean and question spans)."""
+    Ash line on a slice = Lean alone at that layer (Lean and question spans).
+    opacidad < 1 (v5, README): each slice's fill is drawn whole and then made translucent as a group, so slices behind
+    show through and adjacent cells leave no seams; the contour lines stay opaque. 1 = as in v3."""
     c, s, _ = cargar(m)
     R = c.shape[0]
     cm = rampa(m)
@@ -517,7 +528,10 @@ def relieve(ax, m, dx=0.95, dy=1.55, alto=24.0, fantasma=True, lw_borde=0.32, tr
             if fantasma and a >= 44 and l % cada_fantasma == 0:
                 hs = (np.clip(suavizar(s[l, a:b]), VMIN, None) - VMIN) / 0.1 * alto
                 lineas.append(("fantasma", xc, base + hs))
-        ax.add_collection(PolyCollection(quads, facecolors=cols, edgecolors=cols, linewidths=0.2, zorder=zo))
+        relleno = PolyCollection(quads, facecolors=cols, edgecolors=cols, linewidths=0.2, zorder=zo)
+        if opacidad < 1:
+            relleno.set_agg_filter(_translucido(opacidad))
+        ax.add_collection(relleno)
         for tipo, x, y in lineas:
             if tipo == "borde":
                 ax.plot(x, y, color=borde, lw=lw_borde, zorder=zo + 0.6, solid_joinstyle="round")

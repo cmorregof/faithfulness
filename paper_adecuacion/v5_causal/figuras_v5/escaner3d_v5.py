@@ -36,6 +36,7 @@ plt.rcParams.update({"text.usetex": False, "font.family": "serif", "font.serif":
 TEXTO, CENIZA = E.TEXTO, E.CENIZA
 SALIDA = os.path.join(AQUI, "readme")
 SIGMA = 1.0
+OPACIDAD = 0.60  # opacidad del relleno de las lonchas (v5, escogida el 17 nov 2026); el contorno queda opaco
 
 
 def suavizar(z):
@@ -60,12 +61,12 @@ def clave(fig, rect, modelos, fs):
     ax.tick_params(axis="x", length=3, pad=2, labelsize=fs, colors=CENIZA, labelcolor=TEXTO)
     for sp in ax.spines.values():
         sp.set_visible(False)
-    ax.set_xlabel("AUROC, statement + Lean", fontsize=fs, labelpad=3, color=TEXTO)
+    ax.set_xlabel("AUROC, statement + Lean code", fontsize=fs, labelpad=3, color=TEXTO)
 
 
 def panel(fig, rect, m, fs, geom):
     ax = fig.add_axes(rect)
-    R, W, dx, dy, alto = E.relieve(ax, m, fs=fs, **geom)
+    R, W, dx, dy, alto = E.relieve(ax, m, fs=fs, opacidad=OPACIDAD, **geom)
     ax.set_xlim(-13, W + (R - 1) * dx + 8)
     E.escala_vertical(ax, -2.4, alto, fs=fs - 1)
     E.flecha_capas(ax, W, R, dx, dy, fs=fs - 1)
@@ -98,11 +99,12 @@ def cinco(presentes):
     fig.savefig(os.path.join(SALIDA, "relieve_cinco_modelos.png")); plt.close(fig)
 
 
-def uno(m):
+def uno(m, nombre=None):
     ANCHO, H, fs = 12.0, 6.6, 14.0
     fig = plt.figure(figsize=(ANCHO, H))
     ax = fig.add_axes([0.20, 0.03, 0.79, 0.86])
-    R, W, dx, dy, alto = E.relieve(ax, m, dx=0.45, dy=1.6, alto=16.0, lw_borde=0.5, lw_fantasma=0.4, fs=fs)
+    R, W, dx, dy, alto = E.relieve(ax, m, dx=0.45, dy=1.6, alto=16.0, lw_borde=0.5, lw_fantasma=0.4, fs=fs,
+                                   opacidad=OPACIDAD)
     ax.set_xlim(-12, W + (R - 1) * dx + 8)
     E.escala_vertical(ax, -2.4, alto, fs=fs - 2)
     E.flecha_capas(ax, W, R, dx, dy, fs=fs - 2)
@@ -113,7 +115,7 @@ def uno(m):
              "faithful vs. unfaithful\nLean 4 formalization,\nreading the statement\nand the Lean.\n\nDark line: the Lean code alone.\n\n"
              "Lightly smoothed along\nposition. Exploratory,\none seed.", color=CENIZA, fontsize=12, va="top", linespacing=1.3)
     os.makedirs(SALIDA, exist_ok=True)
-    fig.savefig(os.path.join(SALIDA, f"relieve_{m}.png")); plt.close(fig)
+    fig.savefig(os.path.join(SALIDA, nombre or f"relieve_{m}.png")); plt.close(fig)
 
 
 if __name__ == "__main__":

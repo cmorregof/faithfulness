@@ -46,24 +46,24 @@ MIN = 8.0          # ningún texto por debajo de este cuerpo
 
 TXT = {
     "en": dict(
-        tit=["statement + Lean", "Lean code alone", r"difference $\Delta$"],
+        tit=["statement + Lean code", "Lean code alone", r"difference $\Delta$"],
         tramo={"statement": "statement", "Lean": "Lean", "question": "Q"},
         q="Q = question tokens; the last column is the last token",
         pre="Level A replication models", exp="Other models", capa="layer",
         clave_a="out-of-fold AUROC (grey: below chance)",
-        clave_d=r"$\Delta$ = (statement + Lean) $-$ (Lean code alone)",
+        clave_d=r"$\Delta$ = (statement + Lean code) $-$ (Lean code alone)",
         ruido=r"one cell, permuted labels, 5–95%%: $0.5 \pm %.3f$" % E.PISO,
-        ruido_d="same, if independent",
+        ruido_d="same, if independent", fs_clave_d=9,
     ),
     "es": dict(
-        tit=["enunciado + Lean", "código de Lean solo", r"diferencia $\Delta$"],
+        tit=["enunciado + código de Lean", "código de Lean solo", r"diferencia $\Delta$"],
         tramo={"statement": "enunciado", "Lean": "Lean", "question": "P"},
         q="P = tokens de la pregunta; la última columna es el último token",
         pre="Modelos de la réplica del Nivel A", exp="Otros modelos", capa="capa",
         clave_a="AUROC fuera de pliegue (gris: bajo el azar)",
-        clave_d=r"$\Delta$ = (enunciado + Lean) $-$ (código de Lean solo)",
+        clave_d=r"$\Delta$ = (enunciado + código de Lean) $-$ (código de Lean solo)",
         ruido=r"una celda, etiquetas permutadas, 5–95 %%: $0.5 \pm %.3f$" % E.PISO,
-        ruido_d="igual, si fueran independientes",
+        ruido_d="igual, si fueran independientes", fs_clave_d=MIN,
     ),
 }
 
@@ -123,7 +123,7 @@ def fig_2d(presentes, lang="en"):
         cursor = y - hueco_fila
     fig.text(xs[0] / ANCHO, (ky + kh + 0.27 + 0.10) / H, T["q"], fontsize=MIN, color=CENIZA, va="bottom", ha="left")
 
-    def clave(x0, w, mapas, lo, hi, ticks, fmt, etiqueta, piso, txt_piso):
+    def clave(x0, w, mapas, lo, hi, ticks, fmt, etiqueta, piso, txt_piso, fs_etiqueta=9):
         top = ky + kh
         for j, mp in enumerate(mapas):
             a = fig.add_axes([x0 / ANCHO, (top - (j + 1) * paso + 0.008) / H, w / ANCHO, (paso - 0.008) / H])
@@ -135,7 +135,7 @@ def fig_2d(presentes, lang="en"):
                 a.set_xticks([])
         a.set_xticks(ticks); a.set_xticklabels([fmt(t) for t in ticks])
         a.tick_params(axis="x", length=2.5, pad=2, labelsize=MIN, colors=CENIZA, labelcolor=TEXTO)
-        a.set_xlabel(etiqueta, fontsize=9, labelpad=2.5, color=TEXTO)
+        a.set_xlabel(etiqueta, fontsize=fs_etiqueta, labelpad=2.5, color=TEXTO)
         ab = fig.add_axes([x0 / ANCHO, (top + 0.015) / H, w / ANCHO, 0.24 / H])   # corchete de ruido sobre la clave
         ab.set_xlim(lo, hi); ab.set_ylim(0, 1); ab.axis("off")
         c0 = 0.5 if lo > 0 else 0.0
@@ -147,7 +147,7 @@ def fig_2d(presentes, lang="en"):
     clave(xs[0] + 0.10 * ws[0], 0.80 * ws[0], [E.rampa_v3(m) for m in presentes], E.VMIN_BAJO, E.VMAX,
           [0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7], lambda t: f"{t:.2f}", T["clave_a"], E.PISO, T["ruido"])
     clave(xs[1] + 0.25 * ws[1], ws[2] + sep * unidad + 0.75 * ws[1] - 0.16, [E.divergente(m) for m in presentes], -E.DMAX, E.DMAX,
-          [-0.12, -0.06, 0, 0.06, 0.12], fmt_d, T["clave_d"], E.PISO_DIF, T["ruido_d"])
+          [-0.12, -0.06, 0, 0.06, 0.12], fmt_d, T["clave_d"], E.PISO_DIF, T["ruido_d"], T["fs_clave_d"])
     E.SALIDA = os.environ["ESCANER_SALIDA"]
     E.guardar(fig, "escaner2d_modelos_v5" + ("" if lang == "en" else "_es"))
     return H
