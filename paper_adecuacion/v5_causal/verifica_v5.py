@@ -16,12 +16,12 @@ exec(open(os.path.join(AQUI, "verifica_voz.py"), encoding="utf-8").read().split(
 MENOS = "−"
 # enteros que no son resultados: nº de direcciones, pares, pares sin C2, nivel del intervalo, fechas, dosis,
 # umbral de azar, y medidas de formato de las tablas (\vspace{2pt}, \tabcolsep{3pt})
-ESTRUCTURALES = {"20", "377", "309", "95", "11", "12", "13", "0.5", "2", "3", "4", "6", "0"}
+ESTRUCTURALES = {"+0.05", "20", "377", "309", "95", "11", "12", "13", "0.5", "2", "3", "4", "6", "0"}
 NUEVAS = {"label": {"tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "app:intervencion", "tab:bsecundarios", "tab:bejemplos", "app:definiciones", "tab:bsinc2"},
-          "ref": {"tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "tab:controlesnivel", "app:intervencion", "tab:bsecundarios", "tab:a", "tab:conjunta", "tab:b", "tab:bejemplos", "app:definiciones", "tab:bsinc2"},
+          "ref": {"app:protocolo", "tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "tab:controlesnivel", "app:intervencion", "tab:bsecundarios", "tab:a", "tab:conjunta", "tab:b", "tab:bejemplos", "app:definiciones", "tab:bsinc2", "tab:controles", "fig:forest", "tab:c"},
           "cite": {"geometry", "elazar2021amnesic", "rimsky2024steering", "ravfogel2020null", "belrose2023leace", "makelov2024subspace", "xena2026checked", "bastounis2026lost"}}
 FORMULAS_NUEVAS = {"\\D": 2, "C = 1": 1, "\\neq": 1, "p": 2}   # undécima tanda: $\D$ en la regla del Nivel C y ante la cifra de la segunda implementación
-TABLAS_EDITADAS = ("tab:controles}", "tab:conjunta}", "tab:b}")   # tab:b: dos frases en el pie (novena tanda)
+TABLAS_EDITADAS = ("tab:controles}", "tab:conjunta}", "tab:b}", "tab:controlesnivel}")   # tab:b: dos frases en el pie (novena tanda)
 
 
 def hojas(o):
@@ -74,7 +74,8 @@ def permitidas():
         pa = json.load(open(os.path.join(RAIZ, "probes", "nivel_b", "resultados", f"nivel_b_{m}_principal.json"), encoding="utf-8"))
         sp = json.load(open(os.path.join(RAIZ, "probes", "sin_pregunta", "resultados", f"s2a_{m}.json"), encoding="utf-8"))
         s.add(str(pa["n_archivos"]))                 # «189 source files», la unidad de esa sensibilidad
-        for x in pa["secundarios"]["central_bootstrap_por_archivo"]["diferencia"] + sp["sin_pregunta"]["delta_sp"]:
+        sb = json.load(open(os.path.join(RAIZ, "probes", "sin_pregunta", "resultados", f"s2b_{m}.json"), encoding="utf-8"))   # tanda 24: Nivel B sin la pregunta
+        for x in pa["secundarios"]["central_bootstrap_por_archivo"]["diferencia"] + sp["sin_pregunta"]["delta_sp"] + sb["sin_pregunta"]["delta_sp"]:
             t = f"{abs(x):.3f}"
             s |= {t, "+" + t, MENOS + t}
     # decimoquinta tanda: S7 (Holm e intervención sin C2), escrito por s7_sin_c2.py con la regla aprobada
@@ -185,6 +186,8 @@ def revisa(nombre):
         en = [e.replace("the Lean code alone", "the Lean alone").replace("código de Lean solo", "Lean solo") for e in en]
         # decimoctava tanda: «the Lean» suelto pasa a «the Lean code» y «el/del/al Lean» a «… código de Lean»
         en = [e.replace("the Lean code", "the Lean").replace("l código de Lean", "l Lean") for e in en]
+        # vigesimoquinta tanda: cada pie de figura lleva una frase «How to read it: …» / «Cómo leerla: …» tras su título
+        en = [re.sub(r"(How to read it|Cómo leerla): [^.]*\. ", "", e) for e in en]
         falt = [e for e in ev if e not in en and not any(t in e for t in TABLAS_EDITADAS)]
         if falt: falla(f"{env} de v4 cambiado: {[e[:60] for e in falt]}")
         nuevos = [e for e in en if e not in ev]
@@ -196,7 +199,8 @@ def revisa(nombre):
     salv = [("did not pass", "no pasó"), ("Exploratory maps", "mapas exploratorios"), ("No level alone supports", "Ningún nivel sostiene por sí solo")]
     r1 = re.sub(r"\s+", " ", res)
     for en_, es_ in salv:
-        if en_ not in r1 and es_ not in r1: falla(f"falta la salvedad «{en_}» en el resumen")
+        # tanda 22: sin distinguir mayúsculas, porque «Mapas exploratorios» abre frase
+        if en_.lower() not in r1.lower() and es_.lower() not in r1.lower(): falla(f"falta la salvedad «{en_}» en el resumen")
     print(f"   resumen: {n} palabras; cifras: {sorted(set(V['NUM'].findall(res)))}")
     # 6. frases que delimitan la evidencia y giros prohibidos
     for fr in V["FRASES"]:

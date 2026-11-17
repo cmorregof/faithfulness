@@ -196,6 +196,19 @@ class Doc:
         self.n += 1
         return k
 
+    def mueve_item(self, cabeza, antes_de, abre_viejo, abre_nuevo):
+        """Mueve un \\item de una lista (el que empieza con «cabeza») para dejarlo justo antes de «antes_de»,
+        y cambia su arranque. Cada uno debe aparecer una sola vez."""
+        i = self.t.index(cabeza); assert self.t.count(cabeza) == 1
+        j = self.t.index("\\item[", i + 1)
+        bloque = self.t[i:j]
+        assert bloque.count(abre_viejo) == 1, abre_viejo
+        resto = self.t[:i] + self.t[j:]
+        assert resto.count(antes_de) == 1, antes_de
+        k = resto.index(antes_de)
+        self.t = resto[:k] + bloque.replace(abre_viejo, abre_nuevo) + resto[k:]
+        self.n += 1
+
     def quita(self, viejo):
         pat = re.compile(self._pat(viejo).pattern + r"\s*"); self._uno(pat, viejo)
         self.t = pat.sub("", self.t)
@@ -605,6 +618,103 @@ def ingles():
            "before Goedel-Prover-V2-8B. Its labels are new in that release. Its problems, in contrast, come from earlier\n"
            "collections such as Omni-MATH, AIME and U-MATH, and its authors report taking the Lean statements from a public\n"
            "dataset, so both may be older than the labels.")
+    # ---- vigesimosegunda tanda (13 nov, 15:33): lectura final cruzada (dos lectores independientes y el chat).
+    # Detalle y origen de cada cambio: revisiones/lectura_final_2026-11-13.md
+    # A. contradicciones
+    d.cambia("They are most of those of the last-token readout at Level~A, where Llama-3.1 is negative, and that of Gemma-3 at the last token at Level~B.",
+             prosa(r"""They include most of those of the last-token readout at Level~A, where Llama-3.1 is negative, that
+             of DeepSeek-Prover-V2 at the fixed layer, and that of Gemma-3 at the last token at Level~B."""))
+    d.cambia("the fixed-layer direction separates the classes. Whether the model uses that direction is a causal question",
+             "each layer's probe direction separates the classes. Whether the model uses such a direction is a causal question")
+    d.cambia("the runs on Qwen3-8B and on Llama at Level~C", "the runs on Qwen3-8B at Level~A and on Llama-3.1 at Level~C")
+    d.cambia("Neither produces a positive gap.", "Neither produces a gap whose interval lies above zero.")
+    d.cambia("and neither null control shows a positive gap.", "and neither null control shows a gap whose interval lies above zero.")
+    # B. imprecisiones y prosa rota
+    d.cambia("We intervened on one family of directions, at Level~B only. The intervention meets its criterion in two of four models, and the run in Qwen3-4B is post hoc.",
+             prosa(r"""We intervened along two directions, at Level~B only. The shift along the difference of means meets
+             its criterion in two of four models, and the run in Qwen3-4B is post hoc. The ablation along the probe
+             direction gave a null."""))
+    d.tras("It changes the answer more than random directions do in two of four models, one of them in a post hoc run.",
+           "An earlier intervention along the logistic-probe direction, in Qwen3-4B, gave a null.")
+    d.cambia("In Qwen3-4B at Level~B the model's own answer separates as well as the probe.",
+             "In Qwen3-4B at Level~B, at the last token, the model's own answer separates as well as the probe.")
+    d.cambia("It does not yet address a P(Yes) that matches the probe.", "It does not yet address a P(Yes) that matches the probe at the last token.")
+    d.cambia(r"\item Dating of every Level~B origin against", r"\item Dating of the Level~B origins against")
+    d.cambia("were run next under the same early rule", "were run next under an early version of the rule")
+    d.cambia("the third version written that day", "the third version written on 4 November")
+    d.cambia("is at least 0.9993 in every model and at both levels.", "is at least 0.9993 in each of the four models checked, at Levels~A and~B.")
+    d.cambia("was measured at both, and it also depends on the readout.", "was measured at both readouts, and it depends on the readout.")
+    d.quita(r"A shift four times larger takes the AUROC below 0.5 in the four models (Table~\ref{tab:bintervencion} and Figure~\ref{fig:bintervencion}).")
+    d.tras(r"In Gemma-3 the interval of the same difference also includes zero (+0.049 \ic{−0.003}{0.100}).",
+           prosa(r"""A shift four times larger takes the AUROC below 0.5 in the four models
+           (Table~\ref{tab:bintervencion} and Figure~\ref{fig:bintervencion})."""))
+    d.cambia(r"On average it lies between 0.49 and 0.52 there, and the one exception is Qwen3-8B, at 0.521 \ic{0.501}{0.543}.",
+             prosa(r"""On average it lies between 0.49 and 0.52 there, and only in Qwen3-8B does the interval exclude 0.5
+             (0.521 \ic{0.501}{0.543})."""))
+    d.cambia(r"(Figure~\ref{fig:b}, bottom) shows why.", r"(Figure~\ref{fig:b}, bottom) looks inside family C.")
+    d.cambia("The worry does not hold.", "The stored outputs do not bear it out.")
+    d.cambia(r"\vr{nl\_only} reaches 0.61 to 0.74 in the four replication models", r"\vr{nl\_only} reaches 0.61 to 0.74 at the last token in the four replication models")
+    d.cambia(r"\vr{nl\_only} probes reach 0.61 to 0.74 in the four replication models", r"\vr{nl\_only} probes reach 0.61 to 0.74 at the last token in the four replication models")
+    d.cambia("in any of the four models. The models are Qwen3-4B, OLMo-2, Llama-3.1 and Gemma-3, and the gaps are",
+             "in any of the four models checked (Qwen3-4B, OLMo-2, Llama-3.1 and Gemma-3). The gaps are")
+    d.quita("Both clauses were already in the document signed on 4 November.")
+    d.tras("and the other is that the global claim is read within a single readout.",
+           "Both clauses were already in the document signed on 4 November.")
+    d.cambia("first in Qwen3-4B as an exploratory analysis and then", "first in Qwen3-4B, post hoc, and then")
+    d.cambia("In two of four models, one of them under a rule fixed in advance, a shift",
+             "In two of four models, one of them under a rule fixed in advance and the other post hoc, a shift")
+    d.cambia("It leaves readout~(ii) unchanged, with gaps of", "It leaves the reading of readout~(ii) unchanged, with gaps of")
+    d.cambia(r"Table~\ref{tab:bejemplos} shows one pair from each.", r"Table~\ref{tab:bejemplos} shows one pair from each of A, B, C2 and C3.")
+    d.mueve_item(r"\item[12 Nov] Under the same rule,", r"\item[12--13 Nov] The same intervention", "Under the same rule,", "Under the rule of 11 November,")
+    d.tras("and the permutation test swaps roles within each pair.", r"The controls are listed in Table~\ref{tab:controles}.")
+    d.cambia(r"under~(ii) and +0.029 \ic{−0.000}{0.058} under~(i). Its estimand", r"under~(ii) and +0.029 \ic{−0.000}{0.058} under~(i) (Figure~\ref{fig:forest}). Its estimand")
+    d.cambia("lies entirely above zero. In both models the label", r"lies entirely above zero (Table~\ref{tab:c}). In both models the label")
+    # C. efectos de las sustituciones de «Lean code» y cosméticos
+    d.cambia("the Lean code-only probe", "the Lean-only probe")
+    d.cambia("as well as against the Lean code. The statements", "as well as against the Lean code alone. The statements")
+    d.cambia("0.729, 0.688 and 0.787 on their own. Exploratory and post hoc.", r"0.729, 0.688 and 0.787 on their own. The AUROC column is that of \vr{full}. Exploratory and post hoc.")
+    for viejo, nuevo in (("standardised", "standardized"), ("normalised", "normalized"), ("generalise", "generalize"), ("memorisation", "memorization")):
+        d.todas(viejo, nuevo)
+    # E. decididos por Carlos («aplica todo eso»)
+    d.cambia("the numeral edits inside C are a surface effect.}", "the numeral edits inside C are matched by a surface control.}")
+    d.cambia("and are reported as a failed first attempt.", "and are reported as discovery runs with no confirmatory weight.")
+    d.cambia("``Not run'' means the control does not exist for that level.", "``Not run'' means there is no result for that level.")
+    # ---- vigesimotercera tanda (14 nov): segunda lectura cruzada (dos lectores independientes). Aprobada por Carlos (secciones 1 y 3).
+    d.todas(r"Where a control was run, it is reported as \vr{full} minus the control; not every", r"Where a control was run, it is reported as its own AUROC or as \vr{full} minus the control; not every")
+    d.todas("we never report the AUROC of one probe taken on its own. Every result is a gap,", "we never interpret the AUROC of one probe taken on its own. Every headline result is a gap,")
+    d.todas("A positive gap is evidence that", r"A positive gap that survives the controls of Table~\ref{tab:controles} is evidence that")
+    d.todas("changes the model's answer more than random directions do in two of four models", "changes the model's answer more than any of 20 random directions does in two of four models")
+    d.todas("the model's answer more than random directions do in Qwen3-4B", "the model's answer more than any of 20 random directions does in Qwen3-4B")
+    d.todas("the answer more than random directions do in two of four models", "the answer more than any of 20 random directions does in two of four models")
+    d.todas("No model, however, survives", "Even so, no model survives")
+    d.todas("which leaves 406 rows. It leaves the reading of readout~(ii) unchanged, with gaps of", "which leaves 406 rows. The reading of readout~(ii) does not change, with gaps of")
+    d.cambia("direction those pairs shaped. An earlier intervention gave a null.", "direction those pairs shaped.\n\nAn earlier intervention gave a null.")
+    d.todas("families A and B are not distinguishable from zero", "the margin in families A and B is not distinguishable from zero")
+    d.todas("include zero. They include most of those", "include zero. Among them are most of those")
+    d.todas("those of the Lean statement that are absent from the natural-language statement", "those of the Lean code that are absent from the natural-language statement")
+    # ---- vigesimocuarta tanda (14 nov): historia del lote del Nivel B (bitácora, D-2) y cifras del Nivel B sin la pregunta (s2b). Aprobada por Carlos.
+    d.todas("No certifiable batch of triplets could be built, and the pairs were declared a development batch. A surface check fixed in advance also failed.",
+            "On 4 November, after a provisional surface check had failed, the pairs were declared its development batch. No certifiable batch of triplets could then be built, so the pairs are the only evidence at this level. The surface check fixed in advance also failed on the certified pairs.")
+    d.todas("did not pass (0.706 on the certified pairs), and the batch was declared exploratory.",
+            "did not pass (0.706 on the certified pairs). The batch had been declared a development batch on 4 November.")
+    d.todas("At Level~B it does not require the question in any of them.",
+            r"At Level~B the last-token gap without the question is positive in the four models. The gaps are +0.176 \ic{0.113}{0.236}, +0.113 \ic{0.061}{0.166}, +0.128 \ic{0.067}{0.189} and +0.102 \ic{0.047}{0.156}, in the same order.")
+    # ---- vigesimoquinta tanda (14 nov): observaciones del profesor Riaño (cómo leer AUROC y figuras, orden del resumen, trabajo futuro). Aprobada por Carlos.
+    d.tras(r"reported with a 95\% bootstrap interval over groups \citep{efron}.",
+           prosa(r"""The AUROC is the probability that a probe scores a faithful formalization above an unfaithful one. It is 0.5
+           for a probe that guesses and 1 for one that never errs, and it summarizes sensitivity and specificity over every
+           decision threshold. A gap of +0.05 therefore means that adding the statement raises that probability by five points."""))
+    d.todas(r"\caption{Layer by layer. AUROC of a linear probe", r"\caption{Layer by layer. How to read it: where the coloured curve runs above the grey one, the statement adds to what the Lean code alone gives away at that layer. AUROC of a linear probe")
+    d.todas(r"\caption{Level A, readout (ii). Filled points", r"\caption{Level A, readout (ii). How to read it: a point to the right of zero is a positive gap, and it counts as established only if its whole interval lies to the right. Filled points")
+    d.todas("in the five general-purpose models. Each cell is", "in the five general-purpose models. How to read it: darker cells are positions and layers where the classes separate better, and the right panel is darker where the statement adds. Each cell is")
+    d.todas(r"\caption{Level B intervention. Top: drop", r"\caption{Level B intervention. How to read it: a drop to the right of zero means the shift made P(Yes) separate the pairs worse, and a model meets the criterion when its coloured marker lies to the right of every grey tick. Top: drop")
+    d.todas(r"\caption{Level B. Top: paired AUROC of the probe", r"\caption{Level B. How to read it: the length of the bar between the grey marker and the coloured one is the gap of that model. Top: paired AUROC of the probe")
+    d.todas("No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean code alone. On 450 CriticLeanBench", "On 450 CriticLeanBench")
+    d.todas("in the upper layers. We outline a confirmatory test", "in the upper layers. No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean code alone. We outline a confirmatory test")
+    d.tras("An earlier intervention along the logistic-probe direction, in Qwen3-4B, gave a null.",
+           "\n" + prosa(r"""Three things remain to be done. The confirmatory test of Appendix~\ref{app:protocolo} needs statements written
+           after the models and after this pilot. The intervention was run at Level~B only, and Levels~A and~C still lack
+           one. The maps rest on a single seed."""))
     return d
 
 
@@ -1002,6 +1112,123 @@ def espanol():
            "modelos y una semana antes de Goedel-Prover-V2-8B. Sus etiquetas son nuevas en esa publicación. Sus problemas, en\n"
            "cambio, vienen de colecciones anteriores como Omni-MATH, AIME y U-MATH, y sus autores dicen haber tomado los\n"
            "enunciados en Lean de un conjunto público, así que ambos pueden ser más antiguos que las etiquetas.")
+    # ---- vigesimosegunda tanda (13 nov, 15:33): lectura final cruzada. Detalle: revisiones/lectura_final_2026-11-13.md
+    d.cambia("Son la mayoría de los de la lectura en el último token en el Nivel~A, donde Llama-3.1 es negativo, y el de Gemma-3 en el último token en el Nivel~B.",
+             prosa(r"""Entre ellos están la mayoría de los de la lectura en el último token en el Nivel~A, donde Llama-3.1
+             es negativo, el de DeepSeek-Prover-V2 en la capa fija y el de Gemma-3 en el último token en el Nivel~B."""))
+    d.cambia("la dirección de capa fija separa las clases. Si el modelo usa esa dirección es una pregunta causal",
+             "la dirección de la sonda de cada capa separa las clases. Si el modelo usa una dirección así es una pregunta causal")
+    d.cambia("las corridas en Qwen3-8B y en Llama en el Nivel~C", "las corridas en Qwen3-8B en el Nivel~A y en Llama-3.1 en el Nivel~C")
+    d.cambia("Ninguno de los dos produce una brecha positiva.", "Ninguno de los dos produce una brecha cuyo intervalo quede por encima de cero.")
+    d.cambia("y ninguno de los dos controles nulos muestra una brecha positiva.",
+             "y ninguno de los dos controles nulos muestra una brecha cuyo intervalo quede por encima de cero.")
+    d.cambia("Intervinimos sobre una sola familia de direcciones, y solo en el Nivel~B. La intervención cumple su criterio en dos de los cuatro modelos, y la corrida en Qwen3-4B es post hoc.",
+             prosa(r"""Intervinimos a lo largo de dos direcciones, y solo en el Nivel~B. El desplazamiento por la diferencia
+             de medias cumple su criterio en dos de los cuatro modelos, y la corrida en Qwen3-4B es post hoc. La ablación
+             a lo largo de la dirección de la sonda dio un nulo."""))
+    d.tras("Cambia la respuesta más que las direcciones al azar en dos de los cuatro modelos, uno de ellos en una corrida post hoc.",
+           "Una intervención anterior a lo largo de la dirección de la sonda logística, en Qwen3-4B, dio un nulo.")
+    d.cambia("En Qwen3-4B, en el Nivel~B, la propia respuesta del modelo separa tan bien como la sonda.",
+             "En Qwen3-4B, en el Nivel~B y en el último token, la propia respuesta del modelo separa tan bien como la sonda.")
+    d.cambia("Todavía no se ocupa de un P(Yes) que iguala a la sonda.", "Todavía no se ocupa de un P(Yes) que iguala a la sonda en el último token.")
+    d.cambia(r"\item La datación de cada origen del Nivel~B frente", r"\item La datación de los orígenes del Nivel~B frente")
+    d.cambia("se corrieron después bajo la misma regla temprana", "se corrieron después bajo una versión temprana de la regla")
+    d.cambia("la tercera versión escrita ese día", "la tercera versión escrita el 4 de noviembre")
+    d.cambia("es de al menos 0.9993 en todos los modelos y en los dos niveles.", "es de al menos 0.9993 en los cuatro modelos comprobados, en los Niveles~A y~B.")
+    d.cambia("La brecha sobre el código de Lean solo sí se midió en ambas, y depende también de la lectura.",
+             "La brecha sobre el código de Lean solo, en cambio, se midió en las dos lecturas, y depende de la lectura.")
+    d.quita(r"Con un desplazamiento cuatro veces mayor la AUROC queda por debajo de 0.5 en los cuatro modelos (Tabla~\ref{tab:bintervencion} y Figura~\ref{fig:bintervencion}).")
+    d.tras(r"En Gemma-3 el intervalo de esa misma diferencia también incluye el cero (+0.049 \ic{−0.003}{0.100}).",
+           prosa(r"""Con un desplazamiento cuatro veces mayor la AUROC queda por debajo de 0.5 en los cuatro modelos
+           (Tabla~\ref{tab:bintervencion} y Figura~\ref{fig:bintervencion})."""))
+    d.cambia(r"En promedio queda allí entre 0.49 y 0.52, y la única excepción es Qwen3-8B, con 0.521 \ic{0.501}{0.543}.",
+             prosa(r"""En promedio queda allí entre 0.49 y 0.52, y solo en Qwen3-8B el intervalo excluye 0.5 (0.521
+             \ic{0.501}{0.543})."""))
+    d.cambia(r"(Figura~\ref{fig:b}, abajo) muestra por qué.", r"(Figura~\ref{fig:b}, abajo) mira dentro de la familia C.")
+    d.cambia("La preocupación no se sostiene.", "Las salidas guardadas no la confirman.")
+    d.cambia(r"\vr{nl\_only} alcanza de 0.61 a 0.74 en los cuatro modelos de réplica", r"\vr{nl\_only} alcanza de 0.61 a 0.74 en el último token en los cuatro modelos de réplica")
+    d.cambia(r"\vr{nl\_only} alcanzan de 0.61 a 0.74 en los cuatro modelos de réplica", r"\vr{nl\_only} alcanzan de 0.61 a 0.74 en el último token en los cuatro modelos de réplica")
+    d.cambia("en ninguno de los cuatro modelos. Los modelos son Qwen3-4B, OLMo-2, Llama-3.1 y Gemma-3, y las brechas son",
+             "en ninguno de los cuatro modelos comprobados (Qwen3-4B, OLMo-2, Llama-3.1 y Gemma-3). Las brechas son")
+    d.quita("Las dos cláusulas ya estaban en el documento firmado el 4 de noviembre.")
+    d.tras("y la otra, que la afirmación global se lea dentro de una sola lectura.",
+           "Las dos cláusulas ya estaban en el documento firmado el 4 de noviembre.")
+    d.cambia("primero en Qwen3-4B como análisis exploratorio y después", "primero en Qwen3-4B, post hoc, y después")
+    d.cambia("En dos de los cuatro modelos, uno de ellos con la regla fijada de antemano, un desplazamiento",
+             "En dos de los cuatro modelos, uno de ellos con la regla fijada de antemano y el otro post hoc, un desplazamiento")
+    d.cambia("Deja igual la lectura~(ii), con brechas de", "No cambia la lectura de~(ii), con brechas de")
+    d.cambia(r"La Tabla~\ref{tab:bejemplos} muestra un par de cada una.", r"La Tabla~\ref{tab:bejemplos} muestra un par de A, B, C2 y C3.")
+    d.mueve_item(r"\item[12 nov] Con la misma regla se recalculó,", r"\item[12--13 nov] La misma intervención", "Con la misma regla se recalculó,", "Con la regla del 11 de noviembre se recalculó,")
+    d.tras("la prueba de permutación intercambia los papeles dentro de cada par.", r"Los controles se listan en la Tabla~\ref{tab:controles}.")
+    d.cambia(r"con~(ii) y en +0.029 \ic{−0.000}{0.058} con~(i). Lo que estima", r"con~(ii) y en +0.029 \ic{−0.000}{0.058} con~(i) (Figura~\ref{fig:forest}). Lo que estima")
+    d.cambia("por completo por encima de cero. En ambos modelos la etiqueta", r"por completo por encima de cero (Tabla~\ref{tab:c}). En ambos modelos la etiqueta")
+    # C. efectos de la sustitución «código de Lean [solo]» y cosméticos
+    d.cambia("bigramas del código de Lean solo alcanza una AUROC", "bigramas del código de Lean por sí solo alcanza una AUROC")
+    d.cambia("así que el código de Lean solo delata más", "así que el código de Lean por sí solo delata más")
+    d.cambia("brecha sobre el código de Lean solo se mantiene en Qwen3-4B", "brecha sobre el código de Lean por sí solo se mantiene en Qwen3-4B")
+    d.cambia("además de con el código de Lean. Los enunciados", "además de con el código de Lean solo. Los enunciados")
+    d.cambia("% Beyond the Lean Alone", "% Beyond the Lean Code Alone")
+    d.cambia("se desplaza hacia la clase contraria, la distancia completa entre las medias de clase", "se desplaza hacia la clase contraria en la distancia completa entre las medias de clase")
+    d.cambia("hacia la clase contraria, la distancia completa entre las medias de clase, a lo largo", "hacia la clase contraria en la distancia completa entre las medias de clase, a lo largo")
+    d.cambia("0.729, 0.688 y 0.787. Exploratorio y post hoc.", r"0.729, 0.688 y 0.787. La columna AUROC es la de \vr{full}. Exploratorio y post hoc.")
+    # E. decididos por Carlos
+    d.cambia("las ediciones de numeral dentro de C son un efecto de superficie.}", "las ediciones de numeral dentro de C las iguala un control de superficie.}")
+    d.cambia("y se reportan como un primer intento fallido.", "y se reportan como corridas de descubrimiento sin peso confirmatorio.")
+    d.cambia("«No corrido» significa que el control no existe para ese nivel.", "«No corrido» significa que no hay resultado para ese nivel.")
+    # D. resumen: vuelve «solo» a las dos frases que limitan la evidencia y la frase de ProofNetVerif recupera su sujeto; 249 palabras
+    d.cambia(r"\emph{más allá de lo que delata el código de Lean}", r"\emph{más allá de lo que delata el código de Lean solo}")
+    d.cambia("en modelos congelados más allá del código de Lean.", "en modelos congelados más allá del código de Lean solo.")
+    d.cambia("En ProofNetVerif fue positiva en dos modelos", "En ProofNetVerif la brecha fue positiva en dos modelos")
+    d.cambia("cumplió el criterio por modelo. Un bootstrap", "cumplió su criterio. Un bootstrap")
+    d.cambia("Unos mapas exploratorios sitúan", "Mapas exploratorios sitúan")
+    d.cambia("cambia la respuesta del modelo más que direcciones al azar en dos de cuatro modelos", "cambia la respuesta más que direcciones al azar en dos de cuatro modelos")
+    # ---- vigesimotercera tanda (14 nov): segunda lectura cruzada (dos lectores independientes). Aprobada por Carlos (secciones 1 y 3).
+    d.todas(r"Donde un control se corrió, se reporta como \vr{full} menos el control; no todos", r"Donde un control se corrió, se reporta su AUROC o \vr{full} menos el control; no todos")
+    d.todas("nunca reportamos la AUROC de una sonda tomada aisladamente. Cada resultado es una brecha,", "nunca interpretamos la AUROC de una sonda tomada aisladamente. Cada resultado central es una brecha,")
+    d.todas("Una brecha positiva es evidencia de que", r"Una brecha positiva que sobrevive a los controles de la Tabla~\ref{tab:controles} es evidencia de que")
+    d.todas("por el eje que separa las clases cambia la respuesta más que direcciones al azar en dos", "por el eje separador cambia la respuesta más que cualquiera de 20 direcciones al azar en dos")
+    d.todas("Cambia la respuesta del modelo más que las direcciones al azar en Qwen3-4B", "Cambia la respuesta del modelo más que cualquiera de 20 direcciones al azar en Qwen3-4B")
+    d.todas("Cambia la respuesta más que las direcciones al azar en dos de los cuatro modelos", "Cambia la respuesta más que cualquiera de 20 direcciones al azar en dos de los cuatro modelos")
+    d.todas("cumplió su criterio. Un bootstrap", "cumplió el criterio por modelo. Un bootstrap")
+    d.todas("decodificable linealmente en modelos congelados más allá", "decodificable linealmente de modelos congelados más allá")
+    d.todas("en las capas superiores. Esbozamos", "en capas superiores. Esbozamos")
+    d.todas("posteriores a los modelos y a este piloto.", "posteriores a los modelos y al piloto.")
+    d.todas("Ningún modelo, sin embargo, sobrevive", "Aun así, ningún modelo sobrevive")
+    d.cambia("moldearon esos pares. Una intervención anterior dio un nulo.", "moldearon esos pares.\n\nUna intervención anterior dio un nulo.")
+    d.todas("las familias A y B no se distinguen de cero", "en las familias A y B el margen no se distingue de cero")
+    d.todas("los del enunciado en Lean que faltan", "los del código de Lean que faltan")
+    d.todas("quedan a menos de 0.023 del cero", "quedan a no más de 0.023 del cero")
+    d.todas("con una regla fijada antes de correr. En cada capa", "con una regla fijada antes de correrlos. En cada capa")
+    d.todas("muestra un par de A, B, C2 y C3.", "muestra un par de cada una de A, B, C2 y C3.")
+    d.todas("de la pareja lo hace en tres", "del gemelo lo hace en tres")
+    d.todas(r"intercambio con la\\pareja, menos azar", r"intercambio con el\\gemelo, menos azar")
+    d.todas("recoge el estado de la evidencia", "recoge el estatus de la evidencia")
+    d.todas("En Gemma-3 el P(Yes) del modelo apenas separa los pares de partida (0.590)", "En Gemma-3, de entrada, el P(Yes) del modelo apenas separa los pares (0.590)")
+    d.todas("además de con el código de Lean solo", "y también con el código de Lean solo")
+    # ---- vigesimocuarta tanda (14 nov): historia del lote del Nivel B (bitácora, D-2) y cifras del Nivel B sin la pregunta (s2b). Aprobada por Carlos.
+    d.todas("No se pudo construir un lote certificable de tripletas, y los pares se declararon lote de desarrollo. Tampoco pasó una comprobación de superficie fijada de antemano.",
+            "El 4 de noviembre, después de que fallara una comprobación de superficie provisional, los pares se declararon su lote de desarrollo. Luego no se pudo construir un lote certificable de tripletas, así que los pares son la única evidencia de este nivel. La comprobación de superficie fijada de antemano tampoco pasó en los pares certificados.")
+    d.todas("no pasó (0.706 en los pares certificados), y el lote se declaró exploratorio.",
+            "no pasó (0.706 en los pares certificados). El lote se había declarado de desarrollo el 4 de noviembre.")
+    d.todas("En el Nivel~B no requiere la pregunta en ninguno.",
+            r"En el Nivel~B la brecha en el último token sin la pregunta es positiva en los cuatro modelos. Las brechas son +0.176 \ic{0.113}{0.236}, +0.113 \ic{0.061}{0.166}, +0.128 \ic{0.067}{0.189} y +0.102 \ic{0.047}{0.156}, en el mismo orden.")
+    # ---- vigesimoquinta tanda (14 nov): observaciones del profesor Riaño (cómo leer AUROC y figuras, orden del resumen, trabajo futuro). Aprobada por Carlos.
+    d.tras(r"que reportamos con un intervalo bootstrap del 95\% sobre grupos \citep{efron}.",
+           prosa(r"""La AUROC es la probabilidad de que una sonda puntúe una formalización adecuada por encima de una inadecuada.
+           Vale 0.5 para una sonda que adivina y 1 para una que nunca se equivoca, y resume la sensibilidad y la especificidad
+           en todos los umbrales de decisión. Una brecha de +0.05 significa entonces que añadir el enunciado sube esa
+           probabilidad en cinco puntos."""))
+    d.todas(r"\caption{Capa por capa. AUROC de una sonda lineal", r"\caption{Capa por capa. Cómo leerla: donde la curva de color va por encima de la gris, el enunciado añade a lo que el código de Lean delata por sí solo en esa capa. AUROC de una sonda lineal")
+    d.todas(r"\caption{Nivel A, lectura (ii). Puntos llenos", r"\caption{Nivel A, lectura (ii). Cómo leerla: un punto a la derecha del cero es una brecha positiva, y cuenta como establecida solo si todo su intervalo queda a la derecha. Puntos llenos")
+    d.todas("en los cinco modelos de propósito general. Cada celda es", "en los cinco modelos de propósito general. Cómo leerla: las celdas más oscuras son posiciones y capas donde las clases se separan mejor, y el panel derecho es más oscuro donde el enunciado añade. Cada celda es")
+    d.todas(r"\caption{Intervención del Nivel B. Arriba: caída", r"\caption{Intervención del Nivel B. Cómo leerla: una caída a la derecha del cero significa que el desplazamiento hizo que P(Yes) separara peor los pares, y un modelo cumple el criterio cuando su marcador de color queda a la derecha de todas las marcas grises. Arriba: caída")
+    d.todas(r"\caption{Nivel B. Arriba: AUROC pareada", r"\caption{Nivel B. Cómo leerla: la longitud de la barra entre el marcador gris y el de color es la brecha de ese modelo. Arriba: AUROC pareada")
+    d.todas("Ningún nivel sostiene por sí solo la afirmación de que la adecuación es decodificable linealmente de modelos congelados más allá del código de Lean solo. En 450 formalizaciones", "En 450 formalizaciones")
+    d.todas("en capas superiores. Esbozamos una prueba confirmatoria", "en capas superiores. Ningún nivel sostiene por sí solo la afirmación de que la adecuación es decodificable linealmente de modelos congelados más allá del código de Lean solo. Esbozamos una prueba confirmatoria")
+    d.tras("Una intervención anterior a lo largo de la dirección de la sonda logística, en Qwen3-4B, dio un nulo.",
+           "\n" + prosa(r"""Quedan tres cosas por hacer. La prueba confirmatoria del Apéndice~\ref{app:protocolo} necesita enunciados
+           escritos después de los modelos y de este piloto. La intervención se corrió solo en el Nivel~B, y a los Niveles~A
+           y~C todavía les falta una. Los mapas descansan en una sola semilla."""))
     return d
 
 

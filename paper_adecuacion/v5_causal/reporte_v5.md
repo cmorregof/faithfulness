@@ -378,3 +378,53 @@ Aprobada por Carlos en el chat («Sí, aplícala»), después de ver la frase en
 `verifica_v5.py` cambió en una cosa: la frase lleva una fecha y el nombre de un modelo, que no son cifras de nuestros datos, y se saca del conteo solo esa frase, exactamente una vez. Pasa en los dos idiomas; `coteja_en_es.py`: 130 bloques, mismas secuencias; los dos PDF compilados sin cajas desbordadas ni referencias sin resolver. Los dos `.diff` están regenerados.
 
 Siguen abiertos: el recuadro «Pending» y «Use of AI tools», que cambian juntos cuando `probe.py` esté comparado.
+
+## Vigesimosegunda tanda (13 nov, 15:33): lectura final cruzada
+
+Aprobada por Carlos en el chat («aplica todo eso»). Tres lecturas completas e independientes de los dos `.tex` (dos Fable que no se vieron entre sí y la sesión del chat). La lista cruzada, con el origen de cada observación, el texto anterior y el nuevo en los dos idiomas, y lo que se descartó y por qué, está en `revisiones/lectura_final_2026-11-13.md`. `aplica_v5.py` aplica ahora 111 pasajes en inglés y 118 en español.
+
+Resumen de lo aplicado:
+
+- **Contradicciones (A1 a A4).** La conclusión ya no omite el intervalo de DeepSeek-Prover-V2 en la capa fija y dice «each layer's probe direction» para los mapas; «Decisions after the fact» pone a Qwen3-8B en el Nivel A; los controles nulos dicen «a gap whose interval lies above zero» en lugar de «a positive gap» (con (i) la estimación es +0.008).
+- **Imprecisiones (B1 a B20).** «Limitations» y la conclusión mencionan las dos intervenciones y el nulo de la ablación; «at the last token» donde P(Yes) iguala a la sonda y en `nl_only` 0.61 a 0.74 (comprobado en `v2_resultados_*.json`: lectura (i), de 0.614 a 0.743); fecha explícita en «Discovery»; «at Levels A and B» y «four models checked» en S1 y en la entrada del 12 Nov; la frase del desplazamiento cuatro veces mayor vuelve junto a los resultados por modelo; «Both clauses were already in the document…» pasa a continuación de las cláusulas; la corrida de Qwen3-4B se presenta como «post hoc» desde la primera frase; la entrada «12 Nov» de «Deviations» va después de «11--12 Nov»; `tab:controles`, `fig:forest` y `tab:c` quedan citadas en el texto.
+- **Efectos de la sustitución «Lean code» (C1 a C9).** «the Lean-only probe»; en español, «por sí solo» en tres frases donde «solo» se leía como «apenas»; «alone»/«solo» en el protocolo; el pie de `tab:bcontroles2` dice de qué es la columna AUROC; cuatro palabras pasan a «-ize».
+- **Resumen en español (D).** Vuelve «solo» a las dos frases que limitan la evidencia y «la brecha» a la de ProofNetVerif; «su criterio», «Mapas exploratorios» y sin «del modelo». 249 palabras.
+- **Decididos por Carlos (E).** Encabezado «…are matched by a surface control»; Goedel-Prover-V2 y Kimina «are reported as discovery runs with no confirmatory weight»; «“Not run” means there is no result for that level».
+
+Sin aplicar, para la tanda de figuras: la cabecera «random ≥ probe» (está también dentro de la figura de la intervención) y la aclaración del pie de `fig:escaner` («normal approximation» frente a «permuted labels» en la clave; son lo mismo según `escaner_v3.py`).
+
+`verifica_v5.py` cambió en tres cosas: admite las tres referencias nuevas, trata `tab:controlesnivel` como tabla editada, y comprueba las salvedades del resumen sin distinguir mayúsculas. Pasa en los dos idiomas; `coteja_en_es.py`: 128 bloques, mismas secuencias; `main_en.pdf` recompilado (23 páginas, sin cajas desbordadas ni referencias sin resolver). `main_es.pdf` hay que compilarlo en el Mac.
+
+## Vigesimotercera tanda (14 nov): segunda lectura cruzada
+
+Dos lectores independientes leyeron el estado posterior a la tanda 22. Ninguno encontró cifras contradictorias. Aprobado por Carlos: secciones 1 y 3 de la lista cruzada.
+
+- Antes de esta tanda (13 nov, tarde): se corrigió «show where the each layer's» en la conclusión inglesa, introducido en la tanda 22.
+- Pie de `tab:controles`: los controles se reportan como su propia AUROC o como `full` menos el control.
+- Introducción: «we never interpret… Every headline result is a gap»; «A positive gap that survives the controls of Table 1 is evidence…». Igual en español.
+- «more than any of 20 random directions does» / «más que cualquiera de 20 direcciones al azar» en resumen, contribución 6 y conclusión. Resúmenes: 248 palabras (EN) y 249 (ES); en español «el eje separador», «en capas superiores», «al piloto» y vuelve «el criterio por modelo».
+- Forma: «Even so, no model survives»; «The reading of readout (ii) does not change»; salto de párrafo antes de «An earlier intervention gave a null»; «the margin in families A and B»; «Among them are»; «those of the Lean code that are absent».
+- Solo español: «de modelos congelados», «a no más de 0.023», «antes de correrlos», «un par de cada una de A, B, C2 y C3», «gemelo» en vez de «pareja», «estatus de la evidencia», «de entrada, el P(Yes)…», «y también con el código de Lean solo».
+- No aplicado: «statement and Lean code» en el pie de `fig:escaner` (pie de figura de v4, protegido; va con el trabajo de figuras). «sixth column» ya no existe en el texto.
+- Pendiente de decisión de Carlos: motivo y fecha de la declaración del lote de desarrollo del Nivel B (la bitácora, D-2, la fecha el 4 nov tras fallar la compuerta de superficie provisional); entrada del 12 nov sobre el Nivel B sin la pregunta; frase sobre la composición X∘D en «Construction».
+- Verificador: pasa en los dos idiomas. Cotejo: 129 bloques, secuencias coinciden. `main_en.pdf` recompilado (23 páginas, sin overfull). `main_es.pdf` lo compila Carlos.
+
+## Vigesimocuarta tanda (14 nov): historia del lote del Nivel B y Nivel B sin la pregunta
+
+Aprobada por Carlos («Sí a todo»).
+
+- Cuerpo del Nivel B y entrada del 6 nov: el orden queda como en la bitácora (D-2). Los pares se declararon lote de desarrollo el 4 nov, tras fallar la comprobación de superficie provisional; las tripletas no se pudieron construir después. El apéndice ya no dice «declared exploratory» con fecha 6 nov.
+- Entrada del 12 nov: la frase «does not require the question in any of them» se reemplaza por las cifras de `probes/sin_pregunta/resultados/s2b_*.json` (+0.176, +0.113, +0.128, +0.102, con sus intervalos). El verificador lee ahora esos archivos como fuente.
+- Sin aplicar: frase sobre la composición X∘D en «Construction» (falta comprobar cuáles de los 377 pares son compuestos).
+- Verificador: pasa. Cotejo: secuencias coinciden. `main_en.pdf` recompilado. `main_es.pdf` lo compila Carlos.
+
+## Vigesimoquinta tanda (14 nov): observaciones del profesor Riaño
+
+Aprobada por Carlos tras ver los textos en los dos idiomas.
+
+- «Central statistic»: tres frases sobre cómo leer una AUROC y una brecha (0.5 es azar, 1 es separación perfecta, resume sensibilidad y especificidad; «A gap of +0.05…» como ejemplo de lectura).
+- Pies de las cinco figuras: una frase «How to read it: …» / «Cómo leerla: …» tras el título. Las del forest, la intervención y el Nivel B se contrastaron con las figuras del PDF. El resto de cada pie no cambia; el verificador quita esa frase antes de comparar con v4.
+- Resumen: «No level alone supports…» pasa del cuarto lugar al penúltimo, antes de la frase de la prueba confirmatoria. Ninguna frase cambia. 248 y 249 palabras.
+- Conclusión: párrafo «Three things remain to be done» (enunciados posteriores para la prueba confirmatoria, intervención en los Niveles A y C, mapas con una sola semilla). Lo de P(Yes) no se repite porque está en el párrafo anterior.
+- Verificador: `app:protocolo` admitido como referencia nueva y «+0.05» como cifra de ejemplo. Pasa en los dos idiomas. Cotejo: secuencias coinciden. `main_en.pdf` recompilado.
+- Aparte: encargo de figuras para Claude Code en el proyecto (`claude/encargo_figuras_paleta_opacidad_paper_v5_2026-11-14.md`): paleta, opacidad del relieve 3D y rótulos.
