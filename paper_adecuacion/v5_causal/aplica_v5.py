@@ -599,8 +599,8 @@ def ingles():
     # La sustitución anterior duplicó «code» en el título («the Lean code Code Alone»): se corrige aquí (comentario y \title).
     assert d.todas("the Lean code Code Alone", "the Lean Code Alone") == 2
     d.cambia(r"The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain the decision rules with their hashes and times, the certified pairs, the cross-surface features, and every result file cited here.",
-             "The repository is at \\url{https://github.com/cmorregof/faithfullness}, and the numbers reported here correspond to\n"
-             "commit \\vr{ea66bad}. It contains the decision rules with their hashes and times, the certified pairs, the\n"
+             "The repository is at \\url{https://github.com/cmorregof/faithfulness}, and the numbers reported here correspond to\n"
+             "commit \\vr{4cca797}. It contains the decision rules with their hashes and times, the certified pairs, the\n"
              "cross-surface features, every result file cited here and the project log. It does not contain the extracted\n"
              "activations or the CriticLeanBench texts.")
     d.cambia("which will be released with the repository, and nothing here replaces it.",
@@ -721,6 +721,56 @@ def ingles():
     d.todas("the size of single-cell noise by a normal approximation, and for the difference", "the size of single-cell noise by a normal approximation to the null of permuted labels, and for the difference")
     d.tras("Lean certifies the other as not equivalent, and it is the unfaithful member.",
            "The unfaithful edit is applied on top of the faithful one, so the two members differ only in the unfaithful edit.")
+    # ---- vigesimoséptima tanda (17 nov): lectura final de cuatro lectores independientes (dos Opus, dos Fable). Aprobada por Carlos («sí a todo»).
+    d.todas("changes the model's answer more than any of 20 random directions does in two of four models, one of them in a post hoc run. On ProofNetVerif", "changes the model's answer more than any of 20 random directions does in two of four models, one of them post hoc. On ProofNetVerif")
+    d.todas("At that level, shifting activations along the separating axis changes", "At that level, shifting activations along the difference of class means changes")
+    d.todas("are the stronger control on our pairs.", "are the stronger of these two controls on our pairs.")
+    d.todas("so they are the harder control", "so they are the harder of these two controls")
+    d.todas("which only Qwen3-4B exceeds; surface in numeral edits", "which only Qwen3-4B exceeds, and the combined control, which no model exceeds; surface in numeral edits")
+    d.tras(r"Cross-surface & not run & 0.688 & not run\\", "\n" + r"Combined & not run & 0.787 & not run\\")
+    d.todas("changes the answer more than the same shift along random directions. This does not show what the model computes, and it does not hold in the other two.",
+            "changes the answer more than the same shift along any of 20 random directions. This does not show what the model computes, and the other two models do not meet that criterion.")
+    d.todas(r"beside $p = 0.040$.", r"beside $p = 0.084$ (OLMo-2, readout~(ii)).")
+    d.todas(r"\paragraph{Decodable is not used.}", r"\paragraph{Decodable does not mean used.}")
+    d.todas("Within C, C2 changes a numeral and C3 changes something else.", "Within C, C2 changes a numeral, whatever the direction of the change, and C3 changes something else.")
+    d.tras("in each of the four models checked, at Levels~A and~B.",
+           prosa(r"""Readout~(i), in contrast, does read the question. On activations extracted without it, the last-token gap at
+           Level~A is not established in any of the four models checked, whereas at Level~B it stays positive in all four
+           (Appendix~\ref{app:desviaciones}; exploratory)."""))
+    d.todas("The gap over the Lean code alone was measured at both readouts, and it depends on the readout.",
+            "The gap over the Lean code alone was also measured at the second readout, which was added after the first results, and it depends on the readout.")
+    d.todas("Second readout: mean over Lean tokens (no permutation test run)", "Second readout: mean over Lean tokens (added after the first results; no permutation test run)")
+    d.todas("Every headline result is a gap,", "Every headline result of the probes is a gap,")
+    d.todas("and the right panel is darker where the statement adds.", "and in the right panel the model's colour marks where the statement adds.")
+    d.todas("All numbers in this draft come", "All numbers in this version come")
+    d.todas("an interval above zero in the sixth column and for", "an interval above zero in the column ``drop minus random mean'' and for")
+    d.todas("the three discovery models give +0.091", "the three discovery models (Qwen3-4B, Goedel-Prover-V2 and Kimina, in that order) give +0.091")
+    d.tras("Taken together, they justify asking the question again on data the models cannot have seen.", r"Table~\ref{tab:controlesnivel} lists the controls run at each level.")
+    d.todas(r"\paragraph{Source of the problem.}", r"\paragraph{Source of each problem.}")
+    d.todas(r"exceeds both surface controls. That is, \vr{full} minus cross-surface $> 0$ and \vr{full} minus plain n-grams of the two texts $> 0$, with each interval",
+            r"exceeds both surface controls and the Lean code alone. That is, \vr{full} minus cross-surface $> 0$, \vr{full} minus plain n-grams of the two texts $> 0$ and $\D > 0$, with each interval")
+    d.todas("Three things remain to be done.", "Beyond the pending items marked above, three things remain to be done.")
+    # ---- vigesimoctava tanda (17 nov): prosa. Reescrituras de los cuatro lectores, elegidas donde coincidieron; ninguna cambia cifras ni salvedades. Aprobada por Carlos.
+    def parrafo(ini, fin, nuevo):
+        assert d.t.count(ini) == 1, ini
+        i = d.t.index(ini); j = d.t.index(fin, i) + len(fin)
+        d.t = d.t[:i] + nuevo + d.t[j:]; d.n += 1
+    P = lambda s: "\n\n".join(prosa(x) for x in s.split("\n\n"))
+    d.todas("That second question has no answer,", "Asked that way, the question has no answer,")
+    parrafo("The effect as preregistered", "shows the same data layer by layer.", P(r"""Level~A did not confirm the effect as it was preregistered, model by model, so this is not a replication under the rule we wrote. With 450 rows per model, the instrument does not resolve a gap of this size after correction. What remains is a post hoc estimate. The joint bootstrap puts the mean gap of the four new models at +0.045 \ic{0.021}{0.069} under the fixed-layer readout and at +0.029 \ic{−0.000}{0.058} under the last-token readout, and neither null control shows a gap whose interval lies above zero. Figure~\ref{fig:relieve} shows the same data layer by layer."""))
+    parrafo("The batch falls short of the 400", "limit of 0.05.", P(r"""The batch is smaller than the rule asked for. The rule asked for 400 pairs and 300 origins, and the batch falls short of both, which is what ``reduced power'' means in Table~\ref{tab:b}. Under the same rule, a model whose interval for $\D$ includes zero is recorded as a null with its upper bound. The rule also allows the phrase ``beyond the surface'' only when the interval of \vr{full} minus cross-surface lies above zero.
+
+The batch is also a development batch. The test first planned for this level used triplets. On 4 November, after a provisional surface check had failed, the pairs were declared its development batch. No certifiable batch of triplets could then be built, so the pairs are the only evidence at this level. The surface check fixed in advance also failed on the certified pairs. On the 408 certified pairs, a logistic regression on unigrams and bigrams of the Lean code alone reaches a paired AUROC of 0.706. That is an excess of 0.081 over an unsupervised baseline, against a limit of 0.05."""))
+    parrafo("The sign of the gap is the same", "licenses.", prosa("The three levels agree on the sign of the gap and differ in how much each of them licenses. In nearly every setting we examined, reading the statement together with the Lean code separates better than reading the Lean code alone."))
+    assert d.t.count("part of its effect is surface.") == 1
+    d.tras("part of its effect is surface.", "Level~B also has the only intervention.")
+    parrafo("The samples are 450 rows", "at Level~C.", P(r"""The samples set the power of each level. They are 450 rows per model at Level~A, 256 origins at Level~B and 361 groups at Level~C. At Level~A that was not enough to resolve a gap of this size after correction, and at Level~B the batch fell short of the 400 pairs and 300 origins its rule asked for."""))
+    parrafo("The probes are linear and their evidence", "these activations at all.", P(r"""The probes are linear and their evidence is correlational. At the last token of Level~B, moreover, the model's own answer in Qwen3-4B separates as well as the probe. To go beyond correlation we intervened, at Level~B only and along two directions. The shift along the difference of means meets its criterion in two of four models, and the run in Qwen3-4B is post hoc. The ablation along the probe direction, in contrast, gave a null. One control for these interventions was not run. Directions built as differences of means from shuffled labels would show how much of the effect comes from fitting a direction to these activations at all."""))
+    parrafo("Several analyses were decided after", "where they appear.", P(r"""Several analyses were decided after seeing results. At Level~A they are the run on Qwen3-8B, the by-source control, the joint bootstrap, the layer-by-layer figures, and the maps with their region statistics and swap null. At Level~B they are the split of family C, the exclusion of C2, the three later models and the second readout. At Level~C it is the run on Llama-3.1. The controls at the second readout and the two interventions at Level~B came later still, between 11 and 13 November. Each is marked as exploratory or post hoc where it appears, or falls under the exploratory status of Level~B."""))
+    parrafo("The pilot thus yields a small signal", "gave a null.", P(r"""The pilot thus yields a small signal and a list of the ways in which it could be an artefact. The draft protocol in Appendix~\ref{app:protocolo} is designed to remove or measure three items on that list, namely surface, contamination and labels. It does not yet address a P(Yes) that matches the probe at the last token.
+
+Whether the model uses what the probes read is a separate, causal question, which probing cannot answer. The maps of Figure~\ref{fig:escaner} show where each layer's probe direction separates the classes, and an intervention along such a direction could say whether the model uses it. At Level~B we ran two interventions. The earlier one acted along the logistic-probe direction, in Qwen3-4B, and gave a null. The later one acted on a related direction, the difference of class means at each layer. It changes the answer more than any of 20 random directions does in two of four models, one of them in a post hoc run."""))
+    parrafo("Beyond the pending items marked above", "single seed.", P(r"""Beyond the pending items marked above, three things remain to be done. The first is the confirmatory test of Appendix~\ref{app:protocolo}, which needs statements written after the models and after this pilot. The second is causal, because the intervention was run at Level~B only and Levels~A and~C still lack one. The third concerns the maps, which rest on a single seed."""))
     return d
 
 
@@ -1103,8 +1153,8 @@ def espanol():
     d.sustituciones.append(d.todas_re(r"\b([Ee]l|del|al) Lean\b(?!~)", r"\1 código de Lean"))
     # ---- decimonovena tanda (13 nov, tarde): repositorio publicado; «Código y datos» en presente, con URL y commit
     d.cambia(r"El repositorio se publicará con el preprint en \url{https://github.com/cmorregof}. Contendrá las reglas de decisión con sus hashes y horas, los pares certificados, los rasgos de superficie cruzada y todos los archivos de resultados citados aquí.",
-             "El repositorio está en \\url{https://github.com/cmorregof/faithfullness}, y las cifras reportadas aquí corresponden\n"
-             "al commit \\vr{ea66bad}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los\n"
+             "El repositorio está en \\url{https://github.com/cmorregof/faithfulness}, y las cifras reportadas aquí corresponden\n"
+             "al commit \\vr{4cca797}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los\n"
              "rasgos de superficie cruzada, todos los archivos de resultados citados aquí y la bitácora del proyecto. No\n"
              "contiene las activaciones extraídas ni los textos de CriticLeanBench.")
     d.cambia("que se publicará con el repositorio, y nada de lo que hay aquí la reemplaza.",
@@ -1241,6 +1291,62 @@ def espanol():
     d.todas("el tamaño del ruido de una sola celda por una aproximación normal y, para la diferencia,", "el tamaño del ruido de una sola celda por una aproximación normal a la nula de etiquetas permutadas y, para la diferencia,")
     d.tras("Certifica la otra como no equivalente, y esa es el miembro inadecuado.",
            "La edición infiel se aplica sobre la fiel, así que los dos miembros difieren solo en la edición infiel.")
+    # ---- vigesimoséptima tanda (17 nov): lectura final de cuatro lectores independientes (dos Opus, dos Fable). Aprobada por Carlos («sí a todo»).
+    d.todas("pero frente al control de superficie más fuerte solo uno conserva", "pero frente al más fuerte de dos controles de superficie solo uno conserva")
+    d.todas("Allí, desplazar las activaciones por el eje separador cambia", "Allí, desplazar activaciones por la diferencia de medias de clase cambia")
+    d.todas("una réplica prerregistrada no pasó, porque ninguno de sus cuatro modelos cumplió el criterio por modelo.", "la réplica prerregistrada de cuatro modelos no pasó, porque ninguno cumplió el criterio por modelo.")
+    d.todas("separan linealmente las formalizaciones adecuadas de las inadecuadas en Lean~4", "separan linealmente formalizaciones adecuadas de inadecuadas en Lean~4")
+    d.todas("son el control más fuerte en nuestros pares.", "son el más fuerte de estos dos controles en nuestros pares.")
+    d.todas("así que son el control más exigente", "así que son el más exigente de estos dos controles")
+    d.todas("que solo Qwen3-4B supera; superficie en las ediciones de numeral", "que solo Qwen3-4B supera, y el control combinado, que ningún modelo supera; superficie en las ediciones de numeral")
+    d.tras(r"Superficie cruzada & no corrido & 0.688 & no corrido\\", "\n" + r"Combinado & no corrido & 0.787 & no corrido\\")
+    d.todas("cambia la respuesta más que el mismo desplazamiento por direcciones al azar. Esto no muestra qué calcula el modelo, y no se sostiene en los otros dos.",
+            "cambia la respuesta más que el mismo desplazamiento por cualquiera de 20 direcciones al azar. Esto no muestra qué calcula el modelo, y los otros dos modelos no cumplen ese criterio.")
+    d.todas(r"junto a $p = 0.040$.", r"junto a $p = 0.084$ (OLMo-2, lectura~(ii)).")
+    d.todas("Dentro de C, C2 cambia un numeral y C3 cambia otra cosa.", "Dentro de C, C2 cambia un numeral, sea cual sea el sentido del cambio, y C3 cambia otra cosa.")
+    d.todas("La edición infiel se aplica sobre la fiel, así que los dos miembros difieren solo en la edición infiel.", "La edición inadecuada se aplica sobre la adecuada, de modo que los dos miembros difieren solo en la edición inadecuada.")
+    d.tras("en los cuatro modelos comprobados, en los Niveles~A y~B.",
+           prosa(r"""La lectura~(i), en cambio, sí lee la pregunta. Con activaciones extraídas sin ella, la brecha del último token
+           en el Nivel~A no se establece en ninguno de los cuatro modelos comprobados, mientras que en el Nivel~B sigue
+           siendo positiva en los cuatro (Apéndice~\ref{app:desviaciones}; exploratorio)."""))
+    d.todas("La brecha sobre el código de Lean solo, en cambio, se midió en las dos lecturas, y depende de la lectura.",
+            "La brecha sobre el código de Lean solo, en cambio, se midió también en la segunda lectura, añadida después de los primeros resultados, y depende de la lectura.")
+    d.todas("Segunda lectura: media sobre los tokens de Lean (sin prueba de permutación)", "Segunda lectura: media sobre los tokens de Lean (añadida después de los primeros resultados; sin prueba de permutación)")
+    d.todas("Cada resultado central es una brecha,", "Cada resultado central de las sondas es una brecha,")
+    d.todas("y el panel derecho es más oscuro donde el enunciado añade.", "y en el panel derecho el color del modelo marca dónde añade el enunciado.")
+    d.todas("a la nula de etiquetas permutadas", "al nulo de etiquetas permutadas")
+    d.todas("Todas las cifras de este borrador provienen", "Todas las cifras de esta versión provienen")
+    d.todas("un intervalo por encima de cero en la sexta columna y ninguna", "un intervalo por encima de cero en la columna «caída menos media al azar» y ninguna")
+    d.todas("los tres modelos de descubrimiento dan +0.091", "los tres modelos de descubrimiento (Qwen3-4B, Goedel-Prover-V2 y Kimina, en ese orden) dan +0.091")
+    d.tras("Tomados en conjunto, justifican volver a hacer la pregunta con datos que los modelos no pueden haber visto.", r"La Tabla~\ref{tab:controlesnivel} recoge los controles corridos en cada nivel.")
+    d.todas(r"\paragraph{La fuente del problema.}", r"\paragraph{La fuente de cada problema.}")
+    d.todas(r"supera a ambos controles de superficie. Es decir, \vr{full} menos superficie cruzada $> 0$ y \vr{full} menos n-gramas simples de los dos textos $> 0$, con cada intervalo",
+            r"supera a ambos controles de superficie y al código de Lean solo. Es decir, \vr{full} menos superficie cruzada $> 0$, \vr{full} menos n-gramas simples de los dos textos $> 0$ y $\D > 0$, con cada intervalo")
+    d.todas("Quedan tres cosas por hacer.", "Además de los pendientes señalados arriba, quedan tres cosas por hacer.")
+    d.todas("línea base", "línea de base")
+    d.todas("Todos los puntajes son", "Todas las puntuaciones son")
+    d.todas("los puntajes internos fuera de partición", "las puntuaciones internas fuera de partición")
+    # ---- vigesimoctava tanda (17 nov): prosa. Reescrituras de los cuatro lectores, elegidas donde coincidieron; ninguna cambia cifras ni salvedades. Aprobada por Carlos.
+    def parrafo(ini, fin, nuevo):
+        assert d.t.count(ini) == 1, ini
+        i = d.t.index(ini); j = d.t.index(fin, i) + len(fin)
+        d.t = d.t[:i] + nuevo + d.t[j:]; d.n += 1
+    P = lambda s: "\n\n".join(prosa(x) for x in s.split("\n\n"))
+    d.todas("Esa segunda pregunta no tiene respuesta,", "Hecha así, la pregunta no tiene respuesta,")
+    parrafo("El efecto tal como se prerregistró", "capa por capa.", P(r"""El Nivel~A no confirmó el efecto tal como se prerregistró, modelo por modelo, así que esto no es una réplica bajo la regla que escribimos. Con 450 filas por modelo, el instrumento no resuelve una brecha de este tamaño después de la corrección. Lo que queda es una estimación post hoc. El bootstrap conjunto sitúa la brecha media de los cuatro modelos nuevos en +0.045 \ic{0.021}{0.069} con la lectura de capa fija y en +0.029 \ic{−0.000}{0.058} con la lectura en el último token, y ninguno de los dos controles nulos muestra una brecha cuyo intervalo quede por encima de cero. La Figura~\ref{fig:relieve} muestra los mismos datos capa por capa."""))
+    parrafo("El lote queda por debajo de los 400", "un límite de 0.05.", P(r"""El lote es más pequeño de lo que pedía la regla. Esta pedía 400 pares y 300 orígenes, y el lote queda por debajo de ambos, que es lo que significa «potencia reducida» en la Tabla~\ref{tab:b}. Por la misma regla, un modelo cuyo intervalo de $\D$ incluye el cero se registra como nulo con su cota superior. La regla, además, solo permite escribir «más allá de la superficie» cuando el intervalo de \vr{full} menos superficie cruzada queda por encima de cero.
+
+El lote es, además, un lote de desarrollo. La prueba prevista al principio para este nivel usaba tripletas. El 4 de noviembre, después de que fallara una comprobación de superficie provisional, los pares se declararon su lote de desarrollo. Luego no se pudo construir un lote certificable de tripletas, así que los pares son la única evidencia de este nivel. La comprobación de superficie fijada de antemano tampoco pasó en los pares certificados. En los 408 pares certificados, una regresión logística sobre unigramas y bigramas del código de Lean por sí solo alcanza una AUROC pareada de 0.706. Eso es un exceso de 0.081 sobre una línea de base no supervisada, frente a un límite de 0.05."""))
+    parrafo("El signo de la brecha es el mismo", "autoriza cada uno.", prosa("Los tres niveles coinciden en el signo de la brecha y difieren en cuánto autoriza cada uno. En casi todos los escenarios que examinamos, leer el enunciado junto con el código de Lean separa mejor que leer el código de Lean solo."))
+    assert d.t.count("parte de su efecto es de superficie.") == 1
+    d.tras("parte de su efecto es de superficie.", "El Nivel~B tiene además la única intervención.")
+    parrafo("Las muestras son de 450", "en el Nivel~C.", P(r"""Las muestras fijan la potencia de cada nivel. Son de 450 filas por modelo en el Nivel~A, 256 orígenes en el Nivel~B y 361 grupos en el Nivel~C. En el Nivel~A eso no bastó para resolver una brecha de este tamaño después de la corrección, y en el Nivel~B el lote quedó por debajo de los 400 pares y los 300 orígenes que pedía su regla."""))
+    parrafo("Las sondas son lineales y su evidencia", "a estas activaciones.", P(r"""Las sondas son lineales y su evidencia es correlacional. En el último token del Nivel~B, además, la propia respuesta de Qwen3-4B separa tan bien como la sonda. Para ir más allá de la correlación intervinimos, solo en el Nivel~B y a lo largo de dos direcciones. El desplazamiento por la diferencia de medias cumple su criterio en dos de los cuatro modelos, y la corrida en Qwen3-4B es post hoc. La ablación a lo largo de la dirección de la sonda, en cambio, dio un nulo. Un control de estas intervenciones no se corrió. Direcciones construidas como diferencias de medias con etiquetas barajadas mostrarían cuánto del efecto se debe al solo hecho de ajustar una dirección a estas activaciones."""))
+    parrafo("Varios análisis se decidieron después", "donde aparecen.", P(r"""Varios análisis se decidieron después de ver resultados. En el Nivel~A son la corrida en Qwen3-8B, el control por fuente, el bootstrap conjunto, las figuras capa por capa, y los mapas con sus estadísticos de región y su nulo de intercambio. En el Nivel~B son la división de la familia C, la exclusión de C2, los tres modelos posteriores y la segunda lectura. En el Nivel~C es la corrida en Llama-3.1. Los controles en la segunda lectura y las dos intervenciones del Nivel~B llegaron después, entre el 11 y el 13 de noviembre. Cada uno está marcado como exploratorio o post hoc donde aparece, o queda cubierto por el carácter exploratorio del Nivel~B."""))
+    parrafo("El piloto arroja así una señal", "dio un nulo.", P(r"""El piloto arroja así una señal pequeña y una lista de las maneras en que podría ser un artefacto. El borrador de protocolo del Apéndice~\ref{app:protocolo} está diseñado para eliminar o medir tres elementos de esa lista, que son la superficie, la contaminación y las etiquetas. Todavía no se ocupa de un P(Yes) que iguala a la sonda en el último token.
+
+Si el modelo usa lo que las sondas leen es otra pregunta, de tipo causal, que el sondeo no puede responder. Los mapas de la Figura~\ref{fig:escaner} muestran dónde la dirección de la sonda de cada capa separa las clases, y una intervención a lo largo de una dirección así podría decir si el modelo la usa. En el Nivel~B hicimos dos intervenciones. La primera actuó a lo largo de la dirección de la sonda logística, en Qwen3-4B, y dio un nulo. La segunda actuó sobre una dirección afín, la diferencia de medias de clase en cada capa. Cambia la respuesta más que cualquiera de 20 direcciones al azar en dos de los cuatro modelos, uno de ellos en una corrida post hoc."""))
+    parrafo("Además de los pendientes señalados", "sola semilla.", P(r"""Además de los pendientes señalados arriba, quedan tres cosas por hacer. La primera es la prueba confirmatoria del Apéndice~\ref{app:protocolo}, que necesita enunciados escritos después de los modelos y de este piloto. La segunda es causal, porque la intervención se corrió solo en el Nivel~B y a los Niveles~A y~C todavía les falta una. La tercera tiene que ver con los mapas, que descansan en una sola semilla."""))
     return d
 
 

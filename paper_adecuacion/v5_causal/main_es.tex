@@ -39,16 +39,14 @@
 
 \begin{abstract}
 Una formalización en Lean puede compilar y, aun así, decir algo distinto del enunciado que debía capturar.
-Preguntamos si las activaciones de modelos de lenguaje congelados separan linealmente las formalizaciones adecuadas
-de las inadecuadas en Lean~4 \emph{más allá de lo que delata el código de Lean solo}. Medimos en tres niveles la brecha de
+Preguntamos si las activaciones de modelos de lenguaje congelados separan linealmente formalizaciones adecuadas de inadecuadas en Lean~4 \emph{más allá de lo que delata el código de Lean solo}. Medimos en tres niveles la brecha de
 AUROC entre una sonda lineal que lee enunciado y formalización y otra que lee solo la formalización.
-En 450 formalizaciones de CriticLeanBench, una réplica prerregistrada no pasó, porque ninguno de sus cuatro modelos
-cumplió el criterio por modelo. Un bootstrap post hoc sitúa su brecha media en +0.045 (IC 95\% \ic{0.021}{0.069})
+En 450 formalizaciones de CriticLeanBench, la réplica prerregistrada de cuatro modelos no pasó, porque ninguno cumplió el criterio por modelo. Un bootstrap post hoc sitúa su brecha media en +0.045 (IC 95\% \ic{0.021}{0.069})
 en una capa fija; en el último token el intervalo incluye el cero.
 En 377 pares mínimos certificados por Lean, corridas exploratorias dieron una brecha positiva en tres de cuatro
-modelos en el último token, pero frente al control de superficie más fuerte solo uno conserva un margen cuyo
+modelos en el último token, pero frente al más fuerte de dos controles de superficie solo uno conserva un margen cuyo
 intervalo excluye el cero.
-Allí, desplazar las activaciones por el eje separador cambia la respuesta más que cualquiera de 20 direcciones al azar en dos de cuatro modelos, uno post hoc.
+Allí, desplazar activaciones por la diferencia de medias de clase cambia la respuesta más que cualquiera de 20 direcciones al azar en dos de cuatro modelos, uno post hoc.
 En ProofNetVerif la brecha fue positiva en dos modelos, uno exploratorio.
 Mapas exploratorios sitúan la separación sobre los tokens de Lean, en capas superiores. Ningún nivel sostiene por sí solo la afirmación de que la adecuación es decodificable linealmente de modelos congelados más allá del código de Lean solo. Esbozamos una prueba confirmatoria con enunciados posteriores a los modelos y al piloto.
 \end{abstract}
@@ -68,9 +66,9 @@ El experimento se enuncia en pocas líneas. Le mostramos a un modelo de lenguaje
 natural y una formalización suya en Lean~4, y le preguntamos: «Is this formalization faithful? Answer Yes or No.» Su
 respuesta la guardamos como control. Lo que estudiamos son sus activaciones, sobre las que entrenamos una sonda lineal
 que separe las formalizaciones adecuadas de las inadecuadas. Después repetimos la corrida sin el enunciado, de modo
-que el modelo ve solo el código de Lean y la misma pregunta. Esa segunda pregunta no tiene respuesta, porque nada en
+que el modelo ve solo el código de Lean y la misma pregunta. Hecha así, la pregunta no tiene respuesta, porque nada en
 el prompt dice qué debía capturar el código. La sonda entrenada allí mide entonces otra cosa, a saber, lo que el
-código de Lean delata por sí solo en su estilo, su longitud o su vocabulario. Por esa razón nunca interpretamos la AUROC de una sonda tomada aisladamente. Cada resultado central es una brecha, la AUROC de la sonda que lee el enunciado junto con el
+código de Lean delata por sí solo en su estilo, su longitud o su vocabulario. Por esa razón nunca interpretamos la AUROC de una sonda tomada aisladamente. Cada resultado central de las sondas es una brecha, la AUROC de la sonda que lee el enunciado junto con el
 código de Lean menos la de la sonda que lee solo el código de Lean. Una brecha positiva que sobrevive a los controles de la Tabla~\ref{tab:controles} es evidencia de que la
 representación lleva información sobre la \emph{relación} entre los dos textos.
 
@@ -93,7 +91,7 @@ independiente, con una prueba de transferencia.
 \item Un control de \emph{superficie cruzada}, construido con rasgos que cruzan el enunciado y el texto formal. En el
 modelo donde separamos por tipo de edición, iguala a las activaciones en los cambios de numeral, que una línea de
 base de superficie limitada al código de Lean habría pasado por alto. En conjunto, sin embargo, los n-gramas simples de ambos
-textos son el control más fuerte en nuestros pares.
+textos son el más fuerte de estos dos controles en nuestros pares.
 \item Una réplica prerregistrada. Ningún modelo cumplió su criterio por modelo, aunque la brecha media de los cuatro
 modelos es positiva con la lectura de capa fija.
 \item La datación de los orígenes del Nivel~B frente al lanzamiento de cada modelo, y un borrador de protocolo
@@ -152,7 +150,7 @@ En inglés, \emph{faithfulness} nombra también la fidelidad de las explicacione
 
 \paragraph{Sonda.}
 Para cada modelo, capa y variante del prompt leemos las activaciones del flujo residual del modelo congelado y
-ajustamos una regresión logística estandarizada ($C = 1$). Todos los puntajes son \emph{out-of-fold}, con las
+ajustamos una regresión logística estandarizada ($C = 1$). Todas las puntuaciones son \emph{out-of-fold}, con las
 particiones agrupadas de modo que ningún enunciado aparezca a ambos lados de una división. No se actualiza ningún
 peso del modelo.
 
@@ -169,6 +167,9 @@ validación cruzada anidada. La lectura~(ii) toma la media sobre los tokens de L
 $\lfloor 2L/3 \rfloor$.
 En el prompt la pregunta va después del bloque de Lean, así que la lectura~(ii) no puede depender de ella. Lo
 comprobamos extrayendo de nuevo las activaciones sin la pregunta; el coseno con las originales es de al menos 0.9993 en los cuatro modelos comprobados, en los Niveles~A y~B.
+La lectura~(i), en cambio, sí lee la pregunta. Con activaciones extraídas sin ella, la brecha del último token en el
+Nivel~A no se establece en ninguno de los cuatro modelos comprobados, mientras que en el Nivel~B sigue siendo positiva
+en los cuatro (Apéndice~\ref{app:desviaciones}; exploratorio).
 
 \paragraph{Estadístico central.}
 El estadístico central es la brecha
@@ -229,7 +230,7 @@ el Nivel~B se declara exploratorio. Las decisiones tomadas después de ver un re
 Apéndice~\ref{app:desviaciones}.
 
 \begin{pendiente}
-Todas las cifras de este borrador provienen de la implementación de referencia y son preliminares. Por la regla del
+Todas las cifras de esta versión provienen de la implementación de referencia y son preliminares. Por la regla del
 proyecto, solo pasan a ser hallazgos tras compararlas con la implementación a mano del propio primer autor
 (\vr{probe.py}), que aún no está escrita. El Nivel~C tiene además una segunda implementación, escrita por otro agente
 de programación, sin acceso a la primera y a partir de las mismas activaciones extraídas. Reproduce el resultado
@@ -260,7 +261,7 @@ bootstrap excluían el cero, pero los valores $p$ de permutación de la diferenc
 llevó a la regla más estricta que sigue, la tercera versión escrita el 4 de noviembre. Estas corridas no tienen peso
 confirmatorio.
 
-Recalculados con el pipeline prerregistrado, los tres modelos de descubrimiento dan +0.091, +0.043 y +0.044 con la
+Recalculados con el pipeline prerregistrado, los tres modelos de descubrimiento (Qwen3-4B, Goedel-Prover-V2 y Kimina, en ese orden) dan +0.091, +0.043 y +0.044 con la
 lectura~(i), y +0.095, +0.066 y +0.051 con la lectura~(ii). El enunciado solo ya predice la etiqueta, pues
 \vr{nl\_only} alcanza de 0.61 a 0.74 en el último token en los cuatro modelos de réplica. Por esa razón cada brecha se compara también
 con un control apilado.
@@ -281,7 +282,7 @@ Las dos cláusulas ya estaban en el documento firmado el 4 de noviembre. Ninguna
 un modelo debe pasar en una lectura o en las dos, y las registramos como una desviación.
 La prueba de permutación y el intervalo bootstrap responden preguntas distintas. La primera reajusta las sondas con
 las etiquetas barajadas, mientras que el segundo remuestrea grupos con las puntuaciones ya ajustadas. Por eso la
-Tabla~\ref{tab:a} puede mostrar un intervalo que excluye el cero junto a $p = 0.040$.
+Tabla~\ref{tab:a} puede mostrar un intervalo que excluye el cero junto a $p = 0.084$ (OLMo-2, lectura~(ii)).
 
 \begin{table}[h]
 \centering
@@ -315,7 +316,7 @@ Ningún modelo pasa. Con la lectura~(ii) el intervalo de \vr{full} menos apilado
 modelos, de modo que la condición~(b) se cumple en gran medida.
 En esa lectura, sin embargo, el control apilado no alcanza a \vr{lean\_only} por sí solo. Su AUROC es 0.675, 0.678,
 0.680 y 0.670 en el orden de la Tabla~\ref{tab:a}, frente a 0.679, 0.688, 0.682 y 0.678. El apilado es una regresión
-logística sobre los puntajes internos fuera de partición de las dos sondas, y allí \vr{nl\_only} se lee como la media
+logística sobre las puntuaciones internas fuera de partición de las dos sondas, y allí \vr{nl\_only} se lee como la media
 sobre los tokens del enunciado en la misma capa fija (0.660, 0.643, 0.673 y 0.650). La condición~(b), por tanto, no es
 más estricta que una brecha positiva en la lectura~(ii). Aun así, ningún modelo sobrevive a la prueba de
 permutación corregida por multiplicidad. Con la lectura~(i) solo DeepSeek-Prover-V2 cumple la condición~(b), con
@@ -352,7 +353,7 @@ la brecha es negativa, con intervalos por debajo de cero.
 Qwen3-8B se añadió después y es exploratorio. Da +0.043 \ic{−0.004}{0.088} con~(i) y +0.086 \ic{0.052}{0.119}
 con~(ii), con \vr{full} menos apilado en +0.113 \ic{0.078}{0.148} con~(ii). No se corrieron permutaciones.
 
-\paragraph{La fuente del problema.}
+\paragraph{La fuente de cada problema.}
 CriticLeanBench toma sus problemas de doce fuentes, y la proporción de formalizaciones adecuadas difiere de una a
 otra. En consecuencia, la fuente sola separa las etiquetas con AUROC 0.578 \ic{0.525}{0.629}. Un análisis post hoc,
 hecho solo con la lectura~(ii), pregunta si la brecha es la fuente leída por otra vía. Una fuente, AIME, no tiene
@@ -399,16 +400,17 @@ diferencia como no establecida. La región, además, se eligió después de ver 
 sobre la media de los tokens de Lean y se aplicó token por token. Los mapas son exploratorios.
 
 \paragraph{Interpretación.}
-El efecto tal como se prerregistró, modelo por modelo, no se confirmó. Con 450 filas por modelo, el instrumento no
-resuelve una brecha de este tamaño después de la corrección. El bootstrap conjunto post hoc sitúa la brecha media
-de los cuatro modelos nuevos en +0.045 \ic{0.021}{0.069} con la lectura de capa fija y en +0.029
-\ic{−0.000}{0.058} con la lectura en el último token, y ninguno de los dos controles nulos muestra una brecha cuyo intervalo quede por encima de cero. Esto no es una réplica bajo la regla que escribimos.
-La Figura~\ref{fig:relieve} muestra los mismos datos capa por capa.
+El Nivel~A no confirmó el efecto tal como se prerregistró, modelo por modelo, así que esto no es una réplica bajo la
+regla que escribimos. Con 450 filas por modelo, el instrumento no resuelve una brecha de este tamaño después de la
+corrección. Lo que queda es una estimación post hoc. El bootstrap conjunto sitúa la brecha media de los cuatro modelos
+nuevos en +0.045 \ic{0.021}{0.069} con la lectura de capa fija y en +0.029 \ic{−0.000}{0.058} con la lectura en el
+último token, y ninguno de los dos controles nulos muestra una brecha cuyo intervalo quede por encima de cero. La
+Figura~\ref{fig:relieve} muestra los mismos datos capa por capa.
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{figuras_v5/escaner2d_modelos_v5_es.pdf}
-\caption{En qué parte del prompt y a qué profundidad es legible la separación, en los cinco modelos de propósito general. Cómo leerla: las celdas más oscuras son posiciones y capas donde las clases se separan mejor, y el panel derecho es más oscuro donde el enunciado añade. Cada celda es la AUROC \emph{out-of-fold} de la dirección de la sonda de la capa, aplicada a los tokens de esa posición, en las 450 formalizaciones de CriticLeanBench; los tramos se estiran a un ancho fijo y las celdas van crudas. Izquierda: el prompt con enunciado y código de Lean. Centro: el código de Lean solo. Derecha: su diferencia, en el color del modelo donde el enunciado suma y en gris donde resta. Todos los modelos comparten una misma escala de luminosidad, de modo que valores iguales son igual de oscuros; las celdas por debajo del azar son grises. Los corchetes sobre las claves dan el tamaño del ruido de una sola celda por una aproximación normal a la nula de etiquetas permutadas y, para la diferencia, una cota de independencia. El marcador es la capa $\lfloor 2L/3 \rfloor$. Exploratoria: una semilla, una dirección ajustada sobre la media de los tokens de Lean y aplicada token por token.}
+\caption{En qué parte del prompt y a qué profundidad es legible la separación, en los cinco modelos de propósito general. Cómo leerla: las celdas más oscuras son posiciones y capas donde las clases se separan mejor, y en el panel derecho el color del modelo marca dónde añade el enunciado. Cada celda es la AUROC \emph{out-of-fold} de la dirección de la sonda de la capa, aplicada a los tokens de esa posición, en las 450 formalizaciones de CriticLeanBench; los tramos se estiran a un ancho fijo y las celdas van crudas. Izquierda: el prompt con enunciado y código de Lean. Centro: el código de Lean solo. Derecha: su diferencia, en el color del modelo donde el enunciado suma y en gris donde resta. Todos los modelos comparten una misma escala de luminosidad, de modo que valores iguales son igual de oscuros; las celdas por debajo del azar son grises. Los corchetes sobre las claves dan el tamaño del ruido de una sola celda por una aproximación normal al nulo de etiquetas permutadas y, para la diferencia, una cota de independencia. El marcador es la capa $\lfloor 2L/3 \rfloor$. Exploratoria: una semilla, una dirección ajustada sobre la media de los tokens de Lean y aplicada token por token.}
 \label{fig:escaner}
 \end{figure}
 
@@ -419,7 +421,7 @@ La Figura~\ref{fig:relieve} muestra los mismos datos capa por capa.
 Cada par reúne dos ediciones mínimas del mismo enunciado original en Lean. Lean certifica una de ellas como
 equivalente al original, y esa edición es el miembro adecuado. Certifica la otra como no equivalente, y esa es el
 miembro inadecuado.
-La edición infiel se aplica sobre la fiel, así que los dos miembros difieren solo en la edición infiel. El enunciado en lenguaje natural es idéntico en ambos, así que el enunciado solo no puede
+La edición inadecuada se aplica sobre la adecuada, de modo que los dos miembros difieren solo en la edición inadecuada. El enunciado en lenguaje natural es idéntico en ambos, así que el enunciado solo no puede
 separarlos. La sonda \vr{nl\_only} da, en consecuencia, 0.500 por construcción, lo que sirve de comprobación del
 pipeline.
 
@@ -430,7 +432,7 @@ dos fórmulas y que Lean comprueba. Los testigos se buscan solo cuando todas las
 naturales, enteros, racionales o reales.
 
 Las ediciones inadecuadas caen en tres familias. La familia A hace el teorema más fuerte, B lo hace más débil y C
-lo convierte en un teorema distinto. Dentro de C, C2 cambia un numeral y C3 cambia otra cosa.
+lo convierte en un teorema distinto. Dentro de C, C2 cambia un numeral, sea cual sea el sentido del cambio, y C3 cambia otra cosa.
 La Tabla~\ref{tab:bejemplos} muestra un par de cada una de A, B, C2 y C3.
 
 \begin{table}[h]
@@ -462,13 +464,17 @@ adecuado a su enunciado. En 23, todos de la familia~A, el testigo separa las fó
 caso en el que la conclusión se cumple trivialmente, así que los dos enunciados dicen lo mismo. Un par está en los dos
 grupos. Como referencia, con los 408 la brecha en Qwen3-4B es +0.213 \ic{0.150}{0.280}.
 
-El lote queda por debajo de los 400 pares y los 300 orígenes que pedía la regla, y eso es lo que significa
-«potencia reducida» en la Tabla~\ref{tab:b}. Por la misma regla, un modelo cuyo intervalo de $\D$ incluye el cero
-se registra como nulo con su cota superior. La regla, además, solo permite escribir «más allá de la superficie»
-cuando el intervalo de \vr{full} menos superficie cruzada queda por encima de cero. La prueba prevista al principio
-para este nivel usaba tripletas. El 4 de noviembre, después de que fallara una comprobación de superficie provisional, los pares se declararon su lote de desarrollo. Luego no se pudo construir un lote certificable de tripletas, así que los pares son la única evidencia de este nivel. La comprobación de superficie fijada de antemano tampoco pasó en los pares certificados. En los 408 pares certificados, una regresión logística
-sobre unigramas y bigramas del código de Lean por sí solo alcanza una AUROC pareada de 0.706, un exceso de 0.081 sobre una línea base
-no supervisada, frente a un límite de 0.05.
+El lote es más pequeño de lo que pedía la regla. Esta pedía 400 pares y 300 orígenes, y el lote queda por debajo de
+ambos, que es lo que significa «potencia reducida» en la Tabla~\ref{tab:b}. Por la misma regla, un modelo cuyo
+intervalo de $\D$ incluye el cero se registra como nulo con su cota superior. La regla, además, solo permite escribir
+«más allá de la superficie» cuando el intervalo de \vr{full} menos superficie cruzada queda por encima de cero.
+
+El lote es, además, un lote de desarrollo. La prueba prevista al principio para este nivel usaba tripletas. El 4 de
+noviembre, después de que fallara una comprobación de superficie provisional, los pares se declararon su lote de
+desarrollo. Luego no se pudo construir un lote certificable de tripletas, así que los pares son la única evidencia de
+este nivel. La comprobación de superficie fijada de antemano tampoco pasó en los pares certificados. En los 408 pares
+certificados, una regresión logística sobre unigramas y bigramas del código de Lean por sí solo alcanza una AUROC
+pareada de 0.706. Eso es un exceso de 0.081 sobre una línea de base no supervisada, frente a un límite de 0.05.
 
 Las particiones se agrupan por archivo fuente, mientras que la AUROC pareada y el bootstrap toman el origen como
 unidad. Con los 189 archivos fuente como unidad, la brecha es +0.229 \ic{0.157}{0.301}, +0.109 \ic{0.046}{0.174},
@@ -490,7 +496,7 @@ OLMo-2-7B    & 0.766 & 0.664 & +0.102 [+0.039, +0.164] & 0.0198\\
 Llama-3.1-8B & 0.762 & 0.678 & +0.084 [+0.023, +0.146] & 0.0198\\
 Gemma-3-4B   & 0.684 & 0.643 & +0.041 [−0.023, +0.107] & 0.0594\\
 \midrule
-\multicolumn{5}{@{}l}{\emph{Segunda lectura: media sobre los tokens de Lean (sin prueba de permutación)}}\\
+\multicolumn{5}{@{}l}{\emph{Segunda lectura: media sobre los tokens de Lean (añadida después de los primeros resultados; sin prueba de permutación)}}\\
 Qwen3-4B     & 0.944 & 0.780 & +0.164 [+0.120, +0.210] & ---\\
 OLMo-2-7B    & 0.859 & 0.775 & +0.084 [+0.039, +0.129] & ---\\
 Llama-3.1-8B & 0.902 & 0.768 & +0.135 [+0.090, +0.180] & ---\\
@@ -522,7 +528,7 @@ Gemma-3-4B   & −0.045 [−0.107, +0.018] & −0.005 [−0.066, +0.060] & +0.12
 El primer control cambia el enunciado por uno equivocado. Con él la sonda cae al azar en todos los modelos (0.506 a
 0.537), de modo que la ganancia requiere el enunciado \emph{correcto}. Frente al control de superficie cruzada, tres
 modelos conservan un margen positivo y Gemma-3 no. En este lote, sin embargo, los n-gramas simples de los dos textos
-separan los pares mejor (0.729) que los rasgos de superficie cruzada (0.688), así que son el control más exigente
+separan los pares mejor (0.729) que los rasgos de superficie cruzada (0.688), así que son el más exigente de estos dos controles
 en conjunto. Frente a ellos solo Qwen3-4B conserva un margen (+0.078 \ic{0.010}{0.141}), y en los otros tres el
 intervalo incluye el cero. En las ediciones de numeral que se examinan más abajo, en cambio, los rasgos de
 superficie cruzada alcanzan 0.933, cosa que los n-gramas no logran.
@@ -534,13 +540,13 @@ cero. Un control adicional, también en Qwen3-4B, puntúa el original sin editar
 encuentra indistinguibles (0.520), lo que descarta que la señal sea «haber sido editado».
 
 \paragraph{La segunda lectura.}
-Los controles anteriores se calcularon frente a la sonda del último token. La brecha sobre el código de Lean solo, en cambio, se midió en las dos lecturas, y depende de la lectura. En la media
+Los controles anteriores se calcularon frente a la sonda del último token. La brecha sobre el código de Lean solo, en cambio, se midió también en la segunda lectura, añadida después de los primeros resultados, y depende de la lectura. En la media
 sobre los tokens de Lean es positiva en los cuatro modelos, con +0.164 \ic{0.120}{0.210} en Qwen3-4B, +0.084
 \ic{0.039}{0.129} en OLMo-2, +0.135 \ic{0.090}{0.180} en Llama-3.1 y +0.117 \ic{0.072}{0.162} en Gemma-3. El nulo
 de Gemma-3 es, por tanto, específico del último token.
 
 Con esa lectura, sin embargo, el propio \vr{lean\_only} es mucho más alto (0.77 a 0.78), así que el código de Lean por sí solo delata más de lo que sugiere la Tabla~\ref{tab:b}. Una sonda que lee solo el código de Lean y llega a 0.78 en pares que
-comparten un mismo enunciado queda por encima de la línea base de n-gramas de ambos textos (0.729). Los n-gramas,
+comparten un mismo enunciado queda por encima de la línea de base de n-gramas de ambos textos (0.729). Los n-gramas,
 por tanto, no recogen todo lo que el texto en Lean revela sobre cuál de las dos ediciones es la inadecuada. Con
 esta lectura no se corrió ninguna prueba de permutación.
 
@@ -627,7 +633,7 @@ mayoría de sus condiciones, en dos modelos LLaMA-2 y con desplazamientos aditiv
 
 \begin{table}[h]
 \centering
-\caption{Intervención del Nivel B, 377 pares. AUROC pareada de P(Yes) sin intervenir y tras desplazar la media sobre los tokens de Lean hacia la clase contraria en la distancia completa entre las medias de clase, a lo largo de la dirección de diferencia de medias en cada capa menos la última. «Al azar» es el mismo desplazamiento a lo largo de 20 direcciones al azar (media; máximo de la caída). El criterio pide un intervalo por encima de cero en la sexta columna y ninguna dirección al azar con una caída igual o mayor. Las dos últimas columnas dan la AUROC con desplazamientos dos y cuatro veces mayores. Qwen3-4B es post hoc; los otros tres modelos se corrieron con una regla fijada de antemano. La base se recalculó en la corrida de la intervención y difiere del P(Yes) guardado de la Tabla~\ref{tab:controlesnivel} (0.839, 0.726, 0.729, 0.560) en hasta 0.030, en Gemma-3.}
+\caption{Intervención del Nivel B, 377 pares. AUROC pareada de P(Yes) sin intervenir y tras desplazar la media sobre los tokens de Lean hacia la clase contraria en la distancia completa entre las medias de clase, a lo largo de la dirección de diferencia de medias en cada capa menos la última. «Al azar» es el mismo desplazamiento a lo largo de 20 direcciones al azar (media; máximo de la caída). El criterio pide un intervalo por encima de cero en la columna «caída menos media al azar» y ninguna dirección al azar con una caída igual o mayor. Las dos últimas columnas dan la AUROC con desplazamientos dos y cuatro veces mayores. Qwen3-4B es post hoc; los otros tres modelos se corrieron con una regla fijada de antemano. La base se recalculó en la corrida de la intervención y difiere del P(Yes) guardado de la Tabla~\ref{tab:controlesnivel} (0.839, 0.726, 0.729, 0.560) en hasta 0.030, en Gemma-3.}
 \label{tab:bintervencion}
 \vspace{2pt}
 {\footnotesize\setlength{\tabcolsep}{3pt}
@@ -754,22 +760,23 @@ Etiquetas & validadas por humanos & del generador, certificadas por Lean & human
 Estatus & prerregistrado & exploratorio & regla aprobada de antemano (un modelo)\\
 Signo de $\D$ & positivo en 7 de 8 pares modelo--lectura & positivo en 4 de 4 & positivo en 2 de 2\\
 Resultado bajo su regla & no confirmado por modelo; media de los cuatro +0.045 [0.021, 0.069] con (ii) y +0.029 [−0.000, 0.058] con (i), post hoc & en el último token, 3 positivos con potencia reducida, 1 nulo & positivo\\
-Amenaza principal & ruido de etiquetas y estilo & en el último token, n-gramas de ambos textos, que solo Qwen3-4B supera; superficie en las ediciones de numeral; P(Yes) iguala a la sonda en Qwen3-4B & contaminación\\
+Amenaza principal & ruido de etiquetas y estilo & en el último token, n-gramas de ambos textos, que solo Qwen3-4B supera, y el control combinado, que ningún modelo supera; superficie en las ediciones de numeral; P(Yes) iguala a la sonda en Qwen3-4B & contaminación\\
 \bottomrule
 \end{tabularx}
 \end{table}
 
-El signo de la brecha es el mismo en casi todos los escenarios que examinamos. Leer el enunciado junto con el código de Lean
-separa mejor que leer el código de Lean solo. Los niveles difieren, sin embargo, en cuánto autoriza cada uno. El Nivel~A es
+Los tres niveles coinciden en el signo de la brecha y difieren en cuánto autoriza cada uno. En casi todos los
+escenarios que examinamos, leer el enunciado junto con el código de Lean separa mejor que leer el código de Lean solo. El Nivel~A es
 la única prueba prerregistrada, y no pasó. El Nivel~B tiene el diseño más limpio, con el enunciado fijo y las
 etiquetas certificadas por Lean, pero es un lote de desarrollo y parte de su efecto es de superficie.
+El Nivel~B tiene además la única intervención.
 En dos de los cuatro modelos, uno de ellos con la regla fijada de antemano y el otro post hoc, un desplazamiento por el eje en el que la
-segunda lectura separa las clases cambia la respuesta más que el mismo desplazamiento por direcciones al azar. Esto no
-muestra qué calcula el modelo, y no se sostiene en los otros dos. Un desplazamiento también puede cambiar la salida
+segunda lectura separa las clases cambia la respuesta más que el mismo desplazamiento por cualquiera de 20 direcciones al azar. Esto no muestra qué calcula el modelo, y los otros dos modelos no cumplen ese criterio. Un desplazamiento también puede cambiar la salida
 por una vía distinta de la que se quiere tocar \citep{makelov2024subspace}. En el Nivel~C
 el efecto es grande y, para Qwen3, la protección contra la memorización es la más débil. Ningún nivel sostiene por
 sí solo la afirmación de que la adecuación es decodificable linealmente de modelos congelados más allá del código de Lean solo.
 Tomados en conjunto, justifican volver a hacer la pregunta con datos que los modelos no pueden haber visto.
+La Tabla~\ref{tab:controlesnivel} recoge los controles corridos en cada nivel.
 
 % ------------------------------------------------------------------ 8
 \begin{table}[h]
@@ -784,6 +791,8 @@ Control & A & B (último token) & C\\
 \midrule
 n-gramas & solo del código de Lean: 0.682, a la par de \vr{lean\_only} (0.678 a 0.688) & de ambos textos: 0.729 & \vr{full} menos: +0.144 Qwen3-4B, +0.103 Llama-3.1\\
 Superficie cruzada & no corrido & 0.688 & no corrido\\
+
+Combinado & no corrido & 0.787 & no corrido\\
 Apilado & Tabla~\ref{tab:a} & no aplica (\vr{nl\_only} es 0.500) & \vr{full} menos: +0.146, +0.111\\
 \vr{nl\_mismatched} & no analizado & 0.506 a 0.537 & \vr{full} menos: +0.202, +0.175\\
 P(Yes) & 0.47 a 0.51 en OLMo-2, Gemma-3 y Llama-3.1; 0.70 y 0.72 en Qwen3-4B y Qwen3-8B; no interpretable en DeepSeek-Prover-V2 & 0.839, 0.726, 0.729, 0.560 (orden de la Tabla~\ref{tab:b}) & 0.788 en Qwen3-4B\\
@@ -823,20 +832,25 @@ Sus tasas de acuerdo se reportarán aquí y acotarán el ruido de etiquetas de a
 \end{pendiente}
 
 \paragraph{Potencia.}
-Las muestras son de 450 filas por modelo en el Nivel~A, 256 orígenes en el Nivel~B y 361 grupos en el Nivel~C.
+Las muestras fijan la potencia de cada nivel. Son de 450 filas por modelo en el Nivel~A, 256 orígenes en el Nivel~B y
+361 grupos en el Nivel~C. En el Nivel~A eso no bastó para resolver una brecha de este tamaño después de la corrección,
+y en el Nivel~B el lote quedó por debajo de los 400 pares y los 300 orígenes que pedía su regla.
 
 \paragraph{Método.}
-Las sondas son lineales y su evidencia es correlacional. En Qwen3-4B, en el Nivel~B y en el último token, la propia respuesta del modelo separa tan bien como la sonda. Intervinimos a lo largo de dos direcciones, y solo en el Nivel~B. El desplazamiento por la diferencia de medias cumple
-su criterio en dos de los cuatro modelos, y la corrida en Qwen3-4B es post hoc. La ablación a lo largo de la dirección
-de la sonda dio un nulo.
-Un control no se corrió. Direcciones construidas como diferencias de medias con etiquetas barajadas mostrarían cuánto
-del efecto se debe al solo hecho de ajustar una dirección a estas activaciones.
+Las sondas son lineales y su evidencia es correlacional. En el último token del Nivel~B, además, la propia respuesta
+de Qwen3-4B separa tan bien como la sonda. Para ir más allá de la correlación intervinimos, solo en el Nivel~B y a lo
+largo de dos direcciones. El desplazamiento por la diferencia de medias cumple su criterio en dos de los cuatro
+modelos, y la corrida en Qwen3-4B es post hoc. La ablación a lo largo de la dirección de la sonda, en cambio, dio un
+nulo. Un control de estas intervenciones no se corrió. Direcciones construidas como diferencias de medias con
+etiquetas barajadas mostrarían cuánto del efecto se debe al solo hecho de ajustar una dirección a estas activaciones.
 
 \paragraph{Decisiones a posteriori.}
-Varios análisis se decidieron después de ver resultados. Son la división de la familia C, la exclusión de C2, las corridas en Qwen3-8B en el Nivel~A y en Llama-3.1 en el Nivel~C, los tres modelos posteriores y la segunda lectura del Nivel~B, el
-control por fuente, el bootstrap conjunto, las figuras capa por capa, y los mapas con sus estadísticos de región y
-su nulo de intercambio. Los controles en la segunda lectura y las dos intervenciones del Nivel~B llegaron después, entre el 11 y el 13
-de noviembre. Están rotulados como tales donde aparecen.
+Varios análisis se decidieron después de ver resultados. En el Nivel~A son la corrida en Qwen3-8B, el control por
+fuente, el bootstrap conjunto, las figuras capa por capa, y los mapas con sus estadísticos de región y su nulo de
+intercambio. En el Nivel~B son la división de la familia C, la exclusión de C2, los tres modelos posteriores y la
+segunda lectura. En el Nivel~C es la corrida en Llama-3.1. Los controles en la segunda lectura y las dos
+intervenciones del Nivel~B llegaron después, entre el 11 y el 13 de noviembre. Cada uno está marcado como exploratorio
+o post hoc donde aparece, o queda cubierto por el carácter exploratorio del Nivel~B.
 
 % ------------------------------------------------------------------ 9
 \section{Conclusión}
@@ -852,18 +866,21 @@ antemano. En los pares certificados, parte de ella es un numeral que falta en el
 datos eran públicos antes del lanzamiento de uno de los dos modelos.
 
 El piloto arroja así una señal pequeña y una lista de las maneras en que podría ser un artefacto. El borrador de
-protocolo del Apéndice~\ref{app:protocolo} está diseñado para eliminar o medir los elementos de superficie,
-contaminación y etiquetas de esa lista. Todavía no se ocupa de un P(Yes) que iguala a la sonda en el último token. Los mapas de la
-Figura~\ref{fig:escaner} muestran dónde la dirección de la sonda de cada capa separa las clases. Si el modelo usa una dirección así es una pregunta causal, que el sondeo no puede responder y que una intervención a lo largo de la dirección de la
-sonda sí podría.
-En el Nivel~B hicimos una intervención de ese tipo sobre una dirección afín, la diferencia de medias de clase en cada
-capa. Cambia la respuesta más que cualquiera de 20 direcciones al azar en dos de los cuatro modelos, uno de ellos en una corrida
-post hoc.
-Una intervención anterior a lo largo de la dirección de la sonda logística, en Qwen3-4B, dio un nulo.
+protocolo del Apéndice~\ref{app:protocolo} está diseñado para eliminar o medir tres elementos de esa lista, que son la
+superficie, la contaminación y las etiquetas. Todavía no se ocupa de un P(Yes) que iguala a la sonda en el último
+token.
 
-Quedan tres cosas por hacer. La prueba confirmatoria del Apéndice~\ref{app:protocolo} necesita enunciados escritos
-después de los modelos y de este piloto. La intervención se corrió solo en el Nivel~B, y a los Niveles~A y~C todavía
-les falta una. Los mapas descansan en una sola semilla.
+Si el modelo usa lo que las sondas leen es otra pregunta, de tipo causal, que el sondeo no puede responder. Los mapas
+de la Figura~\ref{fig:escaner} muestran dónde la dirección de la sonda de cada capa separa las clases, y una
+intervención a lo largo de una dirección así podría decir si el modelo la usa. En el Nivel~B hicimos dos
+intervenciones. La primera actuó a lo largo de la dirección de la sonda logística, en Qwen3-4B, y dio un nulo. La
+segunda actuó sobre una dirección afín, la diferencia de medias de clase en cada capa. Cambia la respuesta más que
+cualquiera de 20 direcciones al azar en dos de los cuatro modelos, uno de ellos en una corrida post hoc.
+
+Además de los pendientes señalados arriba, quedan tres cosas por hacer. La primera es la prueba confirmatoria del
+Apéndice~\ref{app:protocolo}, que necesita enunciados escritos después de los modelos y de este piloto. La segunda es
+causal, porque la intervención se corrió solo en el Nivel~B y a los Niveles~A y~C todavía les falta una. La tercera
+tiene que ver con los mapas, que descansan en una sola semilla.
 
 \paragraph{Uso de herramientas de IA.}
 El código de análisis y la primera implementación de cada nivel se escribieron con asistentes de programación de IA,
@@ -872,8 +889,8 @@ resultados se compararán con una implementación que él escriba a mano antes d
 comparación está pendiente. Los autores son responsables de todas las afirmaciones.
 
 \paragraph{Código y datos.}
-El repositorio está en \url{https://github.com/cmorregof/faithfullness}, y las cifras reportadas aquí corresponden
-al commit \vr{ea66bad}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los
+El repositorio está en \url{https://github.com/cmorregof/faithfulness}, y las cifras reportadas aquí corresponden
+al commit \vr{4cca797}. Contiene las reglas de decisión con sus hashes y horas, los pares certificados, los
 rasgos de superficie cruzada, todos los archivos de resultados citados aquí y la bitácora del proyecto. No
 contiene las activaciones extraídas ni los textos de CriticLeanBench.
 
@@ -1067,8 +1084,7 @@ tales que los modelos no pueden haberlos visto.
 
 \begin{description}[leftmargin=1.2em]
 \item[Hipótesis] En Qwen3-4B, en el último token y con la capa elegida por validación cruzada anidada, la AUROC
-pareada de \vr{full} supera a ambos controles de superficie. Es decir, \vr{full} menos superficie cruzada $> 0$ y
-\vr{full} menos n-gramas simples de los dos textos $> 0$, con cada intervalo por completo por encima de cero.
+pareada de \vr{full} supera a ambos controles de superficie y al código de Lean solo. Es decir, \vr{full} menos superficie cruzada $> 0$, \vr{full} menos n-gramas simples de los dos textos $> 0$ y $\D > 0$, con cada intervalo por completo por encima de cero.
 \item[Población] Pares de las familias A, B y C3. Las ediciones de numeral se reportan por separado.
 \item[Datos] Enunciados añadidos a formal-conjectures después del 23 de octubre de 2026 (commit \vr{c094b979}, la copia usada en el piloto),
 procesados con el generador y el certificador del piloto, congelados por hash. Por construcción ninguno estuvo en el

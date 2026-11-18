@@ -16,11 +16,11 @@ exec(open(os.path.join(AQUI, "verifica_voz.py"), encoding="utf-8").read().split(
 MENOS = "−"
 # enteros que no son resultados: nº de direcciones, pares, pares sin C2, nivel del intervalo, fechas, dosis,
 # umbral de azar, y medidas de formato de las tablas (\vspace{2pt}, \tabcolsep{3pt})
-ESTRUCTURALES = {"+0.05", "20", "377", "309", "95", "11", "12", "13", "0.5", "2", "3", "4", "6", "0"}
+ESTRUCTURALES = {"400", "300", "+0.05", "20", "377", "309", "95", "11", "12", "13", "0.5", "2", "3", "4", "6", "0"}
 NUEVAS = {"label": {"tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "app:intervencion", "tab:bsecundarios", "tab:bejemplos", "app:definiciones", "tab:bsinc2"},
-          "ref": {"app:protocolo", "tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "tab:controlesnivel", "app:intervencion", "tab:bsecundarios", "tab:a", "tab:conjunta", "tab:b", "tab:bejemplos", "app:definiciones", "tab:bsinc2", "tab:controles", "fig:forest", "tab:c"},
+          "ref": {"app:desviaciones", "app:protocolo", "tab:bcontroles2", "tab:bintervencion", "fig:bintervencion", "tab:controlesnivel", "app:intervencion", "tab:bsecundarios", "tab:a", "tab:conjunta", "tab:b", "tab:bejemplos", "app:definiciones", "tab:bsinc2", "tab:controles", "fig:forest", "tab:c"},
           "cite": {"geometry", "elazar2021amnesic", "rimsky2024steering", "ravfogel2020null", "belrose2023leace", "makelov2024subspace", "xena2026checked", "bastounis2026lost"}}
-FORMULAS_NUEVAS = {"\\D": 2, "C = 1": 1, "\\neq": 1, "p": 2}   # undécima tanda: $\D$ en la regla del Nivel C y ante la cifra de la segunda implementación
+FORMULAS_NUEVAS = {"\\D": 2, "C = 1": 1, "\\neq": 1, "p": 2, "p = 0.084": 1, "\\D > 0": 1}   # undécima tanda: $\D$ en la regla del Nivel C y ante la cifra de la segunda implementación
 TABLAS_EDITADAS = ("tab:controles}", "tab:conjunta}", "tab:b}", "tab:controlesnivel}")   # tab:b: dos frases en el pie (novena tanda)
 
 
@@ -160,6 +160,7 @@ def revisa(nombre):
     # 3. fórmulas fuera de tablas y figuras
     a, b = V["dif"](V["matematicas"](viejo), V["matematicas"](nuevo))
     b = {k: n for k, n in b.items() if n != FORMULAS_NUEVAS.get(k)}
+    a = {k: n for k, n in a.items() if (k, n) != ("p = 0.040", 1)}   # tanda 27: el ejemplo de la permutación pasa de p = 0.040 a p = 0.084 (OLMo-2, lectura (ii), Tabla 2)
     if a or b: falla(f"fórmulas: faltan {a}, sobran {b}")
     # 4. tablas y figuras de v4: idénticas, salvo las dos tablas con un retoque aprobado
     for env in ("table", "figure"):
@@ -190,7 +191,7 @@ def revisa(nombre):
         en = [re.sub(r"(How to read it|Cómo leerla): [^.]*\. ", "", e) for e in en]
         # vigesimosexta tanda: pie de fig:escaner, «statement and Lean code» y la aproximación normal «a la nula de etiquetas permutadas»
         en = [e.replace("with statement and Lean code.", "with statement and Lean.").replace("con enunciado y código de Lean.", "con enunciado y Lean.")
-               .replace(" to the null of permuted labels", "").replace(" a la nula de etiquetas permutadas", "") for e in en]
+               .replace(" to the null of permuted labels", "").replace(" al nulo de etiquetas permutadas", "") for e in en]
         falt = [e for e in ev if e not in en and not any(t in e for t in TABLAS_EDITADAS)]
         if falt: falla(f"{env} de v4 cambiado: {[e[:60] for e in falt]}")
         nuevos = [e for e in en if e not in ev]

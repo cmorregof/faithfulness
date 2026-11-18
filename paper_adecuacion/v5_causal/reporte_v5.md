@@ -437,3 +437,32 @@ Las figuras con la paleta A, el relieve translúcido y los rótulos nuevos las d
 - Pie de `fig:escaner`: «statement and Lean code», y «a normal approximation to the null of permuted labels» (la clave de la figura dice «permuted labels»; `escaner_v3.py`). El verificador admite esas dos diferencias con el pie de v4.
 - «Construction»: se añade que la edición infiel se aplica sobre la fiel. Comprobado en `probes/nivel_b/datos/pares_indice_principal.jsonl`: los 377 miembros infieles son compuestos y su base es el miembro fiel de su mismo par.
 - Verificador: pasa en los dos idiomas. Cotejo: secuencias coinciden. `main_en.pdf` recompilado. `main_es.pdf` lo compila Carlos. Falta subir esta tanda al repositorio.
+
+## Vigesimoséptima tanda (17 nov): lectura final de cuatro lectores
+
+Dos Opus y dos Fable leyeron por separado la versión posterior a la tanda 26, en los dos idiomas. Los cuatro recalcularon las tablas y ninguno encontró cifras que no cuadren. Aprobada por Carlos («sí a todo»).
+
+- Resumen: en español, «el más fuerte de dos controles de superficie» (decía «el control de superficie más fuerte», y el más fuerte es el combinado). En los dos idiomas, «along the difference of class means» en vez de «separating axis», que podía leerse como la dirección de la sonda. 247 y 250 palabras.
+- Control combinado: «the stronger of these two controls» en la contribución 2 y en §5; entra en la Tabla 10 («which no model exceeds») y como fila en la Tabla 11 (0.787; no corrido en A ni en C).
+- Discusión: «more than the same shift along any of 20 random directions… the other two models do not meet that criterion» (decía «does not hold in the other two», y en esos dos la caída sí supera a la media al azar).
+- «beside p = 0.084 (OLMo-2, readout (ii))» en lugar de p = 0.040, que no ilustraba ningún desacuerdo.
+- «Decodable does not mean used». «C2 changes a numeral, whatever the direction of the change» (regla del generador: numeral N → N+1). «La edición inadecuada se aplica sobre la adecuada».
+- «Readouts»: frase nueva sobre la lectura (i) sin la pregunta, que remite al apéndice. Segunda lectura del Nivel B rotulada como añadida después de los primeros resultados, en el texto y en la Tabla 4.
+- «Every headline result of the probes is a gap». Pie del escáner: «in the right panel the model's colour marks where the statement adds».
+- Protocolo (Apéndice E): la hipótesis incluye ahora Δ > 0 frente al código de Lean solo, como ya decía el párrafo de requisitos.
+- Forma: «this version»; la columna se nombra en vez de «sixth column»; se nombran los tres modelos de descubrimiento (orden comprobado en `probes/referencia/informe_nivel_a_prerregistro_v2.md`); la Tabla 11 se cita en §7; «Source of each problem»; «Beyond the pending items marked above, three things remain». En español: «línea de base», «puntuaciones», «al nulo».
+- Sin cambio tras comprobar: «at least 0.982» (el archivo da 0.9827 como mínimo; la tabla muestra el redondeo); «about 38» (la fuente lo da aproximado).
+- Pendiente: prosa (reescrituras de los cuatro lectores, por mostrar a Carlos); razón de la desviación de las dos cláusulas del prerregistro; cifra de n-gramas en C2; lectura del Nivel C; margen +0.118 frente a familias en la Figura 5; posible empate de Llama-3.1 en desplazamientos mayores; candidatos mal tipados en ProofNetVerif.
+- Verificador: pasa en los dos idiomas. Cotejo: secuencias coinciden. `main_en.pdf` recompilado. `main_es.pdf` lo compila Carlos.
+
+## Vigesimoctava tanda (17 nov): prosa
+
+Los cuatro lectores de la lectura final reescribieron casi los mismos pasajes. Se tomó una versión de cada uno, sin cambiar cifras, intervalos, citas ni salvedades. Aprobada por Carlos.
+
+- Introducción: «Asked that way, the question has no answer» (decía «That second question», y la pregunta es la misma).
+- «Reading» del Nivel A: abre con el veredicto («did not confirm… so this is not a replication under the rule we wrote») y presenta la cifra conjunta como «a post hoc estimate».
+- Lote del Nivel B: dos párrafos, uno para lo que pedía la regla y otro para la historia del lote.
+- Sección 7: abre con «The three levels agree on the sign of the gap and differ in how much each of them licenses», y anuncia la intervención («Level B also has the only intervention»).
+- Limitaciones: «Power» dice qué limitan los tamaños; «Method» encadena correlación, intervenciones y control no corrido; «Decisions after the fact» ordena la lista por nivel y su última frase ya no afirma que todo esté rotulado donde aparece.
+- Conclusión: el segundo párrafo se parte en dos y cuenta las dos intervenciones en orden; el tercero numera las tres cosas pendientes.
+- Verificador: 400 y 300 (umbrales de la regla del Nivel B, ya en v4) admitidos al repetirse en «Power». Pasa en los dos idiomas. Cotejo: 132 bloques, secuencias coinciden. `main_en.pdf` recompilado. `main_es.pdf` lo compila Carlos.
