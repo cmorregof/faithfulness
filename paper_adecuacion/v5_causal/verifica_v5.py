@@ -192,6 +192,8 @@ def revisa(nombre):
         # vigesimosexta tanda: pie de fig:escaner, «statement and Lean code» y la aproximación normal «a la nula de etiquetas permutadas»
         en = [e.replace("with statement and Lean code.", "with statement and Lean.").replace("con enunciado y código de Lean.", "con enunciado y Lean.")
                .replace(" to the null of permuted labels", "").replace(" al nulo de etiquetas permutadas", "") for e in en]
+        # tanda 29: en español «el código de Lean solo» pasa a «solo el código de Lean» (o «por sí solo») también en los pies
+        en = [e.replace("solo el Lean", "el Lean solo").replace("Lean por sí solo queda", "Lean solo queda") for e in en]
         falt = [e for e in ev if e not in en and not any(t in e for t in TABLAS_EDITADAS)]
         if falt: falla(f"{env} de v4 cambiado: {[e[:60] for e in falt]}")
         nuevos = [e for e in en if e not in ev]

@@ -7,35 +7,62 @@
 19c20
 < \title{Beyond the Lean Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
 ---
-> \title{Beyond the Lean Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean~4 Formalizations?}
-37c38
+> \title{It Compiles, but Is It What We Meant? Linear Probes for the Faithfulness of Lean~4 Formalizations}
+35,49c36,48
+< A Lean formalization can compile and still say something other than the statement it was meant to capture.
+< We ask whether the activations of frozen language models linearly separate faithful from unfaithful Lean~4
 < formalizations \emph{beyond what the Lean text alone gives away}. We measure, at three levels, the AUROC gap
----
-> formalizations \emph{beyond what the Lean code alone gives away}. We measure, at three levels, the AUROC gap
-44,48c45,46
+< between a linear probe reading the statement with the formalization and one reading the formalization alone.
+< On 450 CriticLeanBench formalizations a preregistered replication did not pass, because none of its four models
+< met the per-model criterion. A post hoc bootstrap puts their mean gap at +0.045 (95\% CI \ic{0.021}{0.069}) at a
+< fixed layer, whereas at the last token the interval includes zero.
+< On 377 minimal pairs certified by Lean, exploratory runs gave a positive gap in three of four models at the last
+< token, but against the stronger of two surface controls only one keeps a margin whose interval excludes zero.
 < On ProofNetVerif the gap was positive in two models, one of them exploratory.
 < Exploratory maps place the separation over the Lean tokens, in the upper layers.
 < The numbers are preliminary until they are compared with an independent hand-written implementation.
 < No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean alone.
 < We read this as a small signal with known confounds, and outline a confirmatory test on Lean statements written
+< after the models' release and after this pilot.
 ---
-> At that level, shifting activations along the difference of class means changes the model's answer more than any of 20 random directions does in two of four models, one of them post hoc. On ProofNetVerif the gap was positive in two models, one of them exploratory.
-> Exploratory maps place the separation over the Lean tokens, in the upper layers. No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean code alone. We outline a confirmatory test on statements written
-58a57,69
+> A Lean formalization can compile and still say something other than the statement it was meant to capture. We ask
+> whether a frozen language model tells a faithful formalization from an unfaithful one in its activations. We train two
+> linear probes, one reading the statement with the formalization and one reading the formalization alone. Because the
+> second picks up whatever the Lean code gives away on its own, our result is the AUROC gap between the two, at three
+> levels. On 450 CriticLeanBench formalizations a preregistered replication with four models did not pass, because none
+> met the per-model criterion. A post hoc bootstrap puts their mean gap at +0.045 (95\% CI \ic{0.021}{0.069}) at a fixed
+> layer, whereas at the last token the interval includes zero. On 377 minimal pairs certified by Lean, exploratory runs
+> gave a positive gap in three of four models at the last token, but against the stronger of two surface controls only
+> one keeps a margin whose interval excludes zero. There, shifting activations along the difference of class means
+> changes the answer more than any of 20 random directions does in two of four models, one post hoc. On ProofNetVerif
+> the gap was positive in two models, one exploratory. Exploratory maps place the separation over the Lean tokens, in
+> the upper layers. No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond
+> the Lean code alone. We outline a confirmatory test on statements written after the models and this pilot.
+58a58,80
 > The problem is now visible at scale. Of some 290 Lean-bearing papers in a recent batch of AI-generated mathematics, about
 > 38 do not state the paper's main theorem \citep{xena2026checked}, and a proof checked in Lean need not match the
 > written argument it accompanies \citep{bastounis2026lost}.
 > 
-> The experiment is simple to state. We show a frozen language model a natural-language statement and a Lean~4
-> formalization of it, and ask: ``Is this formalization faithful? Answer Yes or No.'' We keep its answer as a control.
-> What we study is its activations, on which we train a linear probe to separate faithful from unfaithful
-> formalizations. We then repeat the run with the statement removed, so that the model sees only the Lean code and the
-> same question. Asked that way, the question has no answer, because nothing in the prompt says what the code was meant to
-> capture. The probe trained there therefore measures something else, namely whatever the Lean code gives away on its
-> own through style, length or vocabulary. For that reason we never interpret the AUROC of one probe taken on its own. Every headline result of the probes is a gap, the AUROC of the probe that reads the statement with the Lean code minus that of the probe that
-> reads the Lean code alone. A positive gap that survives the controls of Table~\ref{tab:controles} is evidence that the representation carries information about the
+> The experiment can be stated in a few lines. To each of eight frozen language models (Qwen3-4B, Qwen3-8B, OLMo-2,
+> Llama-3.1 and Gemma-3, and three models trained for formal mathematics, DeepSeek-Prover-V2, Goedel-Prover-V2 and
+> Kimina) we show a natural-language statement together with a Lean~4 formalization of it, for example ``every bounded
+> monotone sequence converges'' beside a Lean theorem that dropped the boundedness hypothesis, and we ask: ``Is this
+> formalization faithful? Answer Yes or No.'' We keep its answer as a control, because what we study are its
+> activations, on which we train a linear probe that learns to separate faithful from unfaithful formalizations. We then
+> do the same with the statement hidden. The model now receives only the Lean theorem, without the sentence that theorem
+> was meant to capture, and the same question, which in that form has no answer, because a theorem about monotone
+> sequences is legitimate in itself and is unfaithful only against the statement that is no longer in view. It is like
+> asking someone to judge a translation without showing them the original: they cannot tell whether it is faithful, but
+> they can notice whether it is clumsily written. That is what the second probe picks up, namely whatever the Lean code
+> gives away on its own through style, length or vocabulary. For that reason we never interpret the AUROC\footnote{The
+> AUROC (area under the ROC curve) is the probability that the probe gives a higher score to a faithful formalization
+> than to an unfaithful one, both drawn at random. It is 0.5 when the probe guesses and 1 when it never errs. It
+> summarizes sensitivity and specificity over every decision threshold, so it does not depend on where the cut is
+> placed.} of one probe taken on its own, and every headline result of the probes is a gap, the AUROC of the probe that
+> reads the statement with the Lean code minus that of the probe that reads the Lean code alone. A positive gap that
+> survives the controls of Table~\ref{tab:controles} is evidence that the representation carries information about the
 > \emph{relation} between the two texts.
-67,73d77
+67,73d88
 < The difficulty is that the Lean text alone is informative. Unfaithful formalizations differ from faithful ones in
 < style, length and vocabulary, and a probe can exploit those differences without relating the formal text to the
 < statement at all. For that reason we never report the AUROC of one probe taken on its own. Every result is a gap,
@@ -43,26 +70,26 @@
 < the Lean. A positive gap is evidence that the representation carries information about the \emph{relation} between
 < the two texts.
 < 
-84c88
+84c99
 < baseline would have missed. Overall, however, plain n-grams of both texts are the stronger control on our pairs.
 ---
 > baseline would have missed. Overall, however, plain n-grams of both texts are the stronger of these two controls on our pairs.
-87c91
+87c102
 < \item Dating of every Level~B origin against each model's release, and a draft confirmatory protocol restricted to
 ---
 > \item Dating of the Level~B origins against each model's release, and a draft confirmatory protocol restricted to
-91a96,98
+91a107,109
 > \item An intervention at Level~B that shifts the mean over Lean tokens along the difference of class means. It changes
 > the model's answer more than any of 20 random directions does in Qwen3-4B, where the run is post hoc, and in OLMo-2, under a rule
 > fixed in advance. Under the same rule it does not meet the criterion in Llama-3.1 or in Gemma-3.
-93a101,102
+93a112,113
 > Table~\ref{tab:conjunta} gives the status of the evidence at each level.
 > 
-116c125
+116c136
 < language \citep{geometry}, although such probes need not generalise across datasets \citep{orgad}. Code correctness
 ---
 > language \citep{geometry}, although such probes need not generalize across datasets \citep{orgad}. Code correctness
-121,124c130,133
+121,124c141,144
 < \paragraph{Decodable is not used.}
 < \citet{decodability} probe logical validity in five open-weight models and then test
 < whether intervening on the decoded information changes behaviour. We read our own results under the warning in their
@@ -72,84 +99,83 @@
 > \citet{decodability} probe logical validity in five open-weight models and, in three of them, test
 > whether intervening on the decoded information changes behaviour. We read our probing results under the warning in their title. The only causal evidence in this paper is the
 > intervention at Level~B, which meets its criterion in two of four models, one of them post hoc.
-135c144
+135c155
 < standardised logistic regression ($C = 1$). All scores are out-of-fold, with folds grouped so that no statement
 ---
 > standardized logistic regression ($C = 1$). All scores are out-of-fold, with folds grouped so that no statement
-140,141c149,150
+140,141c160,161
 < ``Is this formalization faithful?''. \vr{lean\_only} is the same prompt without the statement, and \vr{nl\_only} is
 < the same without the Lean. \vr{nl\_mismatched} pairs the Lean with the statement of a different problem of similar
 ---
 > ``Is this formalization faithful? Answer Yes or No.'' \vr{lean\_only} is the same prompt without the statement, and \vr{nl\_only} is
 > the same without the Lean code. \vr{nl\_mismatched} pairs the Lean code with the statement of a different problem of similar
-142a152,153
+142a163,164
 > Each variant has its own probe, so the \vr{nl\_mismatched} probe is trained and scored on the mismatched prompts.
 > The exact prompts and the definitions of the controls are in Appendix~\ref{app:definiciones}.
-147a159,163
+147a170,174
 > In the prompt the question comes after the Lean block, so readout~(ii) cannot depend on it. We checked this by
 > extracting the activations again without the question; the cosine with the original ones is at least 0.9993 in each of the four models checked, at Levels~A and~B.
 > Readout~(i), in contrast, does read the question. On activations extracted without it, the last-token gap at Level~A
 > is not established in any of the four models checked, whereas at Level~B it stays positive in all four
 > (Appendix~\ref{app:desviaciones}; exploratory).
-151a168,170
-> The AUROC is the probability that a probe scores a faithful formalization above an unfaithful one. It is 0.5 for a
-> probe that guesses and 1 for one that never errs, and it summarizes sensitivity and specificity over every decision
-> threshold. A gap of +0.05 therefore means that adding the statement raises that probability by five points.
-155a175
+151a179,180
+> Since the AUROC is a probability (see the footnote in the introduction), a gap of +0.05 means that adding the
+> statement raises it by five points.
+155a185
 > The controls are listed in Table~\ref{tab:controles}.
-159c179
+159c189
 < \caption{Controls. Where a control was run, it is reported as \vr{full} minus the control; not every control was run at every level.}
 ---
 > \caption{Controls. Where a control was run, it is reported as its own AUROC or as \vr{full} minus the control; not every control was run at every level.}
-166,167c186,188
+166,167c196,198
 < Surface: n-grams of the Lean and of the statement & separation by vocabulary, length or style of either text\\
 < Cross-surface: features crossing the two texts & a token present in the Lean and absent from the statement (a numeral, a relation)\\
 ---
 > Surface: n-grams of the Lean code and of the statement & separation by vocabulary, length or style of either text\\
 > Cross-surface: features crossing the two texts & a token present in the Lean code and absent from the statement (a numeral, a relation)\\
 > Combined: one classifier on the n-gram and cross-surface features & separation available to the two surface feature sets together\\
-178c199
+178c209
 < We use five folds, stratified by label and grouped by normalised statement, and repeat the whole procedure with
 ---
 > We use five folds, stratified by label and grouped by normalized statement, and repeat the whole procedure with
-200c221
+200c231
 < All numbers in this draft come from the reference implementation and are preliminary. By the rule of the project,
 ---
 > All numbers in this version come from the reference implementation and are preliminary. By the rule of the project,
-212,213c233,234
+212,213c243,244
 < \includegraphics[width=\linewidth]{figuras_v3/curvas_por_modelo.pdf}
 < \caption{Layer by layer. AUROC of a linear probe reading the statement with the Lean (each model in its own colour) and the Lean alone (grey) on the 450 CriticLeanBench formalizations, mean over the Lean tokens; the shaded area is their gap, grey where the Lean alone is above. The dotted line marks the layer fixed in advance for readout~(ii), $\lfloor 2L/3 \rfloor$, and the black segment is a one-seed version of the gap that readout measures. Top row: the preregistered replication. Bottom row: exploratory models. Descriptive: one seed, no layer selection, no intervals; nothing in the paper is decided from this figure.}
 ---
 > \includegraphics[width=\linewidth]{figuras_v5/curvas_por_modelo.pdf}
 > \caption{Layer by layer. How to read it: where the coloured curve runs above the grey one, the statement adds to what the Lean code alone gives away at that layer. AUROC of a linear probe reading the statement with the Lean code (each model in its own colour) and the Lean code alone (grey) on the 450 CriticLeanBench formalizations, mean over the Lean tokens; the shaded area is their gap, grey where the Lean code alone is above. The dotted line marks the layer fixed in advance for readout~(ii), $\lfloor 2L/3 \rfloor$, and the black segment is a one-seed version of the gap that readout measures. Top row: the preregistered replication. Bottom row: exploratory models. Descriptive: one seed, no layer selection, no intervals; nothing in the paper is decided from this figure.}
-226c247
+226c257
 < Lean-trained models, Goedel-Prover-V2 and Kimina, were run next under the same early rule. Their bootstrap intervals
 ---
 > Lean-trained models, Goedel-Prover-V2 and Kimina, were run next under an early version of the rule. Their bootstrap intervals
-228c249
+228c259
 < stricter rule below, the third version written that day. These runs carry no confirmatory weight.
 ---
 > stricter rule below, the third version written on 4 November. These runs carry no confirmatory weight.
-230c251
+230c261
 < Recomputed under the preregistered pipeline, the three discovery models give +0.091, +0.043 and +0.044 under
 ---
 > Recomputed under the preregistered pipeline, the three discovery models (Qwen3-4B, Goedel-Prover-V2 and Kimina, in that order) give +0.091, +0.043 and +0.044 under
-232c253
+232c263
 < since \vr{nl\_only} reaches 0.61 to 0.74 in the four replication models. For that reason every gap is also compared
 ---
 > since \vr{nl\_only} reaches 0.61 to 0.74 at the last token in the four replication models. For that reason every gap is also compared
-245c266,267
+245c276,277
 < single readout. Neither changes a numerical threshold, though the first settles whether a model must pass in one
 ---
 > single readout.
 > Both clauses were already in the document signed on 4 November. Neither changes a numerical threshold, though the first settles whether a model must pass in one
-247d268
+247d278
 < 
-250c271
+250c281
 < Table~\ref{tab:a} can show an interval clear of zero beside $p = 0.040$.
 ---
 > Table~\ref{tab:a} can show an interval clear of zero beside $p = 0.084$ (OLMo-2, readout~(ii)).
-281c302,307
+281c312,317
 < models, so condition~(b) is largely met. No model, however, survives the multiplicity-corrected permutation test.
 ---
 > models, so condition~(b) is largely met.
@@ -158,32 +184,32 @@
 > regression on the inner out-of-fold scores of the two probes, and there \vr{nl\_only} is read as the mean over the
 > statement tokens at the same fixed layer (0.660, 0.643, 0.673 and 0.650). Condition~(b) is therefore no stricter than
 > a positive gap at readout~(ii). Even so, no model survives the multiplicity-corrected permutation test.
-283,284c309,310
+283,284c319,320
 < analysis drops the 44 rows whose labels we had marked as doubtful, which leaves 406 rows. It leaves readout~(ii)
 < unchanged, with gaps of +0.046, +0.060, +0.060 and +0.030 \ic{−0.006}{0.065} in the order of Table~\ref{tab:a}.
 ---
 > analysis drops the 44 rows whose labels we had marked as doubtful, which leaves 406 rows. The reading of readout~(ii) does not change, with gaps of +0.046 \ic{0.010}{0.082}, +0.060 \ic{0.025}{0.096}, +0.060 \ic{0.023}{0.095} and +0.030
 > \ic{−0.006}{0.065} in the order of Table~\ref{tab:a}.
-295c321
+295c331
 < under~(ii) and +0.029 \ic{−0.000}{0.058} under~(i). Its estimand is the mean gap of these four models over the
 ---
 > under~(ii) and +0.029 \ic{−0.000}{0.058} under~(i) (Figure~\ref{fig:forest}). Its estimand is the mean gap of these four models over the
-300,301c326,327
+300,301c336,337
 < \includegraphics[width=\linewidth]{figuras_v3/forest_nivel_a.pdf}
 < \caption{Level A, readout (ii). Filled points: the four preregistered models. Filled diamond: their mean, with the post hoc joint bootstrap over items; outlined diamond: the preregistered DerSimonian--Laird estimate. Open points: exploratory models. Grey: the same architecture with random weights. Each model keeps its colour in every figure.}
 ---
 > \includegraphics[width=\linewidth]{figuras_v5/forest_nivel_a.pdf}
 > \caption{Level A, readout (ii). How to read it: a point to the right of zero is a positive gap, and it counts as established only if its whole interval lies to the right. Filled points: the four preregistered models. Filled diamond: their mean, with the post hoc joint bootstrap over items; outlined diamond: the preregistered DerSimonian--Laird estimate. Open points: exploratory models. Grey: the same architecture with random weights. Each model keeps its colour in every figure.}
-308c334,335
+308c344,345
 < On bge-m3 sentence embeddings \citep{bgem3} the gap is −0.098 \ic{−0.153}{−0.044}. Neither produces it.
 ---
 > On bge-m3 sentence embeddings \citep{bgem3} the gap is −0.098 \ic{−0.153}{−0.044}. Neither produces a gap whose interval lies above zero. Under readout~(ii) with random weights and on the embeddings the gap is
 > negative, with intervals below zero.
-315c342
+315c352
 < \paragraph{Source of the problem.}
 ---
 > \paragraph{Source of each problem.}
-346,348c373,375
+346,348c383,385
 < span, where the model has not yet read the Lean. On average it lies between 0.49 and 0.52 there, and the one
 < exception is Qwen3-8B, at 0.521 \ic{0.501}{0.543}. It then rises over the Lean tokens in the upper layers. That
 < does not mean the statement carries no information about the label, since \vr{nl\_only} probes reach 0.61 to 0.74.
@@ -191,41 +217,32 @@
 > span, where the model has not yet read the Lean code. On average it lies between 0.49 and 0.52 there, and only in Qwen3-8B does the interval exclude 0.5 (0.521
 > \ic{0.501}{0.543}). It then rises over the Lean tokens in the upper layers. That
 > does not mean the statement carries no information about the label, since \vr{nl\_only} probes reach 0.61 to 0.74 at the last token in the four replication models.
-362,366c389,394
-< The effect as preregistered, model by model, was not confirmed. With 450 rows per model, the instrument does not
-< resolve a gap of this size after correction. The post hoc joint bootstrap puts the mean gap of the four new models
-< at +0.045 \ic{0.021}{0.069} under the fixed-layer readout and +0.029 \ic{−0.000}{0.058} under the last-token
+365c402
 < readout, and neither null control shows a positive gap. This is not a replication under the rule we wrote.
-< Figure~\ref{fig:relieve} shows the same data layer by layer.
 ---
-> Level~A did not confirm the effect as it was preregistered, model by model, so this is not a replication under the
-> rule we wrote. With 450 rows per model, the instrument does not resolve a gap of this size after correction. What
-> remains is a post hoc estimate. The joint bootstrap puts the mean gap of the four new models at +0.045
-> \ic{0.021}{0.069} under the fixed-layer readout and at +0.029 \ic{−0.000}{0.058} under the last-token readout, and
-> neither null control shows a gap whose interval lies above zero. Figure~\ref{fig:relieve} shows the same data layer by
-> layer.
-368c396
+> readout, and neither null control shows a gap whose interval lies above zero. This is not a replication under the rule we wrote.
+368c405
 < \begin{figure}[t]
 ---
 > \begin{figure}[p]
-370,371c398,399
+370,371c407,408
 < \includegraphics[width=\linewidth]{figuras_v3/escaner2d_modelos.pdf}
 < \caption{Where in the prompt and at which depth the separation is readable, in the five general-purpose models. Each cell is the out-of-fold AUROC of the layer's probe direction applied to the tokens at that position, on the 450 CriticLeanBench formalizations; spans are stretched to a fixed width and cells are raw. Left: the prompt with statement and Lean. Middle: the Lean alone. Right: their difference, in the model's colour where the statement adds and in grey where it subtracts. All models share one lightness scale, so equal values are equally dark; cells below chance are grey. The brackets on the keys give the size of single-cell noise by a normal approximation, and for the difference an independence bound. The marker is the layer $\lfloor 2L/3 \rfloor$. Exploratory: one seed, a direction fitted on the mean over Lean tokens and applied token by token.}
 ---
 > \includegraphics[width=\linewidth]{figuras_v5/escaner2d_modelos_v5.pdf}
 > \caption{Where in the prompt and at which depth the separation is readable, in the five general-purpose models. How to read it: darker cells are positions and layers where the classes separate better, and in the right panel the model's colour marks where the statement adds. Each cell is the out-of-fold AUROC of the layer's probe direction applied to the tokens at that position, on the 450 CriticLeanBench formalizations; spans are stretched to a fixed width and cells are raw. Left: the prompt with statement and Lean code. Middle: the Lean code alone. Right: their difference, in the model's colour where the statement adds and in grey where it subtracts. All models share one lightness scale, so equal values are equally dark; cells below chance are grey. The brackets on the keys give the size of single-cell noise by a normal approximation to the null of permuted labels, and for the difference an independence bound. The marker is the layer $\lfloor 2L/3 \rfloor$. Exploratory: one seed, a direction fitted on the mean over Lean tokens and applied token by token.}
-381c409,410
+381c418,419
 < unfaithful member. The natural-language statement is identical in both, so the statement alone cannot separate
 ---
 > unfaithful member.
 > The unfaithful edit is applied on top of the faithful one, so the two members differ only in the unfaithful edit. The natural-language statement is identical in both, so the statement alone cannot separate
-383a413,417
+383a422,426
 > Certification compares each edit with its original and never tries to prove the theorem. A faithful edit is certified
 > when Lean proves that the edited hypothesis or conclusion is equivalent to the original one, with structural tactics
 > only. An unfaithful edit is certified by a witness, that is, concrete values that separate the two formulas and that
 > Lean checks. Witnesses are searched only when every variable involved is a natural, integer, rational or real number.
 > 
-385c419,441
+385c428,450
 < into a different theorem. Within C, C2 changes a numeral and C3 changes something else.
 ---
 > into a different theorem. Within C, C2 changes a numeral, whatever the direction of the change, and C3 changes something else.
@@ -251,59 +268,48 @@
 > \bottomrule
 > \end{tabularx}}
 > \end{table}
-390,391c446,448
+390,391c455,457
 < Lean certified 408 pairs. A review by a language model, not by a human, then found originals that were themselves
 < not faithful to their statement and edits that were equivalent in fact, and those 31 pairs were removed. For
 ---
 > Lean certified 408 pairs. A review by a language model, not by a human, then removed 31 pairs. In 9 the original was itself not faithful to its
 > statement. In 23, all of family~A, the witness separates the formulas but the edit only adds a case in which the
 > conclusion holds trivially, so the two statements say the same. One pair is in both groups. For
-394,398c451,465
-< The batch falls short of the 400 pairs and 300 origins the rule asked for, which is what ``reduced power'' means in
-< Table~\ref{tab:b}. Under the same rule, a model whose interval for $\D$ includes zero is recorded as a null with its
-< upper bound. The rule also allows the phrase ``beyond the surface'' only when the interval of \vr{full} minus
+397,398c463,469
 < cross-surface lies above zero. The test first planned for this level used triplets. No certifiable batch of
 < triplets could be built, and the pairs were declared a development batch.
 ---
-> The batch is smaller than the rule asked for. The rule asked for 400 pairs and 300 origins, and the batch falls short
-> of both, which is what ``reduced power'' means in Table~\ref{tab:b}. Under the same rule, a model whose interval for
-> $\D$ includes zero is recorded as a null with its upper bound. The rule also allows the phrase ``beyond the surface''
-> only when the interval of \vr{full} minus cross-surface lies above zero.
-> 
-> The batch is also a development batch. The test first planned for this level used triplets. On 4 November, after a
-> provisional surface check had failed, the pairs were declared its development batch. No certifiable batch of triplets
-> could then be built, so the pairs are the only evidence at this level. The surface check fixed in advance also failed
-> on the certified pairs. On the 408 certified pairs, a logistic regression on unigrams and bigrams of the Lean code
-> alone reaches a paired AUROC of 0.706. That is an excess of 0.081 over an unsupervised baseline, against a limit of
-> 0.05.
+> cross-surface lies above zero. The test first planned for this level used triplets. On 4 November, after a provisional surface check had failed, the pairs were declared its development batch. No certifiable batch of triplets could then be built, so the pairs are the only evidence at this level. The surface check fixed in advance also failed on the certified pairs. On the 408 certified pairs, a logistic regression on unigrams and
+> bigrams of the Lean code alone reaches a paired AUROC of 0.706, an excess of 0.081 over an unsupervised baseline, against a
+> limit of 0.05.
 > 
 > Folds are grouped by source file, whereas the paired AUROC and the bootstrap take the origin as their unit. With the
 > 189 source files as the unit instead, the gap is +0.229 \ic{0.157}{0.301}, +0.109 \ic{0.046}{0.174}, +0.086
 > \ic{0.019}{0.158} and +0.037 \ic{−0.038}{0.106}, in the order of Table~\ref{tab:b}.
-403c470
+403c474
 < smallest attainable $p$ is 0.0099; the permutation test uses the statistic of seed 0 (0.250, 0.118, 0.104 and 0.079), while the $\D$ column is the five-seed estimate. By the rule, the first three rows are positive at reduced power and the fourth is
 ---
 > smallest attainable $p$ is 0.0099; the permutation test uses the statistic of seed 0 (0.250, 0.118, 0.104 and 0.079), while the $\D$ column is the five-seed estimate. The rule decides on the interval of the five-seed estimate. The permutation $p$ is reported beside it. Once corrected across the four models by Holm's method, only that of Qwen3-4B stays below 0.05, at 0.040; the other three rise to 0.059. By the rule, the first three rows are positive at reduced power and the fourth is
-416c483
+416c487
 < \multicolumn{5}{@{}l}{\emph{Second readout: mean over Lean tokens (no permutation test run)}}\\
 ---
 > \multicolumn{5}{@{}l}{\emph{Second readout: mean over Lean tokens (added after the first results; no permutation test run)}}\\
-447,448c514,515
+447,448c518,519
 < keep a positive margin and Gemma does not. On this batch, however, plain n-grams of the two
 < texts separate the pairs better (0.729) than the cross-surface features do (0.688), so they are the harder control
 ---
 > keep a positive margin and Gemma-3 does not. On this batch, however, plain n-grams of the two
 > texts separate the pairs better (0.729) than the cross-surface features do (0.688), so they are the harder of these two controls
-460,461c527
+460,461c531
 < Every control at Level~B was computed against the last-token probe only, and none was computed for the second
 < readout. The gap over the Lean alone was measured at both, and it also depends on the readout. At the mean over
 ---
 > The controls above were computed against the last-token probe. The gap over the Lean code alone was also measured at the second readout, which was added after the first results, and it depends on the readout. At the mean over
-466c532
+466c536
 < At that readout, however, \vr{lean\_only} is itself much higher (0.77 to 0.78), so the Lean alone gives away more
 ---
 > At that readout, however, \vr{lean\_only} is itself much higher (0.77 to 0.78), so the Lean code alone gives away more
-471,472c537,637
+471,472c541,641
 < \paragraph{The effect concentrates in family C, and in Qwen3-4B the numeral edits inside C are a surface effect.}
 < Against the Lean alone, family C gives the largest gap in all four models (Table~\ref{tab:bfam}). In families A and
 ---
@@ -408,154 +414,136 @@
 > 
 > \paragraph{The effect concentrates in family C, and in Qwen3-4B the numeral edits inside C are matched by a surface control.}
 > Against the Lean code alone, family C gives the largest gap in all four models (Table~\ref{tab:bfam}). In families A and
-474c639
+474c643
 < 0.023 of zero. A post hoc split in Qwen3-4B (Figure~\ref{fig:b}, bottom) shows why. In C2 the cross-surface
 ---
 > 0.023 of zero. A post hoc split in Qwen3-4B (Figure~\ref{fig:b}, bottom) looks inside family C. In C2 the cross-surface
-478c643
+478c647
 < the cross-surface control, families A and B are not distinguishable from zero (+0.082 \ic{−0.038}{0.195} and +0.098
 ---
 > the cross-surface control, the margin in families A and B is not distinguishable from zero (+0.082 \ic{−0.038}{0.195} and +0.098
-485c650
+485c654
 < \caption{Level B by family of edit: gap over the Lean alone at the last token, with 95\% intervals. Descriptive, not part of the decision.}
 ---
 > \caption{Level B by family of edit: gap over the Lean code alone at the last token, with 95\% intervals. Descriptive, not part of the decision.}
-503c668
+503c672
 < gap over the Lean alone remains in Qwen3-4B and, narrowly, in OLMo-2, and vanishes in Llama-3.1 and Gemma-3. We exclude C2
 ---
 > gap over the Lean code alone remains in Qwen3-4B and, narrowly, in OLMo-2, and vanishes in Llama-3.1 and Gemma-3. We exclude C2
-508,509c673,674
+508,509c677,678
 < \includegraphics[width=\linewidth]{figuras_v3/nivel_b.pdf}
 < \caption{Level B. Top: paired AUROC of the probe reading the Lean alone (grey) and the statement with the Lean (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
 ---
 > \includegraphics[width=\linewidth]{figuras_v5/nivel_b.pdf}
 > \caption{Level B. How to read it: the length of the bar between the grey marker and the coloured one is the gap of that model. Top: paired AUROC of the probe reading the Lean code alone (grey) and the statement with the Lean code (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
-547c712
+547c716
 < In both models the label is linearly decodable from the \vr{full} activations better than from the Lean alone. The
 ---
 > The rule of this level calls the result positive if the interval of $\D$, from a bootstrap over statements, lies entirely above zero (Table~\ref{tab:c}). In both models the label is linearly decodable from the \vr{full} activations better than from the Lean code alone. The
-550,551c715
+550,551c719
 < (+0.146 \ic{0.115}{0.176}). A second implementation, written without access to the first, gives +0.15354
 < \ic{0.12102}{0.18714}.
 ---
 > (+0.146 \ic{0.115}{0.176}). A second implementation, written without access to the first, gives $\D$ = +0.154 \ic{0.121}{0.187} in Qwen3-4B.
-580c744
+580c748
 < Main threat & label noise and style & n-grams of both texts, which only Qwen3-4B exceeds; surface in numeral edits; P(Yes) matches the probe in Qwen3-4B & contamination\\
 ---
 > Main threat & label noise and style & at the last token, n-grams of both texts, which only Qwen3-4B exceeds, and the combined control, which no model exceeds; surface in numeral edits; P(Yes) matches the probe in Qwen3-4B & contamination\\
-585,586c749,750
+585,586c753,754
 < The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean
 < separates better than reading the Lean alone. The levels differ, however, in how much each of them licenses.
 ---
-> The three levels agree on the sign of the gap and differ in how much each of them licenses. In nearly every setting we
-> examined, reading the statement together with the Lean code separates better than reading the Lean code alone.
-588,590c752,758
+> The sign of the gap is the same in nearly every setting we examined. Reading the statement together with the Lean code
+> separates better than reading the Lean code alone. The levels differ, however, in how much each of them licenses.
+588,590c756,761
 < held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface. At
 < Level~C the effect is large and, for Qwen3, the protection against memorisation is the weakest. No level alone
 < supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean alone.
 ---
 > held fixed and the labels certified by Lean, but it is a development batch and part of its effect is surface.
-> Level~B also has the only intervention.
 > In two of four models, one of them under a rule fixed in advance and the other post hoc, a shift along the axis on which the second readout
 > separates the classes changes the answer more than the same shift along any of 20 random directions. This does not show what the model computes, and the other two models do not meet that criterion. A shift can also change the output through a pathway other than
 > the one it targets \citep{makelov2024subspace}. At
 > Level~C the effect is large and, for Qwen3, the protection against memorization is the weakest. No level alone
 > supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean code alone.
-591a760
+591a763
 > Table~\ref{tab:controlesnivel} lists the controls run at each level.
-595c764
+595c767
 < \caption{Controls by level. AUROC of the control on its own, or \vr{full} minus the control where marked with a sign. ``Not run'' means the control does not exist for that level.}
 ---
 > \caption{Controls by level. AUROC of the control on its own, or \vr{full} minus the control where marked with a sign. ``Not run'' means there is no result for that level.}
-604a774,775
+604a777,778
 > 
 > Combined & not run & 0.787 & not run\\
-624a796,799
+624a799,802
 > At Level~A, CriticLeanBench was posted on 8 July 2025, after the release of seven of the eight models and a week
 > before Goedel-Prover-V2-8B. Its labels are new in that release. Its problems, in contrast, come from earlier
 > collections such as Omni-MATH, AIME and U-MATH, and its authors report taking the Lean statements from a public
 > dataset, so both may be older than the labels.
-639c814,816
-< The samples are 450 rows per model at Level~A, 256 origins at Level~B and 361 groups at Level~C.
----
-> The samples set the power of each level. They are 450 rows per model at Level~A, 256 origins at Level~B and 361 groups
-> at Level~C. At Level~A that was not enough to resolve a gap of this size after correction, and at Level~B the batch
-> fell short of the 400 pairs and 300 origins its rule asked for.
-642,643c819,824
+642,643c820,823
 < The probes are linear and the evidence is correlational. In Qwen3-4B at Level~B the model's own answer separates as
 < well as the probe. We have not intervened on any direction.
 ---
-> The probes are linear and their evidence is correlational. At the last token of Level~B, moreover, the model's own
-> answer in Qwen3-4B separates as well as the probe. To go beyond correlation we intervened, at Level~B only and along
-> two directions. The shift along the difference of means meets its criterion in two of four models, and the run in
-> Qwen3-4B is post hoc. The ablation along the probe direction, in contrast, gave a null. One control for these
-> interventions was not run. Directions built as differences of means from shuffled labels would show how much of the
+> The probes are linear and their evidence is correlational. In Qwen3-4B at Level~B, at the last token, the model's own answer separates as well as the probe. We intervened along two directions, at Level~B only. The shift along the difference of means meets its criterion in
+> two of four models, and the run in Qwen3-4B is post hoc. The ablation along the probe direction gave a null.
+> One control was not run. Directions built as differences of means from shuffled labels would show how much of the
 > effect comes from fitting a direction to these activations at all.
-646,649c827,832
+646,647c826
 < Several analyses were decided after seeing results. They are the split of family C, the exclusion of C2, the runs
 < on Qwen3-8B and on Llama at Level~C, the three later models and the second readout at Level~B, the by-source
-< control, the joint bootstrap, the layer-by-layer figures, and the maps with their region statistics and swap null.
+---
+> Several analyses were decided after seeing results. They are the split of family C, the exclusion of C2, the runs on Qwen3-8B at Level~A and on Llama-3.1 at Level~C, the three later models and the second readout at Level~B, the by-source
+649c828,829
 < They are labelled as such where they appear.
 ---
-> Several analyses were decided after seeing results. At Level~A they are the run on Qwen3-8B, the by-source control,
-> the joint bootstrap, the layer-by-layer figures, and the maps with their region statistics and swap null. At Level~B
-> they are the split of family C, the exclusion of C2, the three later models and the second readout. At Level~C it is
-> the run on Llama-3.1. The controls at the second readout and the two interventions at Level~B came later still,
-> between 11 and 13 November. Each is marked as exploratory or post hoc where it appears, or falls under the exploratory
-> status of Level~B.
-657,658c840,841
+> The controls at the second readout and the two interventions at Level~B came later still, between 11 and 13
+> November. They are labelled as such where they appear.
+657,658c837,838
 < generic embeddings. Several of its intervals, however, include zero. They are most of those of the last-token
 < readout at Level~A, where Llama-3.1 is negative, and that of Gemma-3 at the last token at Level~B. Transfer in
 ---
 > generic embeddings. Several of its intervals, however, include zero. Among them are most of those of the last-token readout at Level~A, where Llama-3.1 is negative, that of
 > DeepSeek-Prover-V2 at the fixed layer, and that of Gemma-3 at the last token at Level~B. Transfer in
-664,667c847,860
-< Appendix~\ref{app:protocolo} is designed to remove or measure the surface, contamination and label items on that
+665,666c845
 < list. It does not yet address a P(Yes) that matches the probe. The maps of Figure~\ref{fig:escaner} show where the
 < fixed-layer direction separates the classes. Whether the model uses that direction is a causal question, which
-< probing cannot answer and an intervention along the probe direction could.
 ---
-> Appendix~\ref{app:protocolo} is designed to remove or measure three items on that list, namely surface, contamination
-> and labels. It does not yet address a P(Yes) that matches the probe at the last token.
+> list. It does not yet address a P(Yes) that matches the probe at the last token. The maps of Figure~\ref{fig:escaner} show where each layer's probe direction separates the classes. Whether the model uses such a direction is a causal question, which
+667a847,853
+> At Level~B we ran such an intervention on a related direction, the difference of class means at each layer. It changes
+> the answer more than any of 20 random directions does in two of four models, one of them in a post hoc run.
+> An earlier intervention along the logistic-probe direction, in Qwen3-4B, gave a null.
 > 
-> Whether the model uses what the probes read is a separate, causal question, which probing cannot answer. The maps of
-> Figure~\ref{fig:escaner} show where each layer's probe direction separates the classes, and an intervention along such
-> a direction could say whether the model uses it. At Level~B we ran two interventions. The earlier one acted along the
-> logistic-probe direction, in Qwen3-4B, and gave a null. The later one acted on a related direction, the difference of
-> class means at each layer. It changes the answer more than any of 20 random directions does in two of four models, one
-> of them in a post hoc run.
-> 
-> Beyond the pending items marked above, three things remain to be done. The first is the confirmatory test of
-> Appendix~\ref{app:protocolo}, which needs statements written after the models and after this pilot. The second is
-> causal, because the intervention was run at Level~B only and Levels~A and~C still lack one. The third concerns the
-> maps, which rest on a single seed.
-676,678c869,872
+> Beyond the pending items marked above, three things remain to be done. The confirmatory test of Appendix~\ref{app:protocolo} needs statements written after
+> the models and after this pilot. The intervention was run at Level~B only, and Levels~A and~C still lack one. The maps
+> rest on a single seed.
+676,678c862,865
 < The repository will be released with the preprint at \url{https://github.com/cmorregof}. It will contain the decision
 < rules with their hashes and times, the certified pairs, the cross-surface features, and every result file cited
 < here.
 ---
-> The repository is at \url{https://github.com/cmorregof/faithfullness}, and the numbers reported here correspond to
-> commit \vr{ea66bad}. It contains the decision rules with their hashes and times, the certified pairs, the
+> The repository is at \url{https://github.com/cmorregof/faithfulness}, and the numbers reported here correspond to
+> commit \vr{4cca797}. It contains the decision rules with their hashes and times, the certified pairs, the
 > cross-surface features, every result file cited here and the project log. It does not contain the extracted
 > activations or the CriticLeanBench texts.
-708,709c902
+708,709c895
 < The list below is taken from the reports of each level. The project log holds a longer numbered list, which will be
 < released with the repository, and nothing here replaces it.
 ---
 > The list below is taken from the reports of each level. The project log holds a longer numbered list, which is in the repository (\vr{probes/BITACORA.md}), and nothing here replaces it.
-713c906
+713c899
 < applied here. Goedel-Prover-V2 and Kimina had been run under the first and are reported as a failed first attempt.
 ---
 > applied here. Goedel-Prover-V2 and Kimina had been run under the first and are reported as discovery runs with no confirmatory weight.
-717a911,912
+717a904,905
 > The extraction covers the 500 rows of the benchmark in the four variants, and the analysis keeps the 450 that
 > compile.
-726,727c921
+726,727c914
 < \item[6 Nov] At Level~B a surface check fixed in advance did not pass (0.706 on the certified pairs), and the
 < batch was declared exploratory. A code error in the control that scores the original against its faithful edit was
 ---
 > \item[6 Nov] At Level~B a surface check fixed in advance did not pass (0.706 on the certified pairs). The batch had been declared a development batch on 4 November. A code error in the control that scores the original against its faithful edit was
-732a927,944
+732a920,937
 > \item[11 Nov] The Level~B controls at the second readout, a check that the mean over Lean tokens does not depend on
 > the question, and the ablation of one direction in Qwen3-4B were run under a rule written and approved that day,
 > before running them. They are exploratory and post hoc.
@@ -574,7 +562,7 @@
 > on the pairs without numeral edits, from the stored outputs. The rule was written after the results on all pairs and
 > before the split was computed. The Holm values were already known when it was written, because they follow from the
 > printed $p$-values. Both are exploratory and post hoc.
-734a947,1047
+734a940,1040
 > \section{Secondary results of the Level~B intervention}\label{app:intervencion}
 > 
 > Table~\ref{tab:bsecundarios} gives the secondary analyses of the intervention. The placebo runs the hooks with the
@@ -676,11 +664,11 @@
 > The combined control puts the two feature sets into one logistic regression. All three controls use the folds and
 > seeds of the probes.
 > 
-739c1052
+739c1045
 < cross-surface features and plain n-grams, as well as against the Lean. The statements are ones the models cannot
 ---
 > cross-surface features and plain n-grams, as well as against the Lean code alone. The statements are ones the models cannot
-744,745c1057
+744,745c1050
 < AUROC of \vr{full} exceeds both surface controls. That is, \vr{full} minus cross-surface $> 0$ and \vr{full} minus
 < plain n-grams of the two texts $> 0$, with each interval entirely above zero.
 ---

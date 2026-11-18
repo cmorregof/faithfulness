@@ -1,8 +1,8 @@
-# Beyond the Lean Code Alone
+# It Compiles, but Is It What We Meant?
 
 Code, decision rules, data and result files for the preprint
 
-> **Beyond the Lean Code Alone: Do Frozen Language Models Linearly Separate Faithful from Unfaithful Lean 4 Formalizations?**
+> **It Compiles, but Is It What We Meant? Linear Probes for the Faithfulness of Lean 4 Formalizations**
 > Carlos Manuel Orrego-Franco, Juan Carlos Riaño-Rojas, Fabián Fernando Serrano-Suárez.
 > Universidad Nacional de Colombia, Manizales.
 
