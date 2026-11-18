@@ -428,3 +428,12 @@ Aprobada por Carlos tras ver los textos en los dos idiomas.
 - Conclusión: párrafo «Three things remain to be done» (enunciados posteriores para la prueba confirmatoria, intervención en los Niveles A y C, mapas con una sola semilla). Lo de P(Yes) no se repite porque está en el párrafo anterior.
 - Verificador: `app:protocolo` admitido como referencia nueva y «+0.05» como cifra de ejemplo. Pasa en los dos idiomas. Cotejo: secuencias coinciden. `main_en.pdf` recompilado.
 - Aparte: encargo de figuras para Claude Code en el proyecto (`claude/encargo_figuras_paleta_opacidad_paper_v5_2026-11-14.md`): paleta, opacidad del relieve 3D y rótulos.
+
+## Vigesimosexta tanda (17 nov): cabos que esperaban a las figuras nuevas
+
+Las figuras con la paleta A, el relieve translúcido y los rótulos nuevos las dejó Claude Code (commits `3d46be6` y `62772cd`; informe en `revisiones/`). Esta tanda pone el texto de acuerdo con ellas.
+
+- Tablas de la intervención: «random ≥ probe» pasa a «random ≥ direction» («al azar ≥ dirección»), como dice ahora la figura.
+- Pie de `fig:escaner`: «statement and Lean code», y «a normal approximation to the null of permuted labels» (la clave de la figura dice «permuted labels»; `escaner_v3.py`). El verificador admite esas dos diferencias con el pie de v4.
+- «Construction»: se añade que la edición infiel se aplica sobre la fiel. Comprobado en `probes/nivel_b/datos/pares_indice_principal.jsonl`: los 377 miembros infieles son compuestos y su base es el miembro fiel de su mismo par.
+- Verificador: pasa en los dos idiomas. Cotejo: secuencias coinciden. `main_en.pdf` recompilado. `main_es.pdf` lo compila Carlos. Falta subir esta tanda al repositorio.

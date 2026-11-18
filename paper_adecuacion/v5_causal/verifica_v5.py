@@ -188,6 +188,9 @@ def revisa(nombre):
         en = [e.replace("the Lean code", "the Lean").replace("l código de Lean", "l Lean") for e in en]
         # vigesimoquinta tanda: cada pie de figura lleva una frase «How to read it: …» / «Cómo leerla: …» tras su título
         en = [re.sub(r"(How to read it|Cómo leerla): [^.]*\. ", "", e) for e in en]
+        # vigesimosexta tanda: pie de fig:escaner, «statement and Lean code» y la aproximación normal «a la nula de etiquetas permutadas»
+        en = [e.replace("with statement and Lean code.", "with statement and Lean.").replace("con enunciado y código de Lean.", "con enunciado y Lean.")
+               .replace(" to the null of permuted labels", "").replace(" a la nula de etiquetas permutadas", "") for e in en]
         falt = [e for e in ev if e not in en and not any(t in e for t in TABLAS_EDITADAS)]
         if falt: falla(f"{env} de v4 cambiado: {[e[:60] for e in falt]}")
         nuevos = [e for e in en if e not in ev]

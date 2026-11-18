@@ -393,7 +393,7 @@ Figure~\ref{fig:relieve} shows the same data layer by layer.
 \begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{figuras_v5/escaner2d_modelos_v5.pdf}
-\caption{Where in the prompt and at which depth the separation is readable, in the five general-purpose models. How to read it: darker cells are positions and layers where the classes separate better, and the right panel is darker where the statement adds. Each cell is the out-of-fold AUROC of the layer's probe direction applied to the tokens at that position, on the 450 CriticLeanBench formalizations; spans are stretched to a fixed width and cells are raw. Left: the prompt with statement and Lean. Middle: the Lean code alone. Right: their difference, in the model's colour where the statement adds and in grey where it subtracts. All models share one lightness scale, so equal values are equally dark; cells below chance are grey. The brackets on the keys give the size of single-cell noise by a normal approximation, and for the difference an independence bound. The marker is the layer $\lfloor 2L/3 \rfloor$. Exploratory: one seed, a direction fitted on the mean over Lean tokens and applied token by token.}
+\caption{Where in the prompt and at which depth the separation is readable, in the five general-purpose models. How to read it: darker cells are positions and layers where the classes separate better, and the right panel is darker where the statement adds. Each cell is the out-of-fold AUROC of the layer's probe direction applied to the tokens at that position, on the 450 CriticLeanBench formalizations; spans are stretched to a fixed width and cells are raw. Left: the prompt with statement and Lean code. Middle: the Lean code alone. Right: their difference, in the model's colour where the statement adds and in grey where it subtracts. All models share one lightness scale, so equal values are equally dark; cells below chance are grey. The brackets on the keys give the size of single-cell noise by a normal approximation to the null of permuted labels, and for the difference an independence bound. The marker is the layer $\lfloor 2L/3 \rfloor$. Exploratory: one seed, a direction fitted on the mean over Lean tokens and applied token by token.}
 \label{fig:escaner}
 \end{figure}
 
@@ -403,7 +403,8 @@ Figure~\ref{fig:relieve} shows the same data layer by layer.
 \paragraph{Construction.}
 Each pair holds two minimal edits of the same original Lean statement. Lean certifies one of them as equivalent to
 the original, and that edit is the faithful member. Lean certifies the other as not equivalent, and it is the
-unfaithful member. The natural-language statement is identical in both, so the statement alone cannot separate
+unfaithful member.
+The unfaithful edit is applied on top of the faithful one, so the two members differ only in the unfaithful edit. The natural-language statement is identical in both, so the statement alone cannot separate
 them. The \vr{nl\_only} probe accordingly gives 0.500 by construction, which serves as a check of the pipeline.
 
 Certification compares each edit with its original and never tries to prove the theorem. A faithful edit is certified
@@ -614,7 +615,7 @@ in two LLaMA-2 models and with additive shifts.
 {\footnotesize\setlength{\tabcolsep}{3pt}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}lcccccccc@{}}
 \toprule
- & base & shifted & drop & random & drop minus random mean & random $\geq$ probe & $\times 2$ & $\times 4$\\
+ & base & shifted & drop & random & drop minus random mean & random $\geq$ direction & $\times 2$ & $\times 4$\\
 \midrule
 Qwen3-4B     & 0.838 & 0.688 & +0.149 [+0.110, +0.188] & +0.005; +0.068 & +0.145 [+0.112, +0.177] & 0 of 20 & 0.539 & 0.396\\
 OLMo-2-7B    & 0.717 & 0.432 & +0.285 [+0.242, +0.330] & +0.015; +0.108 & +0.270 [+0.233, +0.309] & 0 of 20 & 0.254 & 0.129\\
@@ -972,7 +973,7 @@ computed.
 {\footnotesize
 \begin{tabular}{@{}lcccc@{}}
 \toprule
- & base & shifted & drop minus random mean & random $\geq$ probe\\
+ & base & shifted & drop minus random mean & random $\geq$ direction\\
 \midrule
 Qwen3-4B     & 0.802 & 0.650 & +0.148 [+0.116, +0.184] & 0 of 20\\
 OLMo-2-7B    & 0.685 & 0.372 & +0.291 [+0.251, +0.336] & 0 of 20\\

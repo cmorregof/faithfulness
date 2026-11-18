@@ -408,7 +408,7 @@ La Figura~\ref{fig:relieve} muestra los mismos datos capa por capa.
 \begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{figuras_v5/escaner2d_modelos_v5_es.pdf}
-\caption{En qué parte del prompt y a qué profundidad es legible la separación, en los cinco modelos de propósito general. Cómo leerla: las celdas más oscuras son posiciones y capas donde las clases se separan mejor, y el panel derecho es más oscuro donde el enunciado añade. Cada celda es la AUROC \emph{out-of-fold} de la dirección de la sonda de la capa, aplicada a los tokens de esa posición, en las 450 formalizaciones de CriticLeanBench; los tramos se estiran a un ancho fijo y las celdas van crudas. Izquierda: el prompt con enunciado y Lean. Centro: el código de Lean solo. Derecha: su diferencia, en el color del modelo donde el enunciado suma y en gris donde resta. Todos los modelos comparten una misma escala de luminosidad, de modo que valores iguales son igual de oscuros; las celdas por debajo del azar son grises. Los corchetes sobre las claves dan el tamaño del ruido de una sola celda por una aproximación normal y, para la diferencia, una cota de independencia. El marcador es la capa $\lfloor 2L/3 \rfloor$. Exploratoria: una semilla, una dirección ajustada sobre la media de los tokens de Lean y aplicada token por token.}
+\caption{En qué parte del prompt y a qué profundidad es legible la separación, en los cinco modelos de propósito general. Cómo leerla: las celdas más oscuras son posiciones y capas donde las clases se separan mejor, y el panel derecho es más oscuro donde el enunciado añade. Cada celda es la AUROC \emph{out-of-fold} de la dirección de la sonda de la capa, aplicada a los tokens de esa posición, en las 450 formalizaciones de CriticLeanBench; los tramos se estiran a un ancho fijo y las celdas van crudas. Izquierda: el prompt con enunciado y código de Lean. Centro: el código de Lean solo. Derecha: su diferencia, en el color del modelo donde el enunciado suma y en gris donde resta. Todos los modelos comparten una misma escala de luminosidad, de modo que valores iguales son igual de oscuros; las celdas por debajo del azar son grises. Los corchetes sobre las claves dan el tamaño del ruido de una sola celda por una aproximación normal a la nula de etiquetas permutadas y, para la diferencia, una cota de independencia. El marcador es la capa $\lfloor 2L/3 \rfloor$. Exploratoria: una semilla, una dirección ajustada sobre la media de los tokens de Lean y aplicada token por token.}
 \label{fig:escaner}
 \end{figure}
 
@@ -418,7 +418,8 @@ La Figura~\ref{fig:relieve} muestra los mismos datos capa por capa.
 \paragraph{Construcción.}
 Cada par reúne dos ediciones mínimas del mismo enunciado original en Lean. Lean certifica una de ellas como
 equivalente al original, y esa edición es el miembro adecuado. Certifica la otra como no equivalente, y esa es el
-miembro inadecuado. El enunciado en lenguaje natural es idéntico en ambos, así que el enunciado solo no puede
+miembro inadecuado.
+La edición infiel se aplica sobre la fiel, así que los dos miembros difieren solo en la edición infiel. El enunciado en lenguaje natural es idéntico en ambos, así que el enunciado solo no puede
 separarlos. La sonda \vr{nl\_only} da, en consecuencia, 0.500 por construcción, lo que sirve de comprobación del
 pipeline.
 
@@ -632,7 +633,7 @@ mayoría de sus condiciones, en dos modelos LLaMA-2 y con desplazamientos aditiv
 {\footnotesize\setlength{\tabcolsep}{3pt}
 \resizebox{\linewidth}{!}{\begin{tabular}{@{}lcccccccc@{}}
 \toprule
- & base & desplazada & caída & al azar & caída menos media al azar & al azar $\geq$ sonda & $\times 2$ & $\times 4$\\
+ & base & desplazada & caída & al azar & caída menos media al azar & al azar $\geq$ dirección & $\times 2$ & $\times 4$\\
 \midrule
 Qwen3-4B     & 0.838 & 0.688 & +0.149 [+0.110, +0.188] & +0.005; +0.068 & +0.145 [+0.112, +0.177] & 0 de 20 & 0.539 & 0.396\\
 OLMo-2-7B    & 0.717 & 0.432 & +0.285 [+0.242, +0.330] & +0.015; +0.108 & +0.270 [+0.233, +0.309] & 0 de 20 & 0.254 & 0.129\\
@@ -1005,7 +1006,7 @@ calcular esta división.
 {\footnotesize
 \begin{tabular}{@{}lcccc@{}}
 \toprule
- & base & desplazada & caída menos media al azar & al azar $\geq$ sonda\\
+ & base & desplazada & caída menos media al azar & al azar $\geq$ dirección\\
 \midrule
 Qwen3-4B     & 0.802 & 0.650 & +0.148 [+0.116, +0.184] & 0 de 20\\
 OLMo-2-7B    & 0.685 & 0.372 & +0.291 [+0.251, +0.336] & 0 de 20\\

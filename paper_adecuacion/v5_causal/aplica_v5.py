@@ -715,6 +715,12 @@ def ingles():
            "\n" + prosa(r"""Three things remain to be done. The confirmatory test of Appendix~\ref{app:protocolo} needs statements written
            after the models and after this pilot. The intervention was run at Level~B only, and Levels~A and~C still lack
            one. The maps rest on a single seed."""))
+    # ---- vigesimosexta tanda (17 nov): cabos que esperaban a las figuras nuevas (rótulos, pie del escáner) y la composición de los pares.
+    d.todas(r"random $\geq$ probe", r"random $\geq$ direction")
+    d.todas("Left: the prompt with statement and Lean.", "Left: the prompt with statement and Lean code.")
+    d.todas("the size of single-cell noise by a normal approximation, and for the difference", "the size of single-cell noise by a normal approximation to the null of permuted labels, and for the difference")
+    d.tras("Lean certifies the other as not equivalent, and it is the unfaithful member.",
+           "The unfaithful edit is applied on top of the faithful one, so the two members differ only in the unfaithful edit.")
     return d
 
 
@@ -1229,6 +1235,12 @@ def espanol():
            "\n" + prosa(r"""Quedan tres cosas por hacer. La prueba confirmatoria del Apéndice~\ref{app:protocolo} necesita enunciados
            escritos después de los modelos y de este piloto. La intervención se corrió solo en el Nivel~B, y a los Niveles~A
            y~C todavía les falta una. Los mapas descansan en una sola semilla."""))
+    # ---- vigesimosexta tanda (17 nov): cabos que esperaban a las figuras nuevas (rótulos, pie del escáner) y la composición de los pares.
+    d.todas(r"al azar $\geq$ sonda", r"al azar $\geq$ dirección")
+    d.todas("Izquierda: el prompt con enunciado y Lean.", "Izquierda: el prompt con enunciado y código de Lean.")
+    d.todas("el tamaño del ruido de una sola celda por una aproximación normal y, para la diferencia,", "el tamaño del ruido de una sola celda por una aproximación normal a la nula de etiquetas permutadas y, para la diferencia,")
+    d.tras("Certifica la otra como no equivalente, y esa es el miembro inadecuado.",
+           "La edición infiel se aplica sobre la fiel, así que los dos miembros difieren solo en la edición infiel.")
     return d
 
 
