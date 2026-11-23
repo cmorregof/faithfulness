@@ -1,0 +1,7 @@
+{'OPENBLAS_NUM_THREADS': None, 'OMP_NUM_THREADS': None, 'VECLIB_MAXIMUM_THREADS': None}
+[('openmp', 10)]
+media_lean capa 24: externo (360 filas) 0.012 s (3 rep: 0.015 0.013 0.012); interno (288 filas) 0.028 s; AUROC fold 0.7045; suma puntajes np.float32(51.55014)
+ultimo capa  0: externo (360 filas) 0.004 s (3 rep: 0.004 0.004 0.004); interno (288 filas) 0.021 s; AUROC fold 0.5000; suma puntajes np.float32(49.999428)
+ultimo capa 12: externo (360 filas) 0.016 s (3 rep: 0.016 0.017 0.017); interno (288 filas) 0.032 s; AUROC fold 0.7665; suma puntajes np.float32(51.3228)
+ultimo capa 24: externo (360 filas) 0.017 s (3 rep: 0.017 0.017 0.017); interno (288 filas) 0.032 s; AUROC fold 0.7000; suma puntajes np.float32(48.48422)
+ultimo capa 36: externo (360 filas) 0.018 s (3 rep: 0.018 0.018 0.018); interno (288 filas) 0.030 s; AUROC fold 0.7505; suma puntajes np.float32(49.13151)

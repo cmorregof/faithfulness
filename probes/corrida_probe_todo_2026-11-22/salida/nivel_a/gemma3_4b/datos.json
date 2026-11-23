@@ -1,0 +1,58 @@
+{
+  "modelo": "gemma3_4b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "formas": {
+    "completo_ultimo": {
+      "forma": [
+        500,
+        35,
+        2560
+      ],
+      "dtype": "float32"
+    },
+    "completo_media_lean": {
+      "forma": [
+        500,
+        35,
+        2560
+      ],
+      "dtype": "float32"
+    },
+    "solo_lean_ultimo": {
+      "forma": [
+        500,
+        35,
+        2560
+      ],
+      "dtype": "float32"
+    },
+    "solo_lean_media_lean": {
+      "forma": [
+        500,
+        35,
+        2560
+      ],
+      "dtype": "float32"
+    }
+  },
+  "bloques_L": 34,
+  "filas": 450,
+  "positivas": 250,
+  "negativas": 200,
+  "grupos": 449,
+  "sha256_manifiesto": "2f3b0b1c3fb4e07907b4e86cbf8dee4bc3bf38214839626f757216d177119a78",
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 0.2
+}

@@ -1,0 +1,41 @@
+{
+  "modelo": "goedel_8b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.7489100000000001,
+    0.7027361256281407,
+    0.7940602412935324
+  ],
+  "solo_lean": [
+    0.68394,
+    0.6322133812627494,
+    0.7323813374384237
+  ],
+  "delta": [
+    0.06497000000000008,
+    0.03648129703242575,
+    0.09562150000000003
+  ],
+  "capa": 24,
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 23.0
+}

@@ -1,0 +1,41 @@
+{
+  "modelo": "qwen3_4b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.7512,
+    0.7053569999999999,
+    0.7947625
+  ],
+  "solo_lean": [
+    0.65524,
+    0.6047965829145728,
+    0.7040244504950496
+  ],
+  "delta": [
+    0.09595999999999993,
+    0.05500919849246232,
+    0.13484523762376252
+  ],
+  "capa": 24,
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 5.1
+}

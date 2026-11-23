@@ -1,0 +1,290 @@
+== llama31_8b: datos ==
+{
+  "modelo": "llama31_8b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "formas": {
+    "completo_ultimo": {
+      "forma": [
+        500,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    },
+    "completo_media_lean": {
+      "forma": [
+        500,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    },
+    "solo_lean_ultimo": {
+      "forma": [
+        500,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    },
+    "solo_lean_media_lean": {
+      "forma": [
+        500,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    }
+  },
+  "bloques_L": 32,
+  "filas": 450,
+  "positivas": 250,
+  "negativas": 200,
+  "grupos": 449,
+  "sha256_manifiesto": "b08e7cd0319128360c8cef62c39b3067bf3371775cebdfcbd1be79b7b5345cea",
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 0.2
+}
+== llama31_8b: ii ==
+{
+  "modelo": "llama31_8b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.7348,
+    0.6909189999999998,
+    0.7784301641791044
+  ],
+  "solo_lean": [
+    0.68238,
+    0.630364824120603,
+    0.7298274999999999
+  ],
+  "delta": [
+    0.05242000000000002,
+    0.01760452261306534,
+    0.08942727818195448
+  ],
+  "capa": 21,
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 7.9
+}
+== llama31_8b: i ==
+completo semilla 0 capas [18, 12, 9, 21, 21] 40 s
+completo semilla 1 capas [18, 15, 5, 8, 21] 41 s
+completo semilla 2 capas [5, 5, 22, 15, 30] 41 s
+completo semilla 3 capas [22, 21, 13, 9, 4] 43 s
+completo semilla 4 capas [12, 16, 13, 24, 19] 42 s
+solo_lean semilla 0 capas [12, 27, 6, 17, 28] 122 s
+solo_lean semilla 1 capas [27, 32, 8, 12, 31] 146 s
+solo_lean semilla 2 capas [32, 30, 12, 28, 32] 152 s
+solo_lean semilla 3 capas [32, 30, 9, 32, 8] 167 s
+solo_lean semilla 4 capas [27, 32, 30, 32, 6] 142 s
+{
+  "modelo": "llama31_8b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.7114999999999998,
+    0.6640730893272332,
+    0.7573475653266332
+  ],
+  "solo_lean": [
+    0.72378,
+    0.6775139303482587,
+    0.7710418835470886
+  ],
+  "delta": [
+    -0.01228000000000018,
+    -0.05632104522613069,
+    0.0296736318407961
+  ],
+  "capas_por_semilla_y_particion": {
+    "completo": [
+      [
+        18,
+        12,
+        9,
+        21,
+        21
+      ],
+      [
+        18,
+        15,
+        5,
+        8,
+        21
+      ],
+      [
+        5,
+        5,
+        22,
+        15,
+        30
+      ],
+      [
+        22,
+        21,
+        13,
+        9,
+        4
+      ],
+      [
+        12,
+        16,
+        13,
+        24,
+        19
+      ]
+    ],
+    "solo_lean": [
+      [
+        12,
+        27,
+        6,
+        17,
+        28
+      ],
+      [
+        27,
+        32,
+        8,
+        12,
+        31
+      ],
+      [
+        32,
+        30,
+        12,
+        28,
+        32
+      ],
+      [
+        32,
+        30,
+        9,
+        32,
+        8
+      ],
+      [
+        27,
+        32,
+        30,
+        32,
+        6
+      ]
+    ]
+  },
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 948.5
+}
+== llama31_8b: barajadas ==
+{
+  "modelo": "llama31_8b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "posicion": "ultimo",
+  "capas": [
+    10,
+    21,
+    32
+  ],
+  "auroc_media": [
+    0.491734,
+    0.5151180000000001,
+    0.510192
+  ],
+  "std": [
+    0.033649432446922485,
+    0.03425828331951267,
+    0.02582165246454994
+  ],
+  "todas": [
+    [
+      0.5146200000000001,
+      0.5010100000000001,
+      0.50479
+    ],
+    [
+      0.50319,
+      0.45907,
+      0.47148
+    ],
+    [
+      0.45656,
+      0.51534,
+      0.49973
+    ],
+    [
+      0.44873999999999997,
+      0.5565,
+      0.5476599999999999
+    ],
+    [
+      0.5355599999999999,
+      0.54367,
+      0.5272999999999999
+    ]
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 15.5
+}

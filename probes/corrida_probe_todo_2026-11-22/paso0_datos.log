@@ -1,0 +1,16 @@
+qwen3_4b | formas iguales: True ((500, 37, 2560), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'Qwen/Qwen3-4B', 'revision': '1cfa9a7208912126459214e8b04321603b3df60c', 'dispositivo': 'mps'}
+olmo2_7b | formas iguales: True ((500, 33, 4096), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'allenai/OLMo-2-1124-7B-Instruct', 'revision': '470b1fba1ae01581f270116362ee4aa1b97f4c84', 'dispositivo': 'mps'}
+gemma3_4b | formas iguales: True ((500, 35, 2560), 'float32') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'google/gemma-3-4b-it', 'revision': '093f9f388b31de276ce2de164bdc2081324b9767', 'dispositivo': 'mps'}
+llama31_8b | formas iguales: True ((500, 33, 4096), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'meta-llama/Llama-3.1-8B-Instruct', 'revision': '0e9e39f249a16976918f6564b8830bc894c89659', 'dispositivo': 'mps'}
+dsprover2_7b | formas iguales: True ((500, 31, 4096), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'deepseek-ai/DeepSeek-Prover-V2-7B', 'revision': 'a8d9e14432b2e8dd9df2a4d4e70f1ba9bc8d9b7b', 'dispositivo': 'mps'}
+goedel_8b | formas iguales: True ((500, 37, 4096), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'Goedel-LM/Goedel-Prover-V2-8B', 'revision': 'dfd02e6271a58375dfbf3ece0175277cf6b6a89a', 'dispositivo': 'mps'}
+kimina_7b | formas iguales: True ((500, 29, 3584), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'AI-MO/Kimina-Autoformalizer-7B', 'revision': 'ddd47cb477d93b3ca990468e1c0d5ad6b60973dd', 'dispositivo': 'mps'}
+qwen3_8b | formas iguales: True ((500, 37, 4096), 'float16') | idx en orden: True | N 500 compila 450 pos|compila 250 neg|compila 200 | grupos entre los que compilan: 449
+   meta: {'modelo': 'Qwen/Qwen3-8B', 'revision': 'b968826d9c46dd6066d109eabc6255188de91218', 'dispositivo': 'mps'}

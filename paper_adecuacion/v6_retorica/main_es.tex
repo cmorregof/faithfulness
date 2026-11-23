@@ -266,11 +266,13 @@ Apéndice~\ref{app:desviaciones}.
 \begin{pendiente}
 Todas las cifras de esta versión provienen de la implementación de referencia. Por la regla del
 proyecto, solo pasan a ser hallazgos tras compararlas con la implementación a mano del propio primer autor
-(\vr{probe.py}). Esa comparación ya se hizo para el contraste del Nivel~A en Qwen3-4B. Ahí \vr{probe.py} da
-$\D$ = +0.088 \ic{0.042}{0.136} en la lectura~(i) y +0.096 \ic{0.055}{0.135} en la lectura~(ii), frente a +0.091 y
-+0.095 de la referencia. Las dos AUROC y la brecha coinciden dentro de 0.005 en cada lectura, y los dos intervalos
-quedan por encima de cero. Los demás modelos del Nivel~A y los Niveles~B y~C aún no se han comparado, así que sus
-cifras siguen siendo preliminares. El Nivel~C tiene además una segunda implementación, escrita por otro agente
+(\vr{probe.py}). Esa comparación ya se hizo para la brecha $\D$ en el Nivel~A, en los ocho modelos y con las dos
+lecturas, y en el Nivel~C, en los dos modelos. Las dos implementaciones, la escrita con asistentes de IA y la escrita
+a mano, coinciden. En las 18 comparaciones las dos AUROC y la brecha quedan a menos de 0.005 una de otra, y la mayor
+diferencia es de 0.003. Una diferencia de ese tamaño solo se nota en un lugar. En Qwen3-8B con la lectura~(i), un
+modelo exploratorio, mueve el extremo inferior del intervalo de −0.004 a 0.002. El Nivel~B y los controles de todos
+los niveles no se han comparado, porque \vr{probe.py} no los calcula, así que esas cifras siguen siendo
+preliminares. El Nivel~C tiene además una segunda implementación, escrita por otro agente
 de programación, sin acceso a la primera y a partir de las mismas activaciones extraídas. Reproduce el resultado
 principal de ese nivel.
 \end{pendiente}
@@ -960,10 +962,10 @@ los estudiantes.
 \paragraph{Uso de herramientas de IA.}
 El código de análisis y la primera implementación de cada nivel se escribieron con asistentes de programación de IA,
 bajo reglas fijadas por el primer autor. Él aprobó cada regla de decisión antes de que corriera su análisis, y los
-resultados se compararán con una implementación que él escriba a mano antes de reportarse como hallazgos. Para el
-contraste del Nivel~A en Qwen3-4B esa comparación ya se hizo y las dos implementaciones coinciden dentro de 0.005.
-Un asistente de IA ejecutó \vr{probe.py} sin modificarlo. Para los demás modelos y niveles la comparación sigue
-pendiente. Los autores son responsables de todas las afirmaciones.
+resultados se compararán con una implementación que él escriba a mano antes de reportarse como hallazgos. Para la
+brecha en el Nivel~A y en el Nivel~C esa comparación ya se hizo, y las dos implementaciones coinciden dentro de 0.005.
+Un asistente de IA ejecutó \vr{probe.py} sin modificarlo. Para el Nivel~B y para los controles de todos los niveles
+la comparación sigue pendiente. Los autores son responsables de todas las afirmaciones.
 
 \paragraph{Código y datos.}
 El repositorio está en \url{https://github.com/cmorregof/faithfulness}, y las cifras reportadas aquí corresponden

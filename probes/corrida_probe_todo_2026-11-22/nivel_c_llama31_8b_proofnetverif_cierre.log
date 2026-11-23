@@ -1,0 +1,118 @@
+{
+  "carpeta": "llama31_8b_proofnetverif",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_c_py": "e9624ac99630d0d1101dfc8ac6535bb7f8245d53f46424ab9bba3bbe7226f9ba",
+  "completo": [
+    0.7913442505250586,
+    0.764741793707403,
+    0.8180923881697166
+  ],
+  "solo_lean": [
+    0.6639923908448577,
+    0.6268610792771586,
+    0.7012835249671725
+  ],
+  "delta": [
+    0.1273518596802009,
+    0.09192063457813515,
+    0.165093718588437
+  ],
+  "posicion": "ultimo",
+  "capas_por_semilla_y_particion": {
+    "completo": [
+      [
+        15,
+        16,
+        32,
+        22,
+        23
+      ],
+      [
+        14,
+        17,
+        16,
+        15,
+        28
+      ],
+      [
+        23,
+        16,
+        21,
+        15,
+        17
+      ],
+      [
+        26,
+        17,
+        21,
+        18,
+        15
+      ],
+      [
+        15,
+        17,
+        15,
+        17,
+        15
+      ]
+    ],
+    "solo_lean": [
+      [
+        14,
+        23,
+        22,
+        30,
+        15
+      ],
+      [
+        14,
+        22,
+        14,
+        16,
+        14
+      ],
+      [
+        18,
+        22,
+        14,
+        20,
+        23
+      ],
+      [
+        22,
+        18,
+        14,
+        5,
+        22
+      ],
+      [
+        23,
+        15,
+        14,
+        18,
+        14
+      ]
+    ]
+  },
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "segundos_cpu_de_las_diez_corridas": 18118.9,
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 7.0
+}

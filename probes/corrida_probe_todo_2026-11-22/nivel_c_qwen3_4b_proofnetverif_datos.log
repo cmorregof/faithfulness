@@ -1,0 +1,50 @@
+{
+  "carpeta": "qwen3_4b_proofnetverif",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_c_py": "e9624ac99630d0d1101dfc8ac6535bb7f8245d53f46424ab9bba3bbe7226f9ba",
+  "formas": {
+    "completo": {
+      "forma": [
+        3752,
+        37,
+        2560
+      ],
+      "dtype": "float16"
+    },
+    "solo_lean": {
+      "forma": [
+        3752,
+        37,
+        2560
+      ],
+      "dtype": "float16"
+    }
+  },
+  "bloques_L": 36,
+  "idx_en_orden": true,
+  "filas": 3752,
+  "positivas": 1142,
+  "negativas": 2610,
+  "grupos": 361,
+  "tipos_de_grupo": {
+    "mixto": 217,
+    "solo_positivas": 17,
+    "solo_negativas": 127
+  },
+  "modelo": "Qwen/Qwen3-4B",
+  "revision": "1cfa9a7208912126459214e8b04321603b3df60c",
+  "sha256_manifiesto": "3fb1d56424af516b393a3a6eff903886ad15408fff0b99944a2371b55f9580db",
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 0.0
+}

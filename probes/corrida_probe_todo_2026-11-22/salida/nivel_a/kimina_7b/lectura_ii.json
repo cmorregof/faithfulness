@@ -1,0 +1,41 @@
+{
+  "modelo": "kimina_7b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.74958,
+    0.7030789999999999,
+    0.7956024623115577
+  ],
+  "solo_lean": [
+    0.70038,
+    0.6495810945273631,
+    0.7489084095477387
+  ],
+  "delta": [
+    0.04920000000000002,
+    0.012218977611940199,
+    0.08736821338850309
+  ],
+  "capa": 18,
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 22.1
+}

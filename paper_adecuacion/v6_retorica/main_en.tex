@@ -254,11 +254,12 @@ after seeing a result are listed in Appendix~\ref{app:desviaciones}.
 \begin{pendiente}
 All numbers in this version come from the reference implementation. By the rule of the project,
 they become findings only after comparison with the first author's own hand-written implementation
-(\vr{probe.py}). That comparison has been run for the Level~A contrast in Qwen3-4B. There \vr{probe.py} gives
-$\D$ = +0.088 \ic{0.042}{0.136} under readout~(i) and +0.096 \ic{0.055}{0.135} under readout~(ii), against +0.091
-and +0.095 from the reference. Both AUROCs and the gap agree within 0.005 in each readout, and both intervals lie
-above zero. The other models of Level~A and Levels~B and~C have not been compared yet, so their numbers remain
-preliminary. Level~C also has a second implementation, written by a separate coding
+(\vr{probe.py}). That comparison has been run for the gap $\D$ at Level~A, in the eight models and under both
+readouts, and at Level~C, in the two models. The two implementations, the one written with AI assistants and the one
+written by hand, agree. In all 18 comparisons both AUROCs and the gap lie within 0.005 of each other, and the largest
+difference is 0.003. A difference of that size shows in one place only. In Qwen3-8B under readout~(i), an exploratory
+model, it moves the lower end of the interval from −0.004 to 0.002. Level~B and the controls of every level have not
+been compared, because \vr{probe.py} does not compute them, so those numbers remain preliminary. Level~C also has a second implementation, written by a separate coding
 agent with no access to the first and starting from the same extracted activations. It reproduces the main result
 of that level.
 \end{pendiente}
@@ -934,9 +935,9 @@ model can have seen, some faithful and some wrong in the ways students typically
 \paragraph{Use of AI tools.}
 The analysis code and the first implementation of every level were written with AI coding assistants under rules
 set by the first author. He approved each decision rule before its analysis ran, and the results will be compared
-against an implementation he writes by hand before they are reported as findings. For the Level~A contrast in
-Qwen3-4B that comparison has been run and the two implementations agree within 0.005. An AI assistant executed
-\vr{probe.py}, unchanged. For the other models and levels the comparison is pending. The
+against an implementation he writes by hand before they are reported as findings. For the gap at Level~A and at
+Level~C that comparison has been run, and the two implementations agree within 0.005. An AI assistant executed
+\vr{probe.py}, unchanged. For Level~B and for the controls of every level the comparison is pending. The
 authors are responsible for all claims.
 
 \paragraph{Code and data.}

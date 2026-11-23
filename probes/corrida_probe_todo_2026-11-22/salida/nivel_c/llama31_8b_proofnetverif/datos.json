@@ -1,0 +1,50 @@
+{
+  "carpeta": "llama31_8b_proofnetverif",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_c_py": "e9624ac99630d0d1101dfc8ac6535bb7f8245d53f46424ab9bba3bbe7226f9ba",
+  "formas": {
+    "completo": {
+      "forma": [
+        3752,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    },
+    "solo_lean": {
+      "forma": [
+        3752,
+        33,
+        4096
+      ],
+      "dtype": "float16"
+    }
+  },
+  "bloques_L": 32,
+  "idx_en_orden": true,
+  "filas": 3752,
+  "positivas": 1142,
+  "negativas": 2610,
+  "grupos": 361,
+  "tipos_de_grupo": {
+    "mixto": 217,
+    "solo_positivas": 17,
+    "solo_negativas": 127
+  },
+  "modelo": "meta-llama/Llama-3.1-8B-Instruct",
+  "revision": "0e9e39f249a16976918f6564b8830bc894c89659",
+  "sha256_manifiesto": "a65a2fa2ebd10d0bfd53e41b89c8032002e95e583e81e757c4de18e9015a29eb",
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 0.0
+}

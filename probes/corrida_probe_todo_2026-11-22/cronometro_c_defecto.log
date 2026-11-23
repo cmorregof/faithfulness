@@ -1,0 +1,3 @@
+qwen3_4b_proofnetverif capa 1: externo (3003 filas) 1.32 s; interno (2404 filas) 1.12 s
+qwen3_4b_proofnetverif capa 18: externo (3003 filas) 0.92 s; interno (2404 filas) 0.97 s
+qwen3_4b_proofnetverif capa 36: externo (3003 filas) 0.97 s; interno (2404 filas) 0.88 s

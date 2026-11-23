@@ -1,0 +1,41 @@
+{
+  "modelo": "gemma3_4b",
+  "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+  "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+  "completo": [
+    0.7448999999999999,
+    0.7001790175879399,
+    0.7872810845771145
+  ],
+  "solo_lean": [
+    0.6871999999999999,
+    0.6360160979899496,
+    0.7335702462311557
+  ],
+  "delta": [
+    0.057699999999999974,
+    0.021484519801980108,
+    0.09357014321608048
+  ],
+  "capa": 22,
+  "semillas": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "entorno": {
+    "python": "3.13.13",
+    "numpy": "2.5.4",
+    "scikit-learn": "1.9.1",
+    "scipy": "1.18.1",
+    "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+    "hilos": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    }
+  },
+  "segundos": 6.8
+}

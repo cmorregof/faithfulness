@@ -1,0 +1,444 @@
+{
+  "modelo": "goedel_8b",
+  "salidas_escritas": "2026-11-22 22:44:06 -0500",
+  "referencia_abierta": "2026-11-22 22:48:08 -0500",
+  "referencia": {
+    "modelo": "Goedel-LM/Goedel-Prover-V2-8B",
+    "revision": "dfd02e6271a58375dfbf3ece0175277cf6b6a89a",
+    "fecha": "2026-11-05T04:37-05:00",
+    "n": 450,
+    "n_pos": 250,
+    "n_capas_mas_embeddings": 37,
+    "capa_fija_lectura_ii": 24,
+    "semillas": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "n_boot": 2000
+  },
+  "datos": {
+    "modelo": "goedel_8b",
+    "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+    "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+    "formas": {
+      "completo_ultimo": {
+        "forma": [
+          500,
+          37,
+          4096
+        ],
+        "dtype": "float16"
+      },
+      "completo_media_lean": {
+        "forma": [
+          500,
+          37,
+          4096
+        ],
+        "dtype": "float16"
+      },
+      "solo_lean_ultimo": {
+        "forma": [
+          500,
+          37,
+          4096
+        ],
+        "dtype": "float16"
+      },
+      "solo_lean_media_lean": {
+        "forma": [
+          500,
+          37,
+          4096
+        ],
+        "dtype": "float16"
+      }
+    },
+    "bloques_L": 36,
+    "filas": 450,
+    "positivas": 250,
+    "negativas": 200,
+    "grupos": 449,
+    "sha256_manifiesto": "ccb00df1f9cb34cc9e474b00189fb67fd00c36c55ca4735855f57f80dcdb3790",
+    "entorno": {
+      "python": "3.13.13",
+      "numpy": "2.5.4",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+      "hilos": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      }
+    },
+    "segundos": 0.4
+  },
+  "barajadas": {
+    "modelo": "goedel_8b",
+    "sha256_probe_py": "bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f",
+    "sha256_correr_nivel_a_py": "c200d3b2f0a0c68b58633b74b2d7f3bd278c7384068fe2d4cb43758c327e3d18",
+    "posicion": "ultimo",
+    "capas": [
+      12,
+      24,
+      36
+    ],
+    "auroc_media": [
+      0.481386,
+      0.47108599999999995,
+      0.481022
+    ],
+    "std": [
+      0.03726828818177732,
+      0.039186505126127265,
+      0.048459811968269144
+    ],
+    "todas": [
+      [
+        0.5223300000000001,
+        0.51235,
+        0.54194
+      ],
+      [
+        0.47698999999999997,
+        0.4928199999999999,
+        0.49773999999999996
+      ],
+      [
+        0.4180499999999999,
+        0.3992,
+        0.39353999999999995
+      ],
+      [
+        0.47382,
+        0.48768999999999996,
+        0.48095999999999994
+      ],
+      [
+        0.51574,
+        0.46337,
+        0.49093
+      ]
+    ],
+    "entorno": {
+      "python": "3.13.13",
+      "numpy": "2.5.4",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "plataforma": "macOS-26.7.3-arm64-arm-64bit-Mach-O",
+      "hilos": {
+        "OPENBLAS_NUM_THREADS": "1",
+        "OMP_NUM_THREADS": "1",
+        "VECLIB_MAXIMUM_THREADS": "1"
+      }
+    },
+    "segundos": 12.9
+  },
+  "lecturas": {
+    "i": {
+      "cantidades": {
+        "AUROC(completo)": {
+          "probe": [
+            0.8023,
+            0.7607575829145727,
+            0.8397004648241208
+          ],
+          "referencia": [
+            0.8006,
+            0.7577236180904523,
+            0.8414690769116518
+          ],
+          "diferencia": 0.0017000000000000348,
+          "dentro": true
+        },
+        "AUROC(solo_lean)": {
+          "probe": [
+            0.75776,
+            0.7121693467336685,
+            0.7999637890947274
+          ],
+          "referencia": [
+            0.7571599999999999,
+            0.7137399999999999,
+            0.800166223880597
+          ],
+          "diferencia": 0.0006000000000000449,
+          "dentro": true
+        },
+        "Δ": {
+          "probe": [
+            0.044540000000000024,
+            0.005492409810245328,
+            0.08506555913897833
+          ],
+          "referencia": [
+            0.043440000000000034,
+            0.004800502512562608,
+            0.08198099504950489
+          ],
+          "diferencia": 0.0010999999999999899,
+          "dentro": true
+        }
+      },
+      "decision": {
+        "probe": "por encima",
+        "referencia": "por encima"
+      },
+      "misma_decision": true,
+      "y_identico": true,
+      "correlacion_fila_a_fila": {
+        "completo": {
+          "pearson": 0.9983422954707252,
+          "spearman": 0.9983711524501359,
+          "max_dif_abs": 0.20565273182981647
+        },
+        "solo_lean": {
+          "pearson": 0.9999087297744078,
+          "spearman": 0.9998802957051642,
+          "max_dif_abs": 0.028760202506978416
+        }
+      },
+      "capas": {
+        "completo": {
+          "probe": [
+            [
+              28,
+              29,
+              30,
+              24,
+              27
+            ],
+            [
+              28,
+              28,
+              29,
+              36,
+              30
+            ],
+            [
+              34,
+              28,
+              26,
+              33,
+              35
+            ],
+            [
+              30,
+              24,
+              34,
+              27,
+              28
+            ],
+            [
+              29,
+              28,
+              22,
+              28,
+              34
+            ]
+          ],
+          "referencia": [
+            29,
+            29,
+            30,
+            28,
+            27,
+            28,
+            28,
+            29,
+            36,
+            30,
+            34,
+            28,
+            25,
+            33,
+            35,
+            30,
+            24,
+            34,
+            27,
+            28,
+            28,
+            28,
+            22,
+            28,
+            34
+          ],
+          "iguales": 21,
+          "de": 25,
+          "distintas": [
+            {
+              "semilla": 0,
+              "particion": 0,
+              "probe": 28,
+              "referencia": 29
+            },
+            {
+              "semilla": 0,
+              "particion": 3,
+              "probe": 24,
+              "referencia": 28
+            },
+            {
+              "semilla": 2,
+              "particion": 2,
+              "probe": 26,
+              "referencia": 25
+            },
+            {
+              "semilla": 4,
+              "particion": 0,
+              "probe": 29,
+              "referencia": 28
+            }
+          ]
+        },
+        "solo_lean": {
+          "probe": [
+            [
+              23,
+              23,
+              23,
+              23,
+              23
+            ],
+            [
+              22,
+              23,
+              23,
+              23,
+              23
+            ],
+            [
+              23,
+              23,
+              23,
+              23,
+              23
+            ],
+            [
+              22,
+              23,
+              22,
+              23,
+              23
+            ],
+            [
+              23,
+              23,
+              23,
+              23,
+              22
+            ]
+          ],
+          "referencia": [
+            23,
+            23,
+            23,
+            23,
+            23,
+            22,
+            23,
+            23,
+            23,
+            23,
+            23,
+            23,
+            23,
+            23,
+            23,
+            22,
+            23,
+            22,
+            23,
+            23,
+            23,
+            23,
+            23,
+            23,
+            22
+          ],
+          "iguales": 25,
+          "de": 25,
+          "distintas": []
+        }
+      },
+      "segundos_probe": 1521.6
+    },
+    "ii": {
+      "cantidades": {
+        "AUROC(completo)": {
+          "probe": [
+            0.7489100000000001,
+            0.7027361256281407,
+            0.7940602412935324
+          ],
+          "referencia": [
+            0.7490399999999999,
+            0.7011515,
+            0.7930693467336684
+          ],
+          "diferencia": -0.00012999999999985246,
+          "dentro": true
+        },
+        "AUROC(solo_lean)": {
+          "probe": [
+            0.68394,
+            0.6322133812627494,
+            0.7323813374384237
+          ],
+          "referencia": [
+            0.6828000000000001,
+            0.6328899174088263,
+            0.7309223768844221
+          ],
+          "diferencia": 0.0011399999999999189,
+          "dentro": true
+        },
+        "Δ": {
+          "probe": [
+            0.06497000000000008,
+            0.03648129703242575,
+            0.09562150000000003
+          ],
+          "referencia": [
+            0.06623999999999985,
+            0.03726730185581354,
+            0.09358999999999994
+          ],
+          "diferencia": -0.0012699999999997713,
+          "dentro": true
+        }
+      },
+      "decision": {
+        "probe": "por encima",
+        "referencia": "por encima"
+      },
+      "misma_decision": true,
+      "y_identico": true,
+      "correlacion_fila_a_fila": {
+        "completo": {
+          "pearson": 0.9996587717761939,
+          "spearman": 0.999668245264364,
+          "max_dif_abs": 0.08119290103237586
+        },
+        "solo_lean": {
+          "pearson": 0.9997534774368064,
+          "spearman": 0.9997299081312337,
+          "max_dif_abs": 0.04649953445144456
+        }
+      },
+      "capa": {
+        "probe": 24,
+        "referencia": 24
+      },
+      "segundos_probe": 23.0
+    }
+  },
+  "todo_dentro_de_tolerancia": true,
+  "misma_decision_en_las_dos": true
+}
