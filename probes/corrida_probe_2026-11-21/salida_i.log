@@ -1,0 +1,10 @@
+completo semilla 0 capas [36, 36, 26, 36, 36] 18 s
+completo semilla 1 capas [36, 36, 36, 36, 36] 18 s
+completo semilla 2 capas [36, 36, 23, 36, 36] 18 s
+completo semilla 3 capas [36, 36, 36, 36, 36] 18 s
+completo semilla 4 capas [36, 36, 36, 36, 36] 18 s
+solo_lean semilla 0 capas [36, 23, 35, 3, 36] 18 s
+solo_lean semilla 1 capas [23, 36, 29, 35, 23] 18 s
+solo_lean semilla 2 capas [3, 23, 36, 22, 23] 18 s
+solo_lean semilla 3 capas [22, 23, 16, 36, 35] 18 s
+solo_lean semilla 4 capas [35, 2, 23, 35, 36] 18 s

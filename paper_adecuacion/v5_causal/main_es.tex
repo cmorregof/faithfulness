@@ -241,9 +241,13 @@ el Nivel~B se declara exploratorio. Las decisiones tomadas después de ver un re
 Apéndice~\ref{app:desviaciones}.
 
 \begin{pendiente}
-Todas las cifras de esta versión provienen de la implementación de referencia y son preliminares. Por la regla del
+Todas las cifras de esta versión provienen de la implementación de referencia. Por la regla del
 proyecto, solo pasan a ser hallazgos tras compararlas con la implementación a mano del propio primer autor
-(\vr{probe.py}), que aún no está escrita. El Nivel~C tiene además una segunda implementación, escrita por otro agente
+(\vr{probe.py}). Esa comparación ya se hizo para el contraste del Nivel~A en Qwen3-4B. Ahí \vr{probe.py} da
+$\D$ = +0.088 \ic{0.042}{0.136} en la lectura~(i) y +0.096 \ic{0.055}{0.135} en la lectura~(ii), frente a +0.091 y
++0.095 de la referencia. Las dos AUROC y la brecha coinciden dentro de 0.005 en cada lectura, y los dos intervalos
+quedan por encima de cero. Los demás modelos del Nivel~A y los Niveles~B y~C aún no se han comparado, así que sus
+cifras siguen siendo preliminares. El Nivel~C tiene además una segunda implementación, escrita por otro agente
 de programación, sin acceso a la primera y a partir de las mismas activaciones extraídas. Reproduce el resultado
 principal de ese nivel.
 \end{pendiente}
@@ -881,8 +885,10 @@ les falta una. Los mapas descansan en una sola semilla.
 \paragraph{Uso de herramientas de IA.}
 El código de análisis y la primera implementación de cada nivel se escribieron con asistentes de programación de IA,
 bajo reglas fijadas por el primer autor. Él aprobó cada regla de decisión antes de que corriera su análisis, y los
-resultados se compararán con una implementación que él escriba a mano antes de reportarse como hallazgos. Esa
-comparación está pendiente. Los autores son responsables de todas las afirmaciones.
+resultados se compararán con una implementación que él escriba a mano antes de reportarse como hallazgos. Para el
+contraste del Nivel~A en Qwen3-4B esa comparación ya se hizo y las dos implementaciones coinciden dentro de 0.005.
+Un asistente de IA ejecutó \vr{probe.py} sin modificarlo. Para los demás modelos y niveles la comparación sigue
+pendiente. Los autores son responsables de todas las afirmaciones.
 
 \paragraph{Código y datos.}
 El repositorio está en \url{https://github.com/cmorregof/faithfulness}, y las cifras reportadas aquí corresponden

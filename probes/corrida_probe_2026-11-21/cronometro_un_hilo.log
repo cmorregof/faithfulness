@@ -1,0 +1,6 @@
+[('openblas', 1), ('openmp', 1), ('openblas', 1)]
+media_lean capa 24: ajuste externo (360 filas) 0.02 s; interno (288 filas) 0.02 s; AUROC fold 0.706
+ultimo capa  0: ajuste externo (360 filas) 0.00 s; interno (288 filas) 0.01 s; AUROC fold 0.500
+ultimo capa 12: ajuste externo (360 filas) 0.02 s; interno (288 filas) 0.03 s; AUROC fold 0.767
+ultimo capa 24: ajuste externo (360 filas) 0.02 s; interno (288 filas) 0.03 s; AUROC fold 0.700
+ultimo capa 36: ajuste externo (360 filas) 0.03 s; interno (288 filas) 0.03 s; AUROC fold 0.752

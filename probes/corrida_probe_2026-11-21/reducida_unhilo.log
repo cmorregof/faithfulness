@@ -1,0 +1,15 @@
+sha256 probe.py: bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f
+ultimo curva completo [0.6944 0.7325 0.7872] solo_lean [0.6635 0.7079 0.7112] [1 s]
+  barajadas [0.495 0.441 0.429]
+  superficie 0.6587 P(Yes) completo 0.6989
+FIN ultimo en 5 s
+sha256 probe.py: bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f
+media_lean curva completo [0.6719 0.7245 0.738 ] solo_lean [0.654  0.6294 0.6564] [1 s]
+  lectura (ii) reducida: completo 0.724 [0.678, 0.777] solo_lean 0.629 [0.581, 0.687] delta 0.095 [0.061, 0.134]
+FIN media_lean en 2 s
+sha256 probe.py: bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f
+anidada completo capas (indice dentro de [12, 24, 36] ) [2, 2, 1, 2, 2] AUROC 0.7677
+FIN anidada_completo en 2 s
+sha256 probe.py: bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f
+anidada solo_lean capas (indice dentro de [12, 24, 36] ) [2, 2, 2, 2, 2] AUROC 0.7112
+FIN anidada_solo_lean en 2 s

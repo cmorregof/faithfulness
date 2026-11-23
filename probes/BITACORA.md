@@ -1228,3 +1228,44 @@ Lo que en la primera pasada eran propuestas queda implementado y pasa a formar p
 - [2026-11-12 04:20 -05] extraer.py: avance: 2000 pases en esta sesión, faltan 172; 0.70 s/pase
 - [2026-11-12 04:22 -05] extraer.py: fin: 2172 pases en esta sesión, faltan 0; 0.70 s/pase, pico MPS 14.59 GiB; meta en probes/activaciones/sin_pregunta/nivel_b_olmo2_7b/meta.json
 - [2026-11-12 04:22 -05] cola_sin_pregunta.sh: olmo2_7b, nivel b: terminó con código 0
+- [2026-11-18 01:37 -05] noche_2026-11-18 (prueba preespecificada sobre datos no vistos, regla_noche.md 9fef7843…): generador v3 + E1–E7 sobre los orígenes sin par en el piloto, certificar.py sin cambios. Población de la decisión tras certificar: 1 par en 1 origen (< 40): no se extrajeron activaciones. Ver probes/noche_2026-11-18/informe_noche.md y bitacora_noche.md.
+
+## Regla para la corrida de `probe.py` sobre Qwen3-4B (21 nov 2026, 11:40 -05; escrita antes de la corrida completa)
+
+Encargo: `claude/encargo_claude_code_probe_correr_2026-11-21.md` del Project. Sesión de Claude en la app de escritorio, no Claude Code en el Mac.
+
+**Archivo que se corre.** `probes/probe.py`, copiado sin cambios del doc `claude/probe_candidato_2026-11-21.py.md`. SHA-256: `bbdb16350b88494e7c1c6a0d5c51b3003ea41d690327378fb58f06dc697dc30f`. El esqueleto anterior quedó en `probe_esqueleto_2026-11-21.py` (SHA-256 `b94891ea…d044d2b`).
+
+**Regla de decisión, copiada del docstring de `main`.**
+
+> REGLA DE DECISIÓN (cópiala a la bitácora ANTES de correr):
+>   - Análisis principal: 450 filas que compilan; posición «ultimo». Lo demás es secundario.
+>   - Capa: elegida por validación cruzada anidada (o el rango fijado en la bitácora).
+>   - «Separa más allá del Lean» si diferencia_pareada(completo, solo_lean) tiene su IC
+>     del 95 % entero por encima de 0. Si no, se reporta como nulo, con la misma tabla.
+>
+> En «ultimo» la capa se elige por validación anidada (lectura i). En «media_lean» se usa
+> la capa fija ⌊2L/3⌋, sin elegir (lectura ii).
+
+**Precisión.** `probe.py` no hace permutaciones ni control apilado. «La misma decisión» significa aquí que el intervalo del 95 % de Δ = AUROC(completo) − AUROC(solo_lean) cae del mismo lado del cero que en la referencia, en cada lectura. No reproduce el veredicto de «pasa o no pasa» del prerregistro v2.
+
+**Tolerancia.** 0,005 en AUROC(completo), AUROC(solo_lean) y Δ.
+
+**Alcance.** Qwen3-4B, las 450 filas que compilan (250 adecuadas, 200 no). Lectura (ii): `media_lean`, capa fija 24, puntajes promediados sobre las semillas 0 a 4. Lectura (i): `ultimo`, capa por validación anidada, mismas semillas. Barajadas una vez, en las capas 12, 24 y 36 de `ultimo`, como detector de fugas.
+
+**Tres desviaciones del encargo, todas por el entorno de esta sesión.**
+
+1. *Entorno.* La terminal es una máquina Linux (aarch64, 4 núcleos) con la carpeta montada, no macOS. No puede usar `biblioteca/.venv` ni ver los procesos del Mac. Se instaló un entorno aparte con Python 3.13.18, numpy 2.5.4, scikit-learn 1.9.1, scipy 1.18.1 y pyarrow 26.0.1. numpy y scikit-learn coinciden con los de la referencia (bitácora, línea 8); el parche de Python, el BLAS (OpenBLAS aquí) y el sistema operativo no. La versión de scipy de la referencia no está anotada.
+2. *Un hilo.* Se corre con `OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1`. Con cuatro hilos cada ajuste tarda cerca de 1 s en esta máquina y con uno, 0,02 a 0,03 s. La prueba corta (capas 12, 24 y 36, semilla 0, 450 filas) dio puntajes idénticos bit a bit con uno y con cuatro hilos, en las curvas, la superficie y la selección anidada.
+3. *`main` no se ejecuta entero.* La terminal corta cada orden a los 180 s y no deja procesos en segundo plano, y `main` completo tarda más. `probe.py` no se modifica. `corrida_probe_2026-11-21/correr_lecturas.py` (SHA-256 `117a81b709edc79faa69a3c3fd033a9044289b61deeae54e01db82ec38ac101e`) llama a las funciones de `probe.py` con los mismos argumentos que `main`, una pieza por orden: `curva_por_capa` sobre la capa 24 sola para la (ii); `elegir_capa_anidada` por variante y semilla para la (i), promediadas como en `_anidada_promediada`; y después `ic_bootstrap` y `diferencia_pareada` con semilla 0 y 2000 remuestreos. No corre las curvas de 37 capas, la superficie, P(Yes) ni el subconjunto de 500.
+
+**Tiempo estimado.** Lectura (ii), 50 ajustes: segundos. Lectura (i), unos 9300 ajustes: 4 a 6 minutos.
+
+**Datos comprobados.** Las cuatro matrices `acts_{completo,solo_lean}_{ultimo,media_lean}.npy` tienen forma (500, 37, 2560) y dtype float16. El manifiesto trae `idx` de 0 a 499 en orden. El parquet no trae `idx`; sus 500 filas coinciden con el manifiesto, en orden, en `id` (500 valores únicos), `source` y `tag`. El parquet solo hace falta para la superficie, que esta corrida no incluye.
+
+**Lo que ya se vio antes de escribir esta regla.** (a) Al buscar el entorno con `grep` en esta bitácora salió la línea 446, que da para Qwen3-4B «completo» en la lectura anidada 0,8143 con el solver v2 y 0,8114 con sklearn. No se abrió ningún archivo de `referencia/`. (b) La prueba corta, con una semilla y tres capas: lectura (ii) en la capa 24, completo 0,724, solo_lean 0,629, Δ +0,095 [0,061; 0,134] con 500 remuestreos; selección anidada entre tres capas, completo 0,768 y solo_lean 0,711. (c) El encargo cita del artículo Δ = +0,091 en la (i) y +0,095 en la (ii). Ningún parámetro del análisis se tocó ni se va a tocar.
+
+Pendiente: visto bueno de Carlos a este texto antes de correr.
+
+- [2026-11-22 21:01 -05] La corrida del 21 nov no llegó a hacerse: en esta carpeta no hay `corrida_probe_2026-11-21/salida/` ni `resultados_probe_2026-11-21.md`, y nada cambió desde la entrada anterior. Carlos escribió el 21 a las 20:55 «por qué no la corres en mi mac» y hoy pidió actualizar el PDF del artículo si todavía dice que la comparación está pendiente. Para poder decir algo cierto en el PDF se corre ahora, con la regla y las tres desviaciones de la entrada anterior, sin cambios: `probe.py` `bbdb1635…`, `correr_lecturas.py` `117a81b7…`. Primero la lectura (ii).
+- [2026-11-22 21:06 -05] **`probe.py` frente a la referencia, Qwen3-4B, Nivel A: coincide en las dos lecturas.** (i) completo 0,8114 frente a 0,8143; solo_lean 0,7230 frente a 0,7230; Δ +0,0884 [0,0417; 0,1356] frente a +0,0913 [0,0428; 0,1366]. (ii) completo 0,7512 frente a 0,7510; solo_lean 0,6552 frente a 0,6558; Δ +0,0960 [0,0552; 0,1349] frente a +0,0952 [0,0571; 0,1343]. Todo dentro de 0,005 y el IC de Δ por encima de 0 en ambas. Capas de la (i): solo_lean 25 de 25 iguales, completo 24 de 25. Barajadas en las capas 12, 24 y 36: 0,49, 0,47 y 0,47. Los resultados de la referencia se abrieron después de escribir `corrida_probe_2026-11-21/salida/`. Cubre solo Qwen3-4B; faltan los otros cuatro modelos y los Niveles B y C. Informe: `probes/resultados_probe_2026-11-21.md`.

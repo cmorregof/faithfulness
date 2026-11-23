@@ -12,9 +12,24 @@ The paper is in [`paper_adecuacion/v5_causal/main_en.pdf`](paper_adecuacion/v5_c
 
 *Exploratory maps, one seed. Height and colour show the out-of-fold AUROC of each layer's probe direction, token by token, on the 450 CriticLeanBench formalizations. The dark line is the Lean code alone.*
 
-## Status: preliminary
+## Status: preliminary, with one contrast cross-checked
 
-Every number in the paper and in this repository comes from the reference implementation, which was written with AI coding assistants under rules set by the first author. By the rule of the project, these numbers become findings only after they are compared with an implementation the first author writes by hand (`probe.py`). That implementation is not written yet, so the comparison is pending and `probe.py` is not in this repository.
+Every number in the paper and in this repository comes from the reference implementation, which was written with AI coding assistants under rules set by the first author. By the rule of the project, these numbers become findings only after they are compared with an implementation the first author writes by hand ([`probes/probe.py`](probes/probe.py)).
+
+That comparison has been run for the Level A contrast in Qwen3-4B. In both readouts the two AUROCs and the gap agree with the reference within 0.005, and the 95% interval of the gap lies above zero in both implementations.
+
+| Readout | Quantity | `probe.py` | Reference |
+|---|---|---|---|
+| (i) last token, nested layer choice | AUROC, statement with Lean code | 0.811 | 0.814 |
+| (i) | AUROC, Lean code alone | 0.723 | 0.723 |
+| (i) | Gap | +0.088 [0.042, 0.136] | +0.091 [0.043, 0.137] |
+| (ii) mean over Lean tokens, fixed layer 24 | AUROC, statement with Lean code | 0.751 | 0.751 |
+| (ii) | AUROC, Lean code alone | 0.655 | 0.656 |
+| (ii) | Gap | +0.096 [0.055, 0.135] | +0.095 [0.057, 0.134] |
+
+An AI assistant executed `probe.py`, unchanged. The decision rule was written to the project log before the run, and the reference results were opened only after the `probe.py` results were on disk. The report, with the three deviations from the planned procedure and the row-by-row comparison, is in [`probes/resultados_probe_2026-11-21.md`](probes/resultados_probe_2026-11-21.md) (in Spanish). `probe.py` runs no permutation test and no stacked control, so this check does not reproduce the pass-or-fail verdict of the preregistration.
+
+The other models of Level A and Levels B and C have not been compared yet, and their numbers remain preliminary.
 
 Two more items are pending. A blind human review of 80 items is in progress, and the protocol for the confirmatory test is an unsigned draft. Neither is published here.
 
@@ -40,6 +55,7 @@ No level alone supports the claim that faithfulness is linearly decodable from f
 | `probes/prerregistro_v2.md`, `probes/prerregistros/` | Level A preregistration and its hashed copy |
 | `probes/*/APROBADO_*`, `probes/*/regla_*.md` | Decision rules of each level with their hashes and approval times, unedited |
 | `probes/referencia/` | Reference implementation of Level A and its results |
+| `probes/probe.py`, `probes/resultados_probe_2026-11-21.md`, `probes/corrida_probe_2026-11-21/` | The first author's implementation of the Level A probes, the report of its comparison with the reference in Qwen3-4B, and the scripts, logs and scores of that run |
 | `probes/nivel_b/` | Generator, Lean certification, the certified pairs (`datos/`, `certificacion/`), surface controls and results of Level B |
 | `probes/intervencion/` | Intervention rules, code and results |
 | `probes/nivel_c/` | Level C code, data and results, including the second, independent implementation |
@@ -65,6 +81,8 @@ python3 aplica_v5.py
 python3 verifica_v5.py
 python3 coteja_en_es.py main_en.tex main_es.tex
 ```
+
+The two passages on the `probe.py` comparison (22 November) were edited directly in `main_en.tex` and `main_es.tex`. They are not yet in `aplica_v5.py`, so rerunning it reverts them.
 
 `latexmk -pdf main_en.tex` and `latexmk -pdf main_es.tex` compile the two PDFs. `ejemplos_nivel_b.py` also needs `pyarrow`.
 

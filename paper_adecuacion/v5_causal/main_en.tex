@@ -228,9 +228,13 @@ rules of Levels~B and~C were approved before their analyses, and Level~B is decl
 after seeing a result are listed in Appendix~\ref{app:desviaciones}.
 
 \begin{pendiente}
-All numbers in this version come from the reference implementation and are preliminary. By the rule of the project,
+All numbers in this version come from the reference implementation. By the rule of the project,
 they become findings only after comparison with the first author's own hand-written implementation
-(\vr{probe.py}), which is not yet written. Level~C also has a second implementation, written by a separate coding
+(\vr{probe.py}). That comparison has been run for the Level~A contrast in Qwen3-4B. There \vr{probe.py} gives
+$\D$ = +0.088 \ic{0.042}{0.136} under readout~(i) and +0.096 \ic{0.055}{0.135} under readout~(ii), against +0.091
+and +0.095 from the reference. Both AUROCs and the gap agree within 0.005 in each readout, and both intervals lie
+above zero. The other models of Level~A and Levels~B and~C have not been compared yet, so their numbers remain
+preliminary. Level~C also has a second implementation, written by a separate coding
 agent with no access to the first and starting from the same extracted activations. It reproduces the main result
 of that level.
 \end{pendiente}
@@ -855,7 +859,9 @@ rest on a single seed.
 \paragraph{Use of AI tools.}
 The analysis code and the first implementation of every level were written with AI coding assistants under rules
 set by the first author. He approved each decision rule before its analysis ran, and the results will be compared
-against an implementation he writes by hand before they are reported as findings. That comparison is pending. The
+against an implementation he writes by hand before they are reported as findings. For the Level~A contrast in
+Qwen3-4B that comparison has been run and the two implementations agree within 0.005. An AI assistant executed
+\vr{probe.py}, unchanged. For the other models and levels the comparison is pending. The
 authors are responsible for all claims.
 
 \paragraph{Code and data.}
