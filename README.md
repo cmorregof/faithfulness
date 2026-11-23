@@ -6,9 +6,9 @@ Code, decision rules, data and result files for the preprint
 > Carlos Manuel Orrego-Franco, Juan Carlos Riaño-Rojas, Fabián Fernando Serrano-Suárez.
 > Universidad Nacional de Colombia, Manizales.
 
-The paper is in [`paper_adecuacion/v5_causal/main_en.pdf`](paper_adecuacion/v5_causal/main_en.pdf). A Spanish version is in [`main_es.pdf`](paper_adecuacion/v5_causal/main_es.pdf).
+The paper is in [`paper_adecuacion/v6_retorica/main_en.pdf`](paper_adecuacion/v6_retorica/main_en.pdf). A Spanish version is in [`main_es.pdf`](paper_adecuacion/v6_retorica/main_es.pdf).
 
-![Layer-by-position relief of the probe direction in five models](paper_adecuacion/v5_causal/figuras_v5/readme/relieve_cinco_modelos.png)
+![Layer-by-position relief of the probe direction in five models](paper_adecuacion/v6_retorica/figuras_v5/readme/relieve_cinco_modelos.png)
 
 *Exploratory maps, one seed. Height and colour show the out-of-fold AUROC of each layer's probe direction, token by token, on the 450 CriticLeanBench formalizations. The dark line is the Lean code alone.*
 
@@ -50,8 +50,7 @@ No level alone supports the claim that faithfulness is linearly decodable from f
 
 | Path | Contents |
 |---|---|
-| `paper_adecuacion/v5_causal/` | LaTeX sources and PDFs in English and Spanish, figures and the scripts that draw them, and the change report `reporte_v5.md` |
-| `paper_adecuacion/v4_voz/` | The previous version of the text, which `aplica_v5.py` takes as its starting point |
+| `paper_adecuacion/v6_retorica/` | The current version of the paper: LaTeX sources and PDFs in English and Spanish, and the figures with the scripts that draw them (`figuras_v5/`) |
 | `paper_adecuacion/fuentes/`, `paper_adecuacion/figuras/datos/` | Result files read by the figure scripts |
 | `probes/prerregistro_v2.md`, `probes/prerregistros/` | Level A preregistration and its hashed copy |
 | `probes/*/APROBADO_*`, `probes/*/regla_*.md` | Decision rules of each level with their hashes and approval times, unedited |
@@ -72,22 +71,20 @@ Most working files are in Spanish. The paths `/Users/cmorregof/...` that appear 
 - **CriticLeanBench.** The benchmark is not redistributed. It is available from its authors at <https://huggingface.co/datasets/m-a-p/CriticLeanBench>.
 - **Intermediate candidate files** of the Level B generator, and working material that the paper does not cite.
 
-## Checking the text against the result files
+## Checking and compiling the text
 
-The paper is built by a script, and a second script checks that each number in the edited passages comes from a result file. From a clean clone, with Python 3 and no extra packages:
+`coteja_en_es.py` checks that the English and Spanish sources carry the same numbers in the same order. From a clean clone, with Python 3 and no extra packages:
 
 ```bash
-cd paper_adecuacion/v5_causal
-python3 aplica_v5.py
-python3 verifica_v5.py
+cd paper_adecuacion/v6_retorica
 python3 coteja_en_es.py main_en.tex main_es.tex
 ```
-
-The two passages on the `probe.py` comparison (22 November) were edited directly in `main_en.tex` and `main_es.tex`. They are not yet in `aplica_v5.py`, so rerunning it reverts them.
 
 `latexmk -pdf main_en.tex` and `latexmk -pdf main_es.tex` compile the two PDFs. `ejemplos_nivel_b.py` also needs `pyarrow`.
 
 The figure scripts in `figuras_v5/` need `numpy`, `matplotlib`, `tueplots` and `colorspacious`. `figuras_v5.py` and `fig_intervencion.py` also need LaTeX with `lmodern` and `cm-super`.
+
+Earlier versions of the text (`v4_voz/`, `v5_causal/`) were removed from the working tree on 22 November 2026. They remain in the git history, together with the scripts that built one version from the previous one and checked each number of the edited passages against a result file (`aplica_v5.py`, `verifica_v5.py`). The current version changes the order and the prose of `v5_causal/` and none of its numbers.
 
 ## Licenses and sources
 

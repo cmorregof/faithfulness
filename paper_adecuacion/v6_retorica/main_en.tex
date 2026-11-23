@@ -33,22 +33,28 @@
 \maketitle
 
 \begin{abstract}
-A Lean formalization can compile and still say something other than the statement it was meant to capture. We ask
-whether a frozen language model tells a faithful formalization from an unfaithful one in its activations. We train two
-linear probes, one reading the statement with the formalization and one reading the formalization alone. Because the
-second picks up whatever the Lean code gives away on its own, our result is the AUROC gap between the two, at three
-levels. On 450 CriticLeanBench formalizations a preregistered replication with four models did not pass, because none
-met the per-model criterion. A post hoc bootstrap puts their mean gap at +0.045 (95\% CI \ic{0.021}{0.069}) at a fixed
-layer, whereas at the last token the interval includes zero. On 377 minimal pairs certified by Lean, exploratory runs
-gave a positive gap in three of four models at the last token, but against the stronger of two surface controls only
-one keeps a margin whose interval excludes zero. There, shifting activations along the difference of class means
-changes the answer more than any of 20 random directions does in two of four models, one post hoc. On ProofNetVerif
-the gap was positive in two models, one exploratory. Exploratory maps place the separation over the Lean tokens, in
-the upper layers. No level alone supports the claim that faithfulness is linearly decodable from frozen models beyond
-the Lean code alone. We outline a confirmatory test on statements written after the models and this pilot.
+A Lean formalization can compile and still say something other than the statement it was meant to capture. Does a
+frozen language model carry, in its activations, anything that tells a faithful formalization from an unfaithful one?
+We train two linear probes on four frozen open models. One reads the statement together with the Lean code, and the
+other reads the Lean code alone. Because the second picks up whatever the code gives away on its own, what we measure
+is the AUROC gap between the two, on 450 formalizations from CriticLeanBench. The probe that reads the statement
+orders 4 to 5 more pairs correctly out of every 100. The mean gap of the four models is +0.045 (95\% CI
+\ic{0.021}{0.069}) at a layer fixed in advance. That estimate is post hoc, and no model met the per-model criterion
+we had preregistered. On minimal pairs certified by Lean we then shifted the activations along the difference of
+class means. The shift changes the model's answer more than any of 20 random directions does in two of the four
+models tested there, one under a rule fixed in advance and the other post hoc. An earlier ablation gave a null. This
+supports a small, measurable difference and, in two models, a direction that is enough to move the answer. It does
+not support, at any single level, the claim that faithfulness is linearly decodable from frozen models beyond the
+Lean code alone.
 \end{abstract}
 
 \section{Introduction}
+
+On 16 January 2026 Terence Tao noticed something strange in a community project that was formalizing in Lean a
+solution to Erd\H{o}s problem 392. In the dependency graph, the final theorems were not linked to the rest of the
+proof. He recorded it as a misformalization that had since been fixed, and pointed to a thread titled ``Fixing a
+sign error in Erdos 392'' \citep{tao2026log}. In October a preprint argued that the Lean proof behind OpenAI's announced Navier--Stokes result
+does not correspond to the proof written in words \citep{bastounis2026lost}.
 
 A proof assistant checks that a proof follows from a statement, but whether the statement is the one we meant lies
 outside its reach. When a language model translates ``every bounded monotone sequence converges'' into Lean~4, the
@@ -56,8 +62,17 @@ kernel will accept any well-typed proposition, including one that drops the boun
 over the wrong set. As autoformalization scales, errors of this kind can hide wherever a statement compiles and is
 not the one intended.
 The problem is now visible at scale. Of some 290 Lean-bearing papers in a recent batch of AI-generated mathematics, about
-38 do not state the paper's main theorem \citep{xena2026checked}, and a proof checked in Lean need not match the
-written argument it accompanies \citep{bastounis2026lost}.
+38 do not state the paper's main theorem \citep{xena2026checked}.
+
+Lean certifies the proof. It does not certify the statement. A person who reads a formalization that compiles
+sometimes has a hunch that it is off before being able to say why. By analogy only, we ask whether anything inside a
+language model distinguishes a formalization that says what we meant from one that does not.
+Most work measures faithfulness from the outside. It relies on a judge model
+\citep{criticlean,formalalign,zhang2026beyondcompilation,wang2026formalrx}, on a round trip back to natural language
+\citep{amrollahi2026roundtrip}, or on an equivalence check against a reference formalization
+\citep{proofnetverif,mohammad2026faithfulnessgap}. We look inside instead. Our question is whether a frozen model,
+one that was never trained to judge formalizations, already carries a linearly decodable signal that distinguishes a
+faithful formalization from an unfaithful one.
 
 The experiment can be stated in a few lines. To each of eight frozen language models (Qwen3-4B, Qwen3-8B, OLMo-2,
 Llama-3.1 and Gemma-3, and three models trained for formal mathematics, DeepSeek-Prover-V2, Goedel-Prover-V2 and
@@ -79,13 +94,6 @@ reads the statement with the Lean code minus that of the probe that reads the Le
 survives the controls of Table~\ref{tab:controles} is evidence that the representation carries information about the
 \emph{relation} between the two texts.
 
-Most work measures faithfulness from the outside. It relies on a judge model
-\citep{criticlean,formalalign,zhang2026beyondcompilation,wang2026formalrx}, on a round trip back to natural language
-\citep{amrollahi2026roundtrip}, or on an equivalence check against a reference formalization
-\citep{proofnetverif,mohammad2026faithfulnessgap}. We look inside instead. Our question is whether a frozen model,
-one that was never trained to judge formalizations, already carries a linearly decodable signal that distinguishes a
-faithful formalization from an unfaithful one.
-
 We say ``separates'' and ``is linearly decodable'' throughout, because a linear probe is correlational. That a
 direction separates two classes does not show that the model uses it.
 
@@ -94,21 +102,31 @@ direction separates two classes does not show that the model uses it.
 \item A three-level design in which each level removes a confound of the previous one. Level~A has human-validated
 labels on a public benchmark. Level~B has minimal pairs with Lean-certified non-equivalence and the same statement
 in both members. Level~C has an independently labelled benchmark with a transfer test.
+\item A preregistered replication. No model met its per-model criterion, although the mean gap of the four models
+is positive under the fixed-layer readout.
+\item An intervention at Level~B that shifts the mean over Lean tokens along the difference of class means. It changes
+the model's answer more than any of 20 random directions does in Qwen3-4B, where the run is post hoc, and in OLMo-2, under a rule
+fixed in advance. Under the same rule it does not meet the criterion in Llama-3.1 or in Gemma-3, so under a rule
+fixed in advance it meets it in one of the three models tested.
 \item A \emph{cross-surface} control, built from features that cross the statement and the formal text. In the
 model where we split by kind of edit, it matches the activations on numeral changes, which a Lean-only surface
 baseline would have missed. Overall, however, plain n-grams of both texts are the stronger of these two controls on our pairs.
-\item A preregistered replication. No model met its per-model criterion, although the mean gap of the four models
-is positive under the fixed-layer readout.
 \item Dating of the Level~B origins against each model's release, and a draft confirmatory protocol restricted to
 statements written afterwards (Appendix~\ref{app:protocolo}).
 \item Exploratory layer-by-position maps of the probe direction in five models, an analysis in the spirit of
 information-based mapping \citep{searchlight}. They show where the label is linearly readable with and without the
 statement.
-\item An intervention at Level~B that shifts the mean over Lean tokens along the difference of class means. It changes
-the model's answer more than any of 20 random directions does in Qwen3-4B, where the run is post hoc, and in OLMo-2, under a rule
-fixed in advance. Under the same rule it does not meet the criterion in Llama-3.1 or in Gemma-3.
 \end{enumerate}
 
+The first result is a measurement. On CriticLeanBench, the probe that reads the statement orders 4 to 5 more pairs
+correctly out of every 100 than the probe that reads the Lean code alone. That is the mean gap of the four replication
+models at the fixed layer, +0.045 \ic{0.021}{0.069}, from a post hoc bootstrap, and no model met the preregistered
+per-model criterion (Section~\ref{sec:a}). The second is an intervention on the certified pairs of Level~B. Shifting
+the activations along the difference of class means changes the model's answer more than any of 20 random directions
+does in OLMo-2, under a rule fixed in advance, and in Qwen3-4B, where the run is post hoc. Llama-3.1 and Gemma-3,
+tested under the same rule, do not meet the criterion, and an earlier ablation in Qwen3-4B gave a null
+(Section~\ref{sec:intervencion}). The third is a limit. No level alone supports the claim that faithfulness is
+linearly decodable from frozen models beyond the Lean code alone (Section~\ref{sec:conjunta}).
 Table~\ref{tab:conjunta} gives the status of the evidence at each level.
 
 % ------------------------------------------------------------------ 2
@@ -151,11 +169,14 @@ states what the natural-language statement states.
 \section{Method}
 
 \paragraph{Probe.}
+The probe is the measuring instrument, a linear classifier that tries to read the label from the activations of a
+model we do not modify.
 For each model, layer and prompt variant we read residual-stream activations from the frozen model and fit a
 standardized logistic regression ($C = 1$). All scores are out-of-fold, with folds grouped so that no statement
 appears on both sides of a split. No model weight is updated.
 
 \paragraph{Prompt variants.}
+The prompt variants decide what the probe is allowed to see.
 The probe reads one of four prompts. \vr{full} contains the statement, the Lean formalization, and the question
 ``Is this formalization faithful? Answer Yes or No.'' \vr{lean\_only} is the same prompt without the statement, and \vr{nl\_only} is
 the same without the Lean code. \vr{nl\_mismatched} pairs the Lean code with the statement of a different problem of similar
@@ -164,6 +185,7 @@ Each variant has its own probe, so the \vr{nl\_mismatched} probe is trained and 
 The exact prompts and the definitions of the controls are in Appendix~\ref{app:definiciones}.
 
 \paragraph{Readouts.}
+A readout fixes which activations the probe receives, that is, at which token and at which layer.
 We read the activations in two ways. Readout~(i) takes the last token of the prompt, with the layer chosen by
 nested cross-validation. Readout~(ii) takes the mean over the Lean tokens at a layer fixed in advance,
 $\lfloor 2L/3 \rfloor$.
@@ -174,10 +196,12 @@ is not established in any of the four models checked, whereas at Level~B it stay
 (Appendix~\ref{app:desviaciones}; exploratory).
 
 \paragraph{Central statistic.}
+One number summarizes each comparison.
 The central statistic is the gap
 $\D = \mathrm{AUROC}(\vr{full}) - \mathrm{AUROC}(\vr{lean\_only})$, reported with a 95\% bootstrap interval over groups \citep{efron}.
 Since the AUROC is a probability (see the footnote in the introduction), a gap of +0.05 means that adding the
-statement raises it by five points.
+statement raises it by five points. Put in pairs, of every 100 pairs made of one faithful and one unfaithful
+formalization, the probe that reads the statement orders five more correctly.
 At Level~B the AUROC is \emph{paired}. It is the probability that the faithful member of a pair scores above its
 unfaithful twin, averaged within origin and then over origins. The resampling follows the same structure there, so
 the bootstrap resamples origins, folds are grouped by source file, and the permutation test swaps roles within each
@@ -240,7 +264,7 @@ of that level.
 \end{pendiente}
 
 % ------------------------------------------------------------------ 4
-\section{Level A: CriticLeanBench and a preregistered replication}
+\section{Level A: CriticLeanBench and a preregistered replication}\label{sec:a}
 
 \begin{figure}[t]
 \centering
@@ -249,6 +273,15 @@ of that level.
 \label{fig:relieve}
 \end{figure}
 
+
+Level~A asks whether the gap appears on a public benchmark with human-validated labels, under a rule signed before
+any of the four replication models was run.
+The effect as preregistered, model by model, was not confirmed. With 450 rows per model, the instrument does not
+resolve a gap of this size after correction. The post hoc joint bootstrap puts the mean gap of the four new models
+at +0.045 \ic{0.021}{0.069} under the fixed-layer readout, that is, 4 to 5 more pairs ordered correctly out of every
+100, and at +0.029 \ic{−0.000}{0.058} under the last-token
+readout, and neither null control shows a gap whose interval lies above zero. This is not a replication under the rule we wrote.
+Figure~\ref{fig:relieve} shows the same data layer by layer.
 
 \paragraph{Data.}
 Level~A uses the 450 CriticLeanBench formalizations that compile \citep{criticlean}, of which 250 are faithful and
@@ -399,13 +432,6 @@ includes zero, and we treat the difference in that model as not established. The
 seeing the maps, and the direction was fitted on the mean over Lean tokens and applied token by token. The maps are
 exploratory.
 
-\paragraph{Reading.}
-The effect as preregistered, model by model, was not confirmed. With 450 rows per model, the instrument does not
-resolve a gap of this size after correction. The post hoc joint bootstrap puts the mean gap of the four new models
-at +0.045 \ic{0.021}{0.069} under the fixed-layer readout and +0.029 \ic{−0.000}{0.058} under the last-token
-readout, and neither null control shows a gap whose interval lies above zero. This is not a replication under the rule we wrote.
-Figure~\ref{fig:relieve} shows the same data layer by layer.
-
 \begin{figure}[p]
 \centering
 \includegraphics[width=\linewidth]{figuras_v5/escaner2d_modelos_v5.pdf}
@@ -414,7 +440,14 @@ Figure~\ref{fig:relieve} shows the same data layer by layer.
 \end{figure}
 
 % ------------------------------------------------------------------ 5
-\section{Level B: minimal pairs certified by Lean}
+\section{Level B: minimal pairs certified by Lean}\label{sec:b}
+
+Level~B asks the same question on pairs where the statement cannot separate anything on its own, because both members
+of a pair share it and Lean certifies which member is not equivalent to the original. At the last token the gap is
+positive in three of four models, at reduced power, and a null in Gemma-3 (Table~\ref{tab:b}). Two things bound that
+result. The level is exploratory, on a development batch. At the last token, moreover, only Qwen3-4B keeps a margin
+against plain n-grams of the two texts, and in that same model the model's own answer separates the pairs as well as
+the probe.
 
 \paragraph{Construction.}
 Each pair holds two minimal edits of the same original Lean statement. Lean certifies one of them as equivalent to
@@ -573,6 +606,57 @@ Gemma-3-4B   & 0.895 & +0.166 [+0.113, +0.215] & +0.206 [+0.154, +0.259] & +0.33
 \end{tabular}}
 \end{table}
 
+\paragraph{The effect concentrates in family C, and in Qwen3-4B the numeral edits inside C are matched by a surface control.}
+Against the Lean code alone, family C gives the largest gap in all four models (Table~\ref{tab:bfam}). In families A and
+B the interval excludes zero only in Qwen3-4B and, for family A, in OLMo-2, while Llama-3.1 and Gemma-3 stay within
+0.023 of zero. A post hoc split in Qwen3-4B (Figure~\ref{fig:b}, bottom) looks inside family C. In C2 the cross-surface
+control reaches 0.933 on its own, which is indistinguishable from the activations at 0.913 (difference −0.020
+\ic{−0.103}{0.056}). This happens because in 84\% of those pairs the unfaithful member has more Lean numerals
+absent from the statement than the faithful one, and a feature that counts them needs no model. Against
+the cross-surface control, the margin in families A and B is not distinguishable from zero (+0.082 \ic{−0.038}{0.195} and +0.098
+\ic{0.000}{0.195}). C3 is clearly above it (+0.385 \ic{0.192}{0.577}), though on only 31 pairs. The split is
+post hoc, on one model, and without correction for multiplicity.
+
+
+\begin{table}[h]
+\centering
+\caption{Level B by family of edit: gap over the Lean code alone at the last token, with 95\% intervals. Descriptive, not part of the decision.}
+\label{tab:bfam}
+\vspace{2pt}
+{\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & A: stronger (142 pairs) & B: weaker (136) & C: other theorem (99)\\
+\midrule
+Qwen3-4B     & +0.141 [+0.038, +0.248] & +0.129 [+0.027, +0.230] & +0.427 [+0.320, +0.539]\\
+OLMo-2-7B    & +0.103 [+0.015, +0.191] & +0.039 [−0.055, +0.133] & +0.230 [+0.129, +0.331]\\
+Llama-3.1-8B & +0.023 [−0.080, +0.126] & −0.023 [−0.117, +0.074] & +0.337 [+0.236, +0.444]\\
+Gemma-3-4B   & −0.008 [−0.126, +0.107] & −0.023 [−0.121, +0.074] & +0.213 [+0.090, +0.337]\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\paragraph{Without C2.}
+When the numeral edits are removed and the central test is repeated (Table~\ref{tab:bcontroles}, last column), the
+gap over the Lean code alone remains in Qwen3-4B and, narrowly, in OLMo-2, and vanishes in Llama-3.1 and Gemma-3. We exclude C2
+from the primary population of the confirmatory protocol.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{figuras_v5/nivel_b.pdf}
+\caption{Level B. How to read it: the length of the bar between the grey marker and the coloured one is the gap of that model. Top: paired AUROC of the probe reading the Lean code alone (grey) and the statement with the Lean code (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
+\label{fig:b}
+\end{figure}
+
+\section{An intervention on the Level~B pairs: pushing along the separating axis}\label{sec:intervencion}
+
+If the axis that separates the two classes matters to the model's answer, pushing the activations along it should
+change that answer. We take the direction that separates faithful from unfaithful members, shift the activations along
+it while the model reads the pair, and compare with 20 random directions given a shift of the same size. The shift
+meets its criterion in OLMo-2, under a rule fixed in advance, and in Qwen3-4B, where the run is post hoc. It does not
+meet it in Llama-3.1 or in Gemma-3, which were tested under the same rule, so under a rule fixed in advance it works in
+one model of three. An earlier ablation in Qwen3-4B, along a different direction, gave a null.
+
 \paragraph{Shifting the mean along the separating axis.} A decodable label need not be used \citep{elazar2021amnesic}.
 We therefore intervened, first in Qwen3-4B, post hoc, and then in the other three models under a rule
 fixed before running them. At every layer but the last we take the difference between the class means of the second
@@ -641,50 +725,13 @@ Gemma-3-4B   & 0.590 & 0.415 & +0.175 [+0.125, +0.225] & +0.060; +0.354 & +0.115
 \end{tabular}}}
 \end{table}
 
-\paragraph{The effect concentrates in family C, and in Qwen3-4B the numeral edits inside C are matched by a surface control.}
-Against the Lean code alone, family C gives the largest gap in all four models (Table~\ref{tab:bfam}). In families A and
-B the interval excludes zero only in Qwen3-4B and, for family A, in OLMo-2, while Llama-3.1 and Gemma-3 stay within
-0.023 of zero. A post hoc split in Qwen3-4B (Figure~\ref{fig:b}, bottom) looks inside family C. In C2 the cross-surface
-control reaches 0.933 on its own, which is indistinguishable from the activations at 0.913 (difference −0.020
-\ic{−0.103}{0.056}). This happens because in 84\% of those pairs the unfaithful member has more Lean numerals
-absent from the statement than the faithful one, and a feature that counts them needs no model. Against
-the cross-surface control, the margin in families A and B is not distinguishable from zero (+0.082 \ic{−0.038}{0.195} and +0.098
-\ic{0.000}{0.195}). C3 is clearly above it (+0.385 \ic{0.192}{0.577}), though on only 31 pairs. The split is
-post hoc, on one model, and without correction for multiplicity.
-
-
-\begin{table}[h]
-\centering
-\caption{Level B by family of edit: gap over the Lean code alone at the last token, with 95\% intervals. Descriptive, not part of the decision.}
-\label{tab:bfam}
-\vspace{2pt}
-{\small
-\begin{tabular}{@{}lccc@{}}
-\toprule
- & A: stronger (142 pairs) & B: weaker (136) & C: other theorem (99)\\
-\midrule
-Qwen3-4B     & +0.141 [+0.038, +0.248] & +0.129 [+0.027, +0.230] & +0.427 [+0.320, +0.539]\\
-OLMo-2-7B    & +0.103 [+0.015, +0.191] & +0.039 [−0.055, +0.133] & +0.230 [+0.129, +0.331]\\
-Llama-3.1-8B & +0.023 [−0.080, +0.126] & −0.023 [−0.117, +0.074] & +0.337 [+0.236, +0.444]\\
-Gemma-3-4B   & −0.008 [−0.126, +0.107] & −0.023 [−0.121, +0.074] & +0.213 [+0.090, +0.337]\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\paragraph{Without C2.}
-When the numeral edits are removed and the central test is repeated (Table~\ref{tab:bcontroles}, last column), the
-gap over the Lean code alone remains in Qwen3-4B and, narrowly, in OLMo-2, and vanishes in Llama-3.1 and Gemma-3. We exclude C2
-from the primary population of the confirmatory protocol.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=\linewidth]{figuras_v5/nivel_b.pdf}
-\caption{Level B. How to read it: the length of the bar between the grey marker and the coloured one is the gap of that model. Top: paired AUROC of the probe reading the Lean code alone (grey) and the statement with the Lean code (model colour); the bar between them is the tested gap, with its interval in the first column and the model's own P(Yes) in the second. The dashed and dotted lines are the cross-surface and n-gram controls, with their intervals above. Bottom: \vr{full} minus cross-surface in Qwen3-4B by family of edit (post hoc).}
-\label{fig:b}
-\end{figure}
-
 % ------------------------------------------------------------------ 6
-\section{Level C: ProofNetVerif and transfer}
+\section{Level C: ProofNetVerif and transfer}\label{sec:c}
+
+Level~C asks whether the gap appears on a second benchmark, labelled independently, and whether a probe trained on
+CriticLeanBench transfers to it. The gap is positive in the two models run, Qwen3-4B under the approved rule and
+Llama-3.1 as an exploratory run (Table~\ref{tab:c}). What bounds it is contamination, since ProofNetVerif was public
+before Qwen3 was released, and labels that come from a single annotator.
 
 \paragraph{Data.}
 ProofNetVerif \citep{proofnetverif} contains 3752 pairs of statement and Lean formalization, 1142 of them labelled
@@ -734,7 +781,7 @@ Level~C is not restricted to formalizations that compile. Ill-typed candidates a
 which favours the Lean-only probe.
 
 % ------------------------------------------------------------------ 7
-\section{What the three levels say together}
+\section{What the three levels say together}\label{sec:conjunta}
 
 \begin{table}[h]
 \centering
@@ -765,6 +812,22 @@ Level~C the effect is large and, for Qwen3, the protection against memorization 
 supports the claim that faithfulness is linearly decodable from frozen models beyond the Lean code alone.
 Taken together, they justify asking the question again on data the models cannot have seen.
 Table~\ref{tab:controlesnivel} lists the controls run at each level.
+
+The intervention licenses less than it may seem to. It shows that moving the activations along this axis is enough to
+change the answer in two models. It does not show that the model relies on that axis when it answers. The one
+ablation we ran, in Qwen3-4B and along a different direction, left the answer unchanged, and under a rule fixed in
+advance the shift met its criterion in one model of three. Twenty random directions are also a weak control in a
+residual stream of thousands of dimensions.
+
+The results above suggest two readings of why the shift fell short in Llama-3.1 and Gemma-3. In Gemma-3 the model's
+own P(Yes) barely separates the pairs before any intervention (0.590), a case the rule had flagged in advance. In
+Llama-3.1 the direction built from \vr{lean\_only} moves the answer as much as the one built from \vr{full}, so the
+effect there cannot be attributed to the statement. In both models some random directions lower the AUROC as much or
+more, 2 of 20 in Llama-3.1 and 6 of 20 in Gemma-3.
+
+What would show that we are wrong? If better tools than linear probes look inside these models and find no difference
+between a formalization that says what was meant and one that does not, then faithfulness lives only in the reader,
+and all the checking has to come from outside the model.
 
 \begin{table}[h]
 \centering
@@ -825,6 +888,9 @@ The probes are linear and their evidence is correlational. In Qwen3-4B at Level~
 two of four models, and the run in Qwen3-4B is post hoc. The ablation along the probe direction gave a null.
 One control was not run. Directions built as differences of means from shuffled labels would show how much of the
 effect comes from fitting a direction to these activations at all.
+The random control is also small. Twenty directions sample very little of a residual stream of thousands of
+dimensions, so exceeding all of them is weak evidence that the axis is special. The ablation and the shift, moreover,
+used different directions, so we have no ablation along the axis that the shift moves.
 
 \paragraph{Decisions after the fact.}
 Several analyses were decided after seeing results. They are the split of family C, the exclusion of C2, the runs on Qwen3-8B at Level~A and on Llama-3.1 at Level~C, the three later models and the second readout at Level~B, the by-source
@@ -844,17 +910,26 @@ Llama-3.1 at the selected layer is indistinguishable from zero. The gap did not 
 committed to in advance. On certified pairs part of it is a numeral that the statement lacks, and at Level~C the
 data were public before one of the two models was released.
 
-The pilot thus yields a small signal and a list of the ways in which it could be an artefact. The draft protocol in
-Appendix~\ref{app:protocolo} is designed to remove or measure the surface, contamination and label items on that
-list. It does not yet address a P(Yes) that matches the probe at the last token. The maps of Figure~\ref{fig:escaner} show where each layer's probe direction separates the classes. Whether the model uses such a direction is a causal question, which
+The maps of Figure~\ref{fig:escaner} show where each layer's probe direction separates the classes. Whether the model uses such a direction is a causal question, which
 probing cannot answer and an intervention along the probe direction could.
 At Level~B we ran such an intervention on a related direction, the difference of class means at each layer. It changes
 the answer more than any of 20 random directions does in two of four models, one of them in a post hoc run.
 An earlier intervention along the logistic-probe direction, in Qwen3-4B, gave a null.
+Under the rule fixed in advance, the shift met its criterion in one model of three.
 
+The pilot thus yields a small signal and a list of the ways in which it could be an artefact. The draft protocol in
+Appendix~\ref{app:protocolo} is designed to remove or measure the surface, contamination and label items on that
+list. It does not yet address a P(Yes) that matches the probe at the last token.
+
+\paragraph{Future work.}
 Beyond the pending items marked above, three things remain to be done. The confirmatory test of Appendix~\ref{app:protocolo} needs statements written after
 the models and after this pilot. The intervention was run at Level~B only, and Levels~A and~C still lack one. The maps
 rest on a single seed.
+
+Further steps follow from the limits above. The intervention needs a stronger control, with many more random
+directions and with directions built from shuffled labels, and an ablation along the same axis that the shift moves.
+The measurement and the intervention should be repeated on a larger model. The test also needs new theorems that no
+model can have seen, some faithful and some wrong in the ways students typically get them wrong.
 
 \paragraph{Use of AI tools.}
 The analysis code and the first implementation of every level were written with AI coding assistants under rules

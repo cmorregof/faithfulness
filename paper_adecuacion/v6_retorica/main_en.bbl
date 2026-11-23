@@ -1,4 +1,4 @@
-\begin{thebibliography}{40}
+\begin{thebibliography}{41}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -251,6 +251,14 @@ Smitha~Muthya Sudheendra and Jaideep Srivastava.
 \newblock When decodability is not enough: Logical validity representations,
   behavioral dissociation, and causal tests in language models.
 \newblock \emph{arXiv preprint arXiv:2609.02438}, 2026.
+
+\bibitem[Tao(2026)]{tao2026log}
+Terence Tao.
+\newblock Terence {T}ao's personal log.
+\newblock Wiki of the PrimeNumberTheoremAnd project,
+  \url{https://github.com/AlexKontorovich/PrimeNumberTheoremAnd/wiki/Terence-Tao's-personal-log},
+  2026.
+\newblock Entry for day 2, 16 January 2026. Accessed 22 November 2026.
 
 \bibitem[{Team OLMo} et~al.(2024){Team OLMo}, Walsh, Soldaini, Groeneveld, Lo,
   et~al.]{olmo2}
